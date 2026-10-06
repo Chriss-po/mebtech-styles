@@ -1,0 +1,23 @@
+/* ============================================================
+   03 — BASE
+   Document typography, base rules and global focus
+   Source of truth for this section. Preserve cascade order.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   03.2 — Typography roles
+   Semantic heading, body, label and UI text mappings.
+   ------------------------------------------------------------ */
+p{margin-top:0;color:var(--ink-soft);font-family:var(--font-body);font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body);font-weight:400}.body-small{color:var(--gray-600);font-family:var(--font-body);font-size:var(--fs-body-s);line-height:var(--lh-body-s);letter-spacing:var(--ls-body-s)}.caption{color:var(--gray-600);font-family:var(--font-body);font-size:var(--fs-caption);line-height:var(--lh-caption);letter-spacing:var(--ls-caption);font-weight:500}.overline{color:var(--gray-600);font-family:var(--font-body);font-size:var(--fs-overline);line-height:var(--lh-overline);letter-spacing:var(--ls-overline);font-weight:600;text-transform:uppercase}.ui-text{font-family:var(--font-body);font-size:var(--fs-ui);line-height:var(--lh-ui);letter-spacing:var(--ls-ui);font-weight:600}.label,label{font-family:var(--font-body);font-size:var(--fs-label);line-height:var(--lh-label);letter-spacing:var(--ls-label)}h5,.h5 .title,.block-title{font-family:var(--font-head);font-weight:700;font-synthesis:none}h1,h2,h3,h5,.h1,.h2,.h3,.h5 .title,.page-title,.section-title,.block-title,.micro-title,.master-name{font-family:var(--font-head);font-weight:700;font-synthesis:none;color:var(--ink)}h1,.h1{font-size:var(--fs-h1);line-height:var(--lh-display);letter-spacing:var(--ls-display)}h2,.h2,.section-title{font-size:var(--fs-h2);line-height:var(--lh-h2);letter-spacing:var(--ls-h2)}h3,.h3{font-size:var(--fs-h3);line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}h5,.h5 .title,.block-title{font-size:var(--fs-h3)!important;line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}.page-title,#content-wrapper .page-title{font-size:var(--fs-item-title)!important;line-height:var(--lh-item-title);letter-spacing:var(--ls-item-title);font-family:var(--font-head);font-weight:700;color:var(--ink)}.master-name{font-size:var(--fs-item-title);line-height:var(--lh-item-title);letter-spacing:var(--ls-item-title)}.micro-title{font-size:var(--fs-micro-title);line-height:var(--lh-micro-title);letter-spacing:var(--ls-micro-title)}
+
+/* ------------------------------------------------------------
+   03.1 — Document base
+   Root document/body defaults.
+   ------------------------------------------------------------ */
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body);font-weight:400;-webkit-font-smoothing:antialiased}
+
+/* ------------------------------------------------------------
+   03.3 — Global focus
+   Shared keyboard focus treatment.
+   ------------------------------------------------------------ */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:not([tabindex="-1"]):focus-visible{outline:none;box-shadow:var(--focus-ring)}

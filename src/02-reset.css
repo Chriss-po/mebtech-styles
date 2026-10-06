@@ -1,0 +1,11 @@
+/* ============================================================
+   02 — RESET
+   Browser normalization and inherited controls
+   Source of truth for this section. Preserve cascade order.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   02.1 — Reset
+   Minimal normalization only. Avoid broad resets that can destabilize the PrestaShop theme.
+   ------------------------------------------------------------ */
+html{color-scheme:light;scroll-behavior:smooth}button,input,select,textarea{font:inherit}button,[role="button"],input[type="button"],input[type="submit"],input[type="reset"]{font-family:var(--font-body)}a{color:inherit}img,svg{max-width:100%}

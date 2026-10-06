@@ -1,0 +1,11 @@
+/* ============================================================
+   07 — UTILITIES
+   Small reusable helpers and icon utilities
+   Source of truth for this section. Preserve cascade order.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   07.1 — Icon utilities
+   Shared inline-SVG sizing and stroke helpers.
+   ------------------------------------------------------------ */
+.icon{display:block;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.icon--xs{width:var(--icon-xs);height:var(--icon-xs)}.icon--sm{width:var(--icon-sm);height:var(--icon-sm)}.icon--md{width:var(--icon-md);height:var(--icon-md)}.icon--lg{width:var(--icon-lg);height:var(--icon-lg)}.icon--xl{width:var(--icon-xl);height:var(--icon-xl)}.icon--strong{stroke-width:2.4}
