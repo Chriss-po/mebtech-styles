@@ -26,7 +26,7 @@
 .icon-button:active{
    color:var(--green-900);
    transform:scale(.96)}
-.icon-button: focus-visible{
+.icon-button:focus-visible{
    outline:none;box-shadow:var(--focus-ring)}
 .icon-button:disabled{
    color:var(--gray-300);
@@ -196,8 +196,8 @@
 .page-title{padding:var(--space-4) 0 0 var(--space-4)}
 .block-links-inline ul>li:after{margin-left:.4rem}
 #cart-subtotal-shipping{display:none}
-#product-details-tab-nav{display:none}.
-iqitproducttags{display:none!important}
+#product-details-tab-nav{display:none}
+.iqitproducttags{display:none!important}
 
 h3.h3.product-title{
    height:34px;
@@ -220,9 +220,9 @@ section{scroll-margin-top:var(--header-scroll-offset)}
    flex:1 1 auto;
    min-width:0;
    max-width:none!important;
-   width:auto}.
+   width:auto}
 
-product-quantity>.col-sm-auto,.product-quantity .col-sm-auto{
+.product-quantity>.col-sm-auto,.product-quantity .col-sm-auto{
    max-width:none!important;
    width:auto;
    flex:0 0 auto;
