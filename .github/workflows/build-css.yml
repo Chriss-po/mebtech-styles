@@ -1,0 +1,62 @@
+name: Build MebTech CSS
+
+on:
+  push:
+    paths:
+      - "src/**.css"
+      - ".github/workflows/build-css.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build dist/mebtech.css
+        shell: bash
+        run: |
+          mkdir -p dist
+          cat > dist/mebtech.css <<'EOF'
+          /*
+          ============================================================
+          MEBTECH PRODUCTION STYLESHEET
+          Generated from /src. Do not edit dist directly.
+          ============================================================
+          */
+          EOF
+
+          cat src/01-foundations.css >> dist/mebtech.css
+          printf '\n' >> dist/mebtech.css
+          cat src/02-reset.css >> dist/mebtech.css
+          printf '\n' >> dist/mebtech.css
+          cat src/03-base.css >> dist/mebtech.css
+          printf '\n' >> dist/mebtech.css
+          cat src/04-layout.css >> dist/mebtech.css
+          printf '\n' >> dist/mebtech.css
+          cat src/05-components.css >> dist/mebtech.css
+          printf '\n' >> dist/mebtech.css
+          cat src/06-forms.css >> dist/mebtech.css
+          printf '\n' >> dist/mebtech.css
+          cat src/07-utilities.css >> dist/mebtech.css
+          printf '\n' >> dist/mebtech.css
+          cat src/08-responsive.css >> dist/mebtech.css
+
+      - name: Commit generated CSS
+        shell: bash
+        run: |
+          if git diff --quiet -- dist/mebtech.css; then
+            echo "No CSS build changes."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist/mebtech.css
+          git commit -m "build: update mebtech.css"
+          git push
