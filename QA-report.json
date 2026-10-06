@@ -1,0 +1,34 @@
+{
+  "baseline": "v1.3.4",
+  "new_structure_version": "v1.4.0",
+  "visual_change_intended": false,
+  "original_counts": {
+    "top_errors": 0,
+    "qualified_rules": 499,
+    "at_rules": 25,
+    "declarations": 1699,
+    "declaration_errors": 0,
+    "brace_balance": 0
+  },
+  "structured_bundle_counts": {
+    "top_errors": 0,
+    "qualified_rules": 499,
+    "at_rules": 25,
+    "declarations": 1699,
+    "declaration_errors": 0,
+    "brace_balance": 0
+  },
+  "undefined_var_references": [],
+  "reduced_motion_integrity_rule_present": false,
+  "dist_bytes": 73625,
+  "source_files": [
+    "01-foundations.css",
+    "02-reset.css",
+    "03-base.css",
+    "04-layout.css",
+    "05-components.css",
+    "06-forms.css",
+    "07-utilities.css",
+    "08-responsive.css"
+  ]
+}
