@@ -605,13 +605,20 @@ a.callme_viewform.topcmb{
    letter-spacing:var(--ls-h3);
    font-weight:700;
    color:var(--ink)!important}
-#cbp-hrmenu1,.cbp-hrsub{
-   background:var(--glass-bg-strong)!important;
-   backdrop-filter:var(--glass-filter);
-   -webkit-backdrop-filter:var(--glass-filter);
-   border:var(--border-width-default) solid var(--glass-border);
-   border-radius:var(--radius-md);
-   box-shadow:var(--shadow-glass)}
+#cbp-hrmenu1 {
+  background: var(--glass-bg-strong) !important;
+  border: var(--border-width-default) solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-glass);
+}
+.cbp-hrsub {
+  background: var(--glass-bg-strong) !important;
+  backdrop-filter: var(--glass-filter);
+  -webkit-backdrop-filter: var(--glass-filter);
+  border: var(--border-width-default) solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-glass);
+}
 #cbp-hrmenu1>ul>li>a:hover{border-left-color:var(--green-500)}
 .cbp-hrmenu a:hover,.cbp-hrmenu a:focus-visible{color:var(--green-700)}
 #iqitmegamenu-wrapper.stuck-menu,#iqitmegamenu-wrapper.stuck-menu #iqitmegamenu-horizontal{
