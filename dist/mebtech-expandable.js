@@ -659,13 +659,13 @@
 
           /*
             Responsive Home Hero window:
-            <=580px: one preview; 581..767px: two previews.
+            <=440px: one preview; 441..767px: two previews.
             Gallery has scrollActive=false and is excluded above.
             Match the CSS clamp so stage geometry remains accurate.
           */
           const previewCount =
             window.matchMedia(
-              '(min-width: 581px) and (max-width: 767px)'
+              '(min-width: 441px) and (max-width: 767px)'
             ).matches
               ? 2
               : 1;

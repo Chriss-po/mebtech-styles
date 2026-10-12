@@ -1,6 +1,6 @@
 # MebTech Design System v1.5
 
-Status: **v1.5.4 published / v1.5.5 breakpoint update prepared for release · 12.10.2026**
+Status: **v1.5.5 published / v1.5.6 responsive threshold prepared; real-site smoke test pending · 12.10.2026**
 
 Figma remains the visual source of truth. This document records the accepted implementation contract, responsive behavior and component semantics for the v1.5 code release.
 
@@ -39,8 +39,8 @@ Primary promotional/navigation media component for Home. It presents one active 
 
 ### Mobile
 The Home Hero composition responds to browser viewport width:
-- **up to 580px: 1 active + 1 preview**
-- **from 581px through 767px: 1 active + 2 previews**
+- **up to 440px: 1 active + 1 preview**
+- **from 441px through 767px: 1 active + 2 previews**
 - one horizontal swipe = exactly one adjacent item
 - native horizontal rail scrolling is disabled for Hero to prevent overshoot
 - vertical page scrolling remains available
@@ -144,3 +144,9 @@ Do not edit `dist/mebtech.css` manually. The GitHub Action regenerates it from `
 - **Supersedes:** v1.5.4 threshold of 428/429px; keep the published v1.5.4 tag unchanged for rollback.
 - CSS responsive rules and JavaScript mobile stage measurement use the same breakpoint, excluding Showroom Gallery.
 - **Release status:** publish v1.5.5 only after final source/build checks; real-site smoke testing is separate and remains required.
+
+## v1.5.6 candidate · Home Hero responsive threshold · 12.10.2026
+- **Decision:** 1 preview up to and including 440px; 2 previews from 441px through 767px. Desktop 768px+ remains adaptive.
+- **Supersedes:** v1.5.5 580/581px breakpoint. Previous published tag must remain immutable for rollback. The historical v1.5.5 section above is retained as an archive, not current behavior.
+- **Scope:** Home Expandable Hero; the Showroom Gallery variant remains unchanged.
+- **Validation:** CSS and JS update plus repository build verification. Real-site responsive regression and smoke testing are still required before CDN activation.
