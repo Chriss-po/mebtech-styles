@@ -1232,6 +1232,7 @@ button.slick-arrow{overflow:hidden;border-radius:var(--radius-pill);padding:var(
 
 .expandable-hero__item.is-active
 .expandable-hero__preview {
+  display: none;
   opacity: 0;
   transform:
     translateY(calc(var(--space-1) * -1));
@@ -1754,10 +1755,6 @@ body#checkout:is(.form-control-success,.form-control-danger,.has-success .form-c
 }
 
 @media (min-width: 768px) {
-  .expandable-hero:not(.expandable-hero--gallery) {
-    max-width: 769px;
-  }
-
   .expandable-hero:not(.expandable-hero--gallery)
   .expandable-hero__item.is-active
   .expandable-hero__media {
