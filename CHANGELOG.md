@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.5.4 — Mobile Hero vertical stability
+
+Corrects the v1.5.3 mobile page-jumping regression. **Do not retag old releases.**
+
+- Root cause confirmed: the outgoing item becomes a 9:16 preview while it still has an expanded width. Its transitional height expands and pushes the whole mobile page down.
+- Mobile now uses a **height-invariant media stage** with a CSS fallback and JS pre-measurement of all inactive captions, plus a small rounding allowance.
+- Removed mobile item width/aspect-ratio transitions only, preserving smooth horizontal rail movement and content fades.
+- Mobile rail scroll starts immediately after the card geometry change instead of waiting 540ms.
+- Loop wrap on mobile jumps directly first ↔ last without sweeping through unrelated banners.
+- Recomputes mobile stage after web fonts load and on resize.
+- Hero controls remain in a separate normal-flow row. No change to desktop Hero, Showroom Gallery, or Category Quick Nav.
+- Existing v1.5.3 corrected HTML can stay; no additional markup replacement is required.
+
+**Status:** local browser regression test required and real-iPhone smoke test pending.
+Rollback reference: **v1.5**.
+
 ## v1.5.3 — Mobile Hero layout recovery
 
 Fixes the mobile regression introduced by the hard-height control stabilization in v1.5.2.

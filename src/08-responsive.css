@@ -262,15 +262,19 @@
 }
 
 /* ------------------------------------------------------------
-   08.7 — Expandable Hero · Mobile separated controls · v1.5.3
+   08.7 — Expandable Hero · Mobile invariant stage · v1.5.4
    ------------------------------------------------------------ */
 
 /*
-  The media rail and controls are two distinct layout rows.
-  min-height reserves the tallest possible mobile media composition.
-  Actual height stays auto: a taller item can never be clipped by a
-  stale JavaScript stage-height calculation.
-  The desktop Hero and the Showroom Gallery are excluded.
+  Root cause of v1.5.3 regression:
+  The outgoing active item becomes a 9:16 preview before its width
+  finishes animating. Its transient height grows dramatically, moving
+  the auto-sized rail and everything below it.
+
+  Mobile uses an invariant stage height for the completed composition
+  and immediate item-size changes. Horizontal rail movement and
+  content fades remain animated independently of document flow.
+  Desktop and Showroom Gallery are expressly excluded.
 */
 @media (max-width: 767px) {
   .expandable-hero:not(.expandable-hero--gallery) {
@@ -282,8 +286,25 @@
 
   .expandable-hero:not(.expandable-hero--gallery)
   .expandable-hero__rail {
-    height: auto;
-    min-height: var(--hero-mobile-stage-height, 0px);
+    /*
+      CSS-first fallback is available before JS and for no-JS
+      rendering. JS refines it using all actual preview captions.
+    */
+    height: var(
+      --hero-mobile-stage-height,
+      max(
+        calc(
+          (100cqw - var(--hero-preview-width-mobile) - var(--hero-gap))
+          * 4 / 3
+        ),
+        calc(
+          var(--hero-preview-width-mobile) * 267 / 150
+          + 104px
+        )
+      )
+    );
+    min-height: 0;
+    overflow-y: hidden;
   }
 
   .expandable-hero:not(.expandable-hero--gallery)
@@ -295,9 +316,19 @@
   }
 
   /*
-    Active cards must not reserve space for the inactive-only
-    preview caption. Opacity:0 alone still retains its 84px+ height.
+    Prevent transient 9:16 outgoing preview from expanding past
+    the active composition while changing widths.
   */
+  .expandable-hero:not(.expandable-hero--gallery)
+  .expandable-hero__item {
+    transition: none;
+  }
+
+  .expandable-hero:not(.expandable-hero--gallery)
+  .expandable-hero__media {
+    transition: border-radius 180ms ease;
+  }
+
   .expandable-hero:not(.expandable-hero--gallery)
   .expandable-hero__item.is-active
   .expandable-hero__preview {
@@ -305,13 +336,9 @@
   }
 }
 
-/*
-  Corrected HTML uses an <a> as the direct flex item rather than an
-  <a><article></article></a> wrapper. Link styling must be neutral.
-*/
+/* The supplied corrected markup uses a direct linked Hero item. */
 .expandable-hero:not(.expandable-hero--gallery)
 .expandable-hero__track > a.expandable-hero__item {
   color: inherit;
   text-decoration: none;
 }
-

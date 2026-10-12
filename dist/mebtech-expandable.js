@@ -319,18 +319,13 @@
       updateControls();
 
       if (scroll && scrollActive) {
-        if (isMobile()) {
-          window.setTimeout(
-            ensureVisible,
-            reduceMotion.matches
-              ? 0
-              : 540
-          );
-        } else {
-          requestAnimationFrame(
-            ensureVisible
-          );
-        }
+        /*
+          On mobile item sizes change immediately (no width transition),
+          so there is no 540ms geometry wait before horizontal movement.
+        */
+        requestAnimationFrame(
+          ensureVisible
+        );
       }
 
       if (toneAnalysisEnabled) {
@@ -688,7 +683,7 @@
             mobile CSS removes from the layout.
             This is performed offscreen before the next paint.
           */
-          let tallestPreviewCaption = 84;
+          let tallestPreviewCaption = 104;
 
           const measurementItem =
             document.createElement('div');
@@ -753,7 +748,7 @@
                 previewMediaHeight +
                   tallestPreviewCaption
               )
-            );
+            ) + 2; // border/rounding safety
 
           root.style.setProperty(
             '--hero-mobile-stage-height',
@@ -1349,6 +1344,34 @@
         return;
       }
 
+      if (isMobile() && scrollActive) {
+        /*
+          A loop wrap is one jump, not a smooth sweep through every
+          intermediate category/banner.
+        */
+        activate(
+          wrappedIndex,
+          {
+            scroll: false
+          }
+        );
+
+        const target =
+          wrappedIndex === 0
+            ? 0
+            : Math.max(
+                0,
+                rail.scrollWidth - rail.clientWidth
+              );
+
+        rail.scrollTo({
+          left: target,
+          behavior: 'instant'
+        });
+
+        return;
+      }
+
       activate(
         wrappedIndex,
         {
@@ -1745,5 +1768,20 @@
 
     computeMobileGeometry();
     computeDesktopGeometry();
+
+    /*
+      Re-measure captions after late-loading UI fonts are available.
+      This is unrelated to slide state; stage remains unchanged across
+      subsequent arrow/swipe interactions.
+    */
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(
+        () => {
+          if (document.contains(root)) {
+            computeMobileGeometry();
+          }
+        }
+      );
+    }
   }
 })();
