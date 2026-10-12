@@ -648,8 +648,13 @@
 
       requestAnimationFrame(
         () => {
+          /*
+            The root is the container-query reference used by
+            mobile item widths. rail.clientWidth may be different
+            due to surrounding CMS/container padding.
+          */
           const visibleWidth =
-            rail.clientWidth;
+            root.clientWidth;
 
           const previewWidth =
             cssNumber(
@@ -671,32 +676,88 @@
                 gap
             );
 
-          /*
-            Active media is 3:4.
-            Inactive preview media uses the base 150:267 ratio and
-            reserves 84px for preview metadata. The stable stage uses
-            whichever state is taller at the current viewport width.
-          */
-          const activeHeight =
+          const activeMediaHeight =
             activeWidth * 4 / 3;
 
           const previewMediaHeight =
             previewWidth * 267 / 150;
 
-          const previewMetadataHeight = 84;
+          /*
+            All preview captions are measured at the inactive item
+            width, even the currently active one's caption, which
+            mobile CSS removes from the layout.
+            This is performed offscreen before the next paint.
+          */
+          let tallestPreviewCaption = 84;
 
-          const mobileStageHeight =
+          const measurementItem =
+            document.createElement('div');
+
+          measurementItem.className =
+            'expandable-hero__item';
+
+          measurementItem.setAttribute(
+            'aria-hidden',
+            'true'
+          );
+
+          measurementItem.style.cssText =
+            'position:absolute;' +
+            'left:-10000px;' +
+            'top:0;' +
+            'width:' + previewWidth + 'px;' +
+            'visibility:hidden;' +
+            'pointer-events:none;' +
+            'transition:none;';
+
+          root.appendChild(
+            measurementItem
+          );
+
+          try {
+            items.forEach(
+              item => {
+                const preview =
+                  item.querySelector(
+                    '.expandable-hero__preview'
+                  );
+
+                if (!preview) {
+                  return;
+                }
+
+                const sample =
+                  preview.cloneNode(true);
+
+                measurementItem.appendChild(
+                  sample
+                );
+
+                tallestPreviewCaption =
+                  Math.max(
+                    tallestPreviewCaption,
+                    sample.getBoundingClientRect().height
+                  );
+
+                sample.remove();
+              }
+            );
+          } finally {
+            measurementItem.remove();
+          }
+
+          const stableStageHeight =
             Math.ceil(
               Math.max(
-                activeHeight,
+                activeMediaHeight,
                 previewMediaHeight +
-                  previewMetadataHeight
+                  tallestPreviewCaption
               )
             );
 
           root.style.setProperty(
             '--hero-mobile-stage-height',
-            `${mobileStageHeight}px`
+            `${stableStageHeight}px`
           );
         }
       );

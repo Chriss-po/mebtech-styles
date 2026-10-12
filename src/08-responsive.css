@@ -262,30 +262,56 @@
 }
 
 /* ------------------------------------------------------------
-   08.7 — Expandable Hero · Mobile stable controls · v1.5.2
+   08.7 — Expandable Hero · Mobile separated controls · v1.5.3
    ------------------------------------------------------------ */
 
+/*
+  The media rail and controls are two distinct layout rows.
+  min-height reserves the tallest possible mobile media composition.
+  Actual height stays auto: a taller item can never be clipped by a
+  stale JavaScript stage-height calculation.
+  The desktop Hero and the Showroom Gallery are excluded.
+*/
 @media (max-width: 767px) {
-  /*
-    Mobile keeps the accepted 1 active + 1 preview composition.
-    The rail gets a stable computed stage height so controls no longer
-    move vertically while active/inactive card geometry animates.
-  */
   .expandable-hero:not(.expandable-hero--gallery) {
-    padding-bottom: calc(44px + var(--space-2));
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: var(--space-2);
+    padding-bottom: 0;
   }
 
   .expandable-hero:not(.expandable-hero--gallery)
   .expandable-hero__rail {
-    height: var(--hero-mobile-stage-height, 320px);
+    height: auto;
+    min-height: var(--hero-mobile-stage-height, 0px);
   }
 
   .expandable-hero:not(.expandable-hero--gallery)
   .expandable-hero__controls {
-    position:absolute;
-    right:0;
-    top:calc(var(--hero-mobile-stage-height, 320px) + var(--space-2));
-    margin-top:0;
+    position: static;
+    inset: auto;
+    width: 100%;
+    margin-top: 0;
   }
+
+  /*
+    Active cards must not reserve space for the inactive-only
+    preview caption. Opacity:0 alone still retains its 84px+ height.
+  */
+  .expandable-hero:not(.expandable-hero--gallery)
+  .expandable-hero__item.is-active
+  .expandable-hero__preview {
+    display: none;
+  }
+}
+
+/*
+  Corrected HTML uses an <a> as the direct flex item rather than an
+  <a><article></article></a> wrapper. Link styling must be neutral.
+*/
+.expandable-hero:not(.expandable-hero--gallery)
+.expandable-hero__track > a.expandable-hero__item {
+  color: inherit;
+  text-decoration: none;
 }
 

@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.5.3 — Mobile Hero layout recovery
+
+Fixes the mobile regression introduced by the hard-height control stabilization in v1.5.2.
+
+- Hero controls are now a **separate, normal-flow grid row** below the media rail (mobile only).
+- Mobile rail uses **auto height** with a reserved minimum based on active 3:4 media and the tallest 9:16 preview plus caption; banner content cannot be cropped by a stale fixed height.
+- Active cards no longer reserve invisible preview-caption height.
+- Hero HTML should use **direct track children** (`<a class="expandable-hero__item">…</a>`), not nested `<a><article class="expandable-hero__item">…</article></a>` wrappers.
+- Native 1-active/1-preview layout, one-step swipe, arrows, looping and desktop/gallery composition remain in scope.
+- Also includes all v1.5.2 Category Quick Nav styles.
+
+**Release requires the matching Hero HTML cleanup.** Do not replace production styles/scripts or tag until the HTML and mobile smoke test are ready.
+
+Rollback reference: **v1.5**.
+
 ## v1.5.2 — Category Quick Nav release fix
 
 - Added the accepted final Category Quick Nav styles to global source CSS.
