@@ -882,7 +882,7 @@
     so controls no longer move with transient card-height changes.
   */
   .expandable-hero:not(.expandable-hero--gallery) {
-    padding-bottom: calc(44px + var(--space-2));
+    padding-bottom: calc(44px + var(--space-4));
   }
 
   .expandable-hero:not(.expandable-hero--gallery)
@@ -894,8 +894,62 @@
   .expandable-hero__controls {
     position: absolute;
     right: 0;
-    top: calc(var(--hero-stage-height, 470px) + var(--space-2));
+    top: calc(var(--hero-stage-height, 470px) + var(--space-4));
     margin-top: 0;
   }
 }
 
+
+
+/* ==========================================================================
+   BETA BRIDGE · btn-info semantics
+   --------------------------------------------------------------------------
+   Temporary smoke-test override while production remains pinned to v1.4.3.
+   Canonical source: src/05-components.css.
+   Remove from this standalone beta asset after the next production release.
+   ========================================================================== */
+
+.btn-info{
+  background:transparent!important;
+  color:var(--green-800)!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none;
+  text-decoration:none;
+  cursor:pointer;
+  transition:color var(--motion-fast) var(--ease-standard);
+}
+
+.btn-info:hover{
+  background:transparent!important;
+  color:var(--green-500)!important;
+  border:0!important;
+  box-shadow:none;
+  text-decoration:none;
+  transform:none;
+}
+
+.btn-info:active{
+  background:transparent!important;
+  color:var(--green-900)!important;
+  border:0!important;
+  box-shadow:none;
+  transform:none;
+}
+
+.btn-info:focus-visible{
+  outline:none;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:var(--focus-ring);
+}
+
+.btn-info:disabled,
+.btn-info.disabled,
+.btn-info[aria-disabled="true"]{
+  background:transparent!important;
+  color:var(--gray-400)!important;
+  border:0!important;
+  box-shadow:none;
+  cursor:not-allowed;
+}
