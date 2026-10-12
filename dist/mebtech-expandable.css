@@ -849,14 +849,16 @@
 
 @media (min-width: 768px) {
   /*
-    Keep the validated v6.5 composition width (active + 2 previews),
-    but align it to the content start instead of centering it inside
-    a wider parent column.
+    Desktop/tablet composition:
+    - Hero fills the available parent width.
+    - Active card keeps exact 3:4 and max-height 470px.
+    - Inactive previews keep exact 9:16.
+    - JS adapts preview count/width to the actual rail width.
   */
   .expandable-hero:not(.expandable-hero--gallery) {
-    max-width: 769px;
+    max-width: 100%;
     margin-left: 0;
-    margin-right: auto;
+    margin-right: 0;
   }
 
   .expandable-hero:not(.expandable-hero--gallery)
@@ -864,5 +866,11 @@
   .expandable-hero__media {
     aspect-ratio: 3 / 4;
     max-height: 470px;
+  }
+
+  .expandable-hero:not(.expandable-hero--gallery)
+  .expandable-hero__item:not(.is-active)
+  .expandable-hero__media {
+    aspect-ratio: 9 / 16;
   }
 }

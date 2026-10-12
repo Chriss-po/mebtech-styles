@@ -667,8 +667,9 @@
         ACTIVE_ASPECT_WIDTH /
         ACTIVE_ASPECT_HEIGHT;
 
-      const PREFERRED_PREVIEW_COUNT = 2;
       const MIN_PREVIEW_WIDTH = 150;
+      const MAX_PREVIEW_WIDTH = 216;
+      const MAX_PREVIEW_COUNT = 6;
 
       desktopGap =
         cssNumber(
@@ -691,14 +692,8 @@
               1,
               Math.min(
                 items.length - 1,
-                10
+                MAX_PREVIEW_COUNT
               )
-            );
-
-          let previewCount =
-            Math.min(
-              PREFERRED_PREVIEW_COUNT,
-              maxAvailableCount
             );
 
           let activeWidth =
@@ -715,6 +710,37 @@
               activeWidth
             );
 
+          const availableForPreviews =
+            Math.max(
+              0,
+              visibleWidth -
+                activeWidth
+            );
+
+          /*
+            Adaptive desktop window:
+            choose the smallest number of previews that keeps each
+            preview at or below MAX_PREVIEW_WIDTH. This fills the rail
+            without side holes while preserving 9:16 preview geometry.
+          */
+          let previewCount =
+            Math.max(
+              1,
+              Math.min(
+                maxAvailableCount,
+                Math.ceil(
+                  (
+                    availableForPreviews +
+                    desktopGap
+                  ) /
+                  (
+                    MAX_PREVIEW_WIDTH +
+                    desktopGap
+                  )
+                )
+              )
+            );
+
           let previewWidth =
             (
               visibleWidth -
@@ -725,22 +751,24 @@
             previewCount;
 
           /*
-            On an unusually narrow tablet, keep the active banner within
-            the 3:4 / 470px constraint and fall back to one full preview.
+            If a narrow tablet cannot keep all calculated previews above
+            the minimum readable width, reduce the count until it can.
           */
-          if (
+          while (
+            previewCount > 1 &&
             previewWidth <
-              MIN_PREVIEW_WIDTH &&
-            previewCount > 1
+              MIN_PREVIEW_WIDTH
           ) {
-            previewCount = 1;
+            previewCount -= 1;
 
             previewWidth =
               (
                 visibleWidth -
                 activeWidth -
-                desktopGap
-              );
+                previewCount *
+                  desktopGap
+              ) /
+              previewCount;
           }
 
           desktopPreviewCount =
