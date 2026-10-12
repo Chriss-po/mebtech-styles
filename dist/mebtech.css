@@ -1826,7 +1826,7 @@ body#checkout:is(.form-control-success,.form-control-danger,.has-success .form-c
     so controls no longer move with transient card-height changes.
   */
   .expandable-hero:not(.expandable-hero--gallery) {
-    padding-bottom: calc(44px + var(--space-2));
+    padding-bottom: calc(44px + var(--space-4));
   }
 
   .expandable-hero:not(.expandable-hero--gallery)
@@ -1838,7 +1838,7 @@ body#checkout:is(.form-control-success,.form-control-danger,.has-success .form-c
   .expandable-hero__controls {
     position: absolute;
     right: 0;
-    top: calc(var(--hero-stage-height, 470px) + var(--space-2));
+    top: calc(var(--hero-stage-height, 470px) + var(--space-4));
     margin-top: 0;
   }
 }
