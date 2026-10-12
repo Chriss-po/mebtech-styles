@@ -1,5 +1,30 @@
 # Changelog
 
+## v1.5 — Expandable media + button semantics
+
+Validated on the live MebTech site before release.
+
+- Added **Expandable Hero** to the global Design System CSS.
+  - desktop/tablet active card: exact **3:4**, max-height **470px**
+  - desktop/tablet previews: exact **9:16**
+  - preview width adapts to the available container (**150–212px**) and preview count adapts automatically
+  - mobile behavior remains **1 active + 1 preview**
+  - one mobile swipe = one adjacent banner
+  - desktop hover, arrows and activation share the same transition path
+  - circular arrow/swipe navigation wraps last ↔ first without sweeping through the entire rail
+  - controls are pinned to a stable stage and sit **space-4 (16px)** below the banners
+- Added **Showroom Gallery** as a shared Expandable Media variant.
+  - uses the same root/item/media primitives as Hero
+  - Gallery disables Hero rail scrolling, swipe and tone analysis through data attributes
+  - clicking/focusing a gallery item changes the active flex item without Hero window geometry
+- Corrected button semantics:
+  - `.btn-secondary` remains the outlined secondary action
+  - `.btn-info` is a text/link action: no fill, no border, no button radius; green-800 → green-500 on hover
+- Added shared behavior asset: `dist/mebtech-expandable.js`.
+- Integrated component styles into `src/05-components.css` and responsive behavior into `src/08-responsive.css`.
+- Removed the temporary standalone beta CSS from the release architecture; v1.5 component styles ship through `dist/mebtech.css`.
+
+Rollback reference: **v1.4.3**.
 ## v1.4.0 — Structured source package
 
 Structural refactor only; no visual redesign intended.
