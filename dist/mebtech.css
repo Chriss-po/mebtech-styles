@@ -1562,6 +1562,131 @@ button.slick-arrow{overflow:hidden;border-radius:var(--radius-pill);padding:var(
    Gallery is intentionally unaffected.
    ========================================================================== */
 
+/* ------------------------------------------------------------
+   05.17 — Category Quick Nav · DS v1.5.1
+   Source: accepted final Home implementation
+   ------------------------------------------------------------ */
+
+.category-quick-nav{
+  width:100%;
+  overflow:hidden;
+  background:var(--paper);
+}
+
+.category-quick-nav__track{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:64px;
+  gap:var(--space-2); /* 8px */
+
+  overflow-x:auto;
+  overscroll-behavior-inline:contain;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+
+  padding:var(--space-3) 0; /* accepted final value */
+}
+
+.category-quick-nav__track::-webkit-scrollbar{
+  display:none;
+}
+
+.category-quick-nav__item{
+  width:64px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  gap:var(--space-1); /* 4px */
+
+  color:var(--ink);
+  text-decoration:none;
+
+  -webkit-tap-highlight-color:transparent;
+}
+
+.category-quick-nav__visual{
+  position:relative;
+
+  width:64px;
+  height:64px;
+  flex:0 0 64px;
+
+  display:grid;
+  place-items:center;
+
+  background:var(--gray-50);
+  border-radius:var(--radius-md);
+
+  color:var(--green-800);
+
+  transition:
+    background var(--motion-fast) var(--ease-standard),
+    color var(--motion-fast) var(--ease-standard),
+    transform var(--motion-fast) var(--ease-standard);
+}
+
+.category-quick-nav__icon{
+  width:36px;
+  height:36px;
+  display:block;
+  color:currentColor;
+}
+
+.category-quick-nav__title{
+  width:100%;
+
+  font-family:var(--font-body);
+  font-size:var(--fs-label);
+  font-weight:600;
+  line-height:var(--lh-label);
+  letter-spacing:var(--ls-label);
+
+  color:var(--gray-600);
+  text-align:center;
+
+  transition:
+    color var(--motion-fast) var(--ease-standard);
+}
+
+.category-quick-nav__badge{
+  position:absolute;
+  top:var(--space-1);
+  right:var(--space-1);
+
+  padding:2px 4px;
+  border-radius:var(--radius-pill);
+
+  background:var(--green-800);
+  color:var(--paper);
+
+  font-family:var(--font-body);
+  font-size:8px;
+  font-weight:600;
+  line-height:1.2;
+}
+
+@media (hover:hover) and (pointer:fine){
+  .category-quick-nav__item:hover .category-quick-nav__visual{
+    background:var(--green-50);
+    color:var(--green-500);
+    transform:translateY(-2px);
+  }
+
+  .category-quick-nav__item:hover .category-quick-nav__title{
+    color:var(--green-800);
+  }
+}
+
+.category-quick-nav__item:focus-visible{
+  outline:none;
+}
+
+.category-quick-nav__item:focus-visible .category-quick-nav__visual{
+  box-shadow:var(--focus-ring);
+}
+
 
 /* ============================================================
    06 — FORMS
@@ -1840,6 +1965,31 @@ body#checkout:is(.form-control-success,.form-control-danger,.has-success .form-c
     right: 0;
     top: calc(var(--hero-stage-height, 470px) + var(--space-4));
     margin-top: 0;
+  }
+}
+
+/* ------------------------------------------------------------
+   08.6 — Category Quick Nav · tablet / desktop
+   ------------------------------------------------------------ */
+
+@media (min-width: 768px) {
+  .category-quick-nav__track {
+    grid-auto-flow:row;
+    grid-auto-columns:initial;
+
+    grid-template-columns:
+      repeat(auto-fit, 64px);
+
+    gap:var(--space-2); /* 8px */
+
+    justify-content:start;
+    align-items:start;
+
+    overflow:visible;
+
+    padding-inline:0;
+
+    scroll-snap-type:none;
   }
 }
 
