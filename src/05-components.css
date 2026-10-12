@@ -73,7 +73,7 @@
    letter-spacing:var(--ls-ui);
    font-weight:600}
 
-.btn-primary,.btn-secondary,.btn-tertiary,.btn-info,.form-button,.furniture-project-order-btn,.add-to-cart{
+.btn-primary,.btn-secondary,.btn-tertiary,.form-button,.furniture-project-order-btn,.add-to-cart{
    border-radius:var(--radius-sm);
    cursor:pointer;
    transition:background-color var(--motion-fast) var(--ease-standard),border-color var(--motion-fast) var(--ease-standard),color var(--motion-fast) var(--ease-standard),box-shadow var(--motion-fast) var(--ease-standard),transform var(--motion-instant) var(--ease-standard)}
@@ -101,28 +101,65 @@
    box-shadow:none;
    transform:none}
 
-.btn-secondary,.btn-info{
+.btn-secondary{
    background:transparent;
    color:var(--color-action-primary);
    border:var(--border-width-default) solid var(--color-action-primary)!important;
    box-sizing:border-box}
-.btn-secondary:hover,.btn-info:hover{
+.btn-secondary:hover{
    background:var(--green-50);
    color:var(--color-action-primary-hover);
    border-color:var(--color-action-primary-hover)!important}
-.btn-secondary:active,.btn-info:active{
+.btn-secondary:active{
    background:var(--green-100);
    color:var(--color-action-primary-active);
    border-color:var(--color-action-primary-active)!important}
-.btn-secondary:focus-visible,.btn-info:focus-visible{
+.btn-secondary:focus-visible{
    outline:none;
    box-shadow:var(--focus-ring)}
-.btn-secondary:disabled,.btn-secondary.disabled,.btn-secondary[aria-disabled="true"],.btn-info:disabled,.btn-info.disabled,.btn-info[aria-disabled="true"]{
+.btn-secondary:disabled,.btn-secondary.disabled,.btn-secondary[aria-disabled="true"]{
    background:transparent;
    color:var(--gray-400);
    border-color:var(--gray-200)!important;
    cursor:not-allowed;
    box-shadow:none}
+
+/*
+   Link button / text action.
+   btn-info is intentionally NOT a secondary button:
+   no fill, no border, no button-shaped radius.
+*/
+.btn-info{
+   background:transparent!important;
+   color:var(--green-800)!important;
+   border:0!important;
+   border-radius:0!important;
+   box-shadow:none;
+   text-decoration:none;
+   cursor:pointer;
+   transition:color var(--motion-fast) var(--ease-standard)}
+.btn-info:hover{
+   background:transparent!important;
+   color:var(--green-500)!important;
+   border:0!important;
+   box-shadow:none;
+   text-decoration:none}
+.btn-info:active{
+   background:transparent!important;
+   color:var(--green-900)!important;
+   border:0!important;
+   box-shadow:none}
+.btn-info:focus-visible{
+   outline:none;
+   background:transparent!important;
+   border:0!important;
+   box-shadow:var(--focus-ring)}
+.btn-info:disabled,.btn-info.disabled,.btn-info[aria-disabled="true"]{
+   background:transparent!important;
+   color:var(--gray-400)!important;
+   border:0!important;
+   box-shadow:none;
+   cursor:not-allowed}
 
 .btn-tertiary{
    background:transparent;
