@@ -651,6 +651,10 @@
           '--hero-preview-width'
         );
 
+        root.style.removeProperty(
+          '--hero-stage-height'
+        );
+
         return;
       }
 
@@ -668,7 +672,7 @@
         ACTIVE_ASPECT_HEIGHT;
 
       const MIN_PREVIEW_WIDTH = 150;
-      const MAX_PREVIEW_WIDTH = 216;
+      const MAX_PREVIEW_WIDTH = 212;
       const MAX_PREVIEW_COUNT = 6;
 
       desktopGap =
@@ -794,6 +798,19 @@
           root.style.setProperty(
             '--hero-active-width',
             `${desktopActiveWidth}px`
+          );
+
+          const desktopStageHeight =
+            Math.min(
+              MAX_ACTIVE_HEIGHT,
+              desktopActiveWidth *
+                ACTIVE_ASPECT_HEIGHT /
+                ACTIVE_ASPECT_WIDTH
+            );
+
+          root.style.setProperty(
+            '--hero-stage-height',
+            `${desktopStageHeight}px`
           );
 
           desktopWindowStart =

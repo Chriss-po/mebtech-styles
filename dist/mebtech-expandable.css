@@ -874,3 +874,28 @@
     aspect-ratio: 9 / 16;
   }
 }
+
+@media (min-width: 768px) {
+  /*
+    Keep controls visually fixed while cards change active state.
+    The rail height is driven by the active 3:4 card geometry from JS,
+    so controls no longer move with transient card-height changes.
+  */
+  .expandable-hero:not(.expandable-hero--gallery) {
+    padding-bottom: calc(44px + var(--space-2));
+  }
+
+  .expandable-hero:not(.expandable-hero--gallery)
+  .expandable-hero__rail {
+    height: var(--hero-stage-height, 470px);
+  }
+
+  .expandable-hero:not(.expandable-hero--gallery)
+  .expandable-hero__controls {
+    position: absolute;
+    right: 0;
+    top: calc(var(--hero-stage-height, 470px) + var(--space-2));
+    margin-top: 0;
+  }
+}
+
