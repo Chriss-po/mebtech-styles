@@ -634,6 +634,74 @@
         : fallback;
     }
 
+    function computeMobileGeometry() {
+      if (
+        !isMobile() ||
+        !scrollActive
+      ) {
+        root.style.removeProperty(
+          '--hero-mobile-stage-height'
+        );
+
+        return;
+      }
+
+      requestAnimationFrame(
+        () => {
+          const visibleWidth =
+            rail.clientWidth;
+
+          const previewWidth =
+            cssNumber(
+              '--hero-preview-width-mobile',
+              112
+            );
+
+          const gap =
+            cssNumber(
+              '--hero-gap',
+              8
+            );
+
+          const activeWidth =
+            Math.max(
+              0,
+              visibleWidth -
+                previewWidth -
+                gap
+            );
+
+          /*
+            Active media is 3:4.
+            Inactive preview media uses the base 150:267 ratio and
+            reserves 84px for preview metadata. The stable stage uses
+            whichever state is taller at the current viewport width.
+          */
+          const activeHeight =
+            activeWidth * 4 / 3;
+
+          const previewMediaHeight =
+            previewWidth * 267 / 150;
+
+          const previewMetadataHeight = 84;
+
+          const mobileStageHeight =
+            Math.ceil(
+              Math.max(
+                activeHeight,
+                previewMediaHeight +
+                  previewMetadataHeight
+              )
+            );
+
+          root.style.setProperty(
+            '--hero-mobile-stage-height',
+            `${mobileStageHeight}px`
+          );
+        }
+      );
+    }
+
     function computeDesktopGeometry() {
       if (
         isMobile() ||
@@ -1591,6 +1659,7 @@
         resizeTimer =
           setTimeout(
             () => {
+              computeMobileGeometry();
               computeDesktopGeometry();
 
               if (isMobile()) {
@@ -1613,6 +1682,7 @@
       }
     );
 
+    computeMobileGeometry();
     computeDesktopGeometry();
   }
 })();

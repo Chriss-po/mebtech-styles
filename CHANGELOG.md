@@ -9,6 +9,7 @@
 - Mobile keeps native horizontal scrolling.
 - Tablet/desktop uses fixed 64px auto-fit columns instead of stretched columns.
 - This release corrects v1.5.1, whose tag was published before these source changes reached `main`.
+- Fixed **mobile Expandable Hero controls jumping**: mobile now gets a stable computed stage height and controls stay anchored while banners change active state.
 
 Rollback reference: **v1.5**.
 
