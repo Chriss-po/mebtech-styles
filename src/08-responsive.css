@@ -28,3 +28,211 @@
    ------------------------------------------------------------ */
 @media(prefers-reduced-motion:reduce){.slick-dots li,.slick-dots li button{transition:none!important}.furniture-showcase__slide{transform:none;transition:opacity var(--motion-reduced) linear,visibility 0s linear 150ms}.furniture-showcase__slide.is-active{transform:none}.trust-benefits__arrow{transition:none}.showroom-photo,.showroom-photo img,.showroom-glass-label{transition:none}button.slick-arrow,.slider-btn,.showroom-glass-label,.product-functional-buttons-links a{transition:none!important;animation:none!important}.category-card,.master-card,.service-card,.mebli-tag,.segment-tag,.furniture-project-master-btn,.city-label,.product-variants-item .radio-label,.product-variants-item-24 .color.texture,.form-search-control{transition:none!important;transform:none!important}}@media(min-width:768px) and (max-width:1023px){body,p{font-size:var(--fs-body-t)}h1,.h1{font-size:var(--fs-h1-t)}h2,.h2,.section-title{font-size:var(--fs-h2-t)}h3,.h3{font-size:var(--fs-h3-t)}h5,.h5 .title,.block-title{font-size:var(--fs-h3-t)!important}.page-title,#content-wrapper .page-title{font-size:var(--fs-item-title-t)!important}.master-name{font-size:var(--fs-item-title-t)}.micro-title{font-size:var(--fs-micro-title-t)}.body-small{font-size:var(--fs-body-s-t)}.caption{font-size:var(--fs-caption-t)}.overline,.product-category-name{font-size:var(--fs-overline-t)}.ui-text,.btn,.btn-primary,.btn-secondary,.btn-tertiary,.btn-info,h3.h3.product-title,.product-miniature .product-title,.product-miniature .product-title a{font-size:var(--fs-ui-t)!important}.product-reference{font-size:var(--fs-mono-t)}.product-price-and-shipping{font-size:var(--fs-price-m-t)!important}}@media(min-width:768px) and (max-width:1023px){.cbp-hrmenu .cbp-column-title,.cbp-hrmenu .cbp-column-title:link,.delivery-title,.furniture-project-master-name,.furniture-project-title,.furniture-project-cta-title,h6,.elementor-image-box-title,.category-content h5{font-size:var(--fs-h3-t)!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important}}
+
+/* ------------------------------------------------------------
+   08.5 — Expandable media responsive
+   Mobile, tablet/desktop geometry and reduced-motion rules · v6.5.
+   ------------------------------------------------------------ */
+@media (max-width: 767px) {
+
+  .expandable-hero {
+    --hero-gap:
+      var(--grid-gutter-mobile);
+  }
+
+  .expandable-hero__rail {
+    padding-right: 0;
+  }
+
+  .expandable-hero__item {
+    flex-basis:
+      var(--hero-preview-width-mobile);
+
+    width:
+      var(--hero-preview-width-mobile);
+  }
+
+ .expandable-hero__item {
+  flex-basis: var(--hero-preview-width-mobile);
+  width: var(--hero-preview-width-mobile);
+}
+.expandable-hero__item.is-active
+.expandable-hero__media {
+  aspect-ratio: 3 / 4;
+}
+.expandable-hero__item.is-active {
+  flex-basis:
+    calc(
+      100cqw
+      - var(--hero-preview-width-mobile)
+      - var(--hero-gap)
+    );
+
+  width:
+    calc(
+      100cqw
+      - var(--hero-preview-width-mobile)
+      - var(--hero-gap)
+    );
+}
+
+  .expandable-hero__copy {
+    left:
+      var(--space-3);
+
+    right:
+      var(--space-3);
+
+    bottom:
+      var(--space-3);
+  }
+
+  .expandable-hero__title {
+    font-size:
+      var(--fs-h3-m);
+  }
+
+  .expandable-hero__description {
+    font-size:
+      var(--fs-body-s-m);
+  }
+
+  .expandable-hero__preview-title {
+    font-size:
+      var(--fs-micro-title-m);
+  }
+
+  .expandable-hero__controls {
+    margin-top:
+      var(--space-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .expandable-hero *,
+  .expandable-hero *::before,
+  .expandable-hero *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+
+  .expandable-hero__image,
+  .expandable-hero__video {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .expandable-hero--gallery .expandable-hero__track {
+    gap: 6px;
+  }
+
+  .expandable-hero--gallery .expandable-hero__item,
+  .expandable-hero--gallery .expandable-hero__item.is-active {
+    width: auto;
+  }
+
+  .expandable-hero--gallery .expandable-hero__item {
+    flex: .6 1 0;
+  }
+
+  .expandable-hero--gallery .expandable-hero__item.is-active {
+    flex: 3.6 1 0;
+  }
+
+  .expandable-hero--gallery .expandable-hero__media,
+  .expandable-hero--gallery .expandable-hero__item.is-active .expandable-hero__media {
+    height: 220px;
+    aspect-ratio: auto;
+  }
+
+  .expandable-hero--gallery .expandable-hero__copy {
+    left: 8px;
+    bottom: 8px;
+    max-width: calc(100% - 16px);
+  }
+
+  .expandable-hero--gallery .expandable-hero__label {
+    min-height: 0;
+    padding: 6px 8px;
+    font-size: 9px;
+  }
+}
+
+@media (min-width: 768px) {
+  .expandable-hero[data-stable-window="true"] .expandable-hero__rail {
+    overflow-x: hidden;
+    padding-right: 0;
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+
+  .expandable-hero[data-stable-window="true"] .expandable-hero__item {
+    scroll-snap-align: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .expandable-hero:not(.expandable-hero--gallery) .expandable-hero__rail {
+    overflow-x: hidden;
+    scroll-snap-type: none;
+    overscroll-behavior-inline: none;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  /*
+    Desktop/tablet composition:
+    - Hero fills the available parent width.
+    - Active card keeps exact 3:4 and max-height 470px.
+    - Inactive previews keep exact 9:16.
+    - JS adapts preview count/width to the actual rail width.
+  */
+  .expandable-hero:not(.expandable-hero--gallery) {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .expandable-hero:not(.expandable-hero--gallery)
+  .expandable-hero__item.is-active
+  .expandable-hero__media {
+    aspect-ratio: 3 / 4;
+    max-height: 470px;
+  }
+
+  .expandable-hero:not(.expandable-hero--gallery)
+  .expandable-hero__item:not(.is-active)
+  .expandable-hero__media {
+    aspect-ratio: 9 / 16;
+  }
+}
+
+@media (min-width: 768px) {
+  /*
+    Keep controls visually fixed while cards change active state.
+    The rail height is driven by the active 3:4 card geometry from JS,
+    so controls no longer move with transient card-height changes.
+  */
+  .expandable-hero:not(.expandable-hero--gallery) {
+    padding-bottom: calc(44px + var(--space-4));
+  }
+
+  .expandable-hero:not(.expandable-hero--gallery)
+  .expandable-hero__rail {
+    height: var(--hero-stage-height, 470px);
+  }
+
+  .expandable-hero:not(.expandable-hero--gallery)
+  .expandable-hero__controls {
+    position: absolute;
+    right: 0;
+    top: calc(var(--hero-stage-height, 470px) + var(--space-4));
+    margin-top: 0;
+  }
+}
+

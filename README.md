@@ -13,7 +13,7 @@ The site loads one versioned stylesheet:
 >
 ```
 
-The currently confirmed working baseline before this structural refactor was `v1.3.4`.
+Release target: `v1.5`. Confirmed rollback baseline: `v1.4.3`.
 
 ## Architecture
 
@@ -29,7 +29,11 @@ src/
 └── 08-responsive.css
 
 dist/
-└── mebtech.css
+├── mebtech.css
+└── mebtech-expandable.js
+
+docs/
+└── design-system-v1.5.md
 ```
 
 ### Ownership
@@ -42,6 +46,8 @@ dist/
 - `06-forms.css` — fields and validation.
 - `07-utilities.css` — small reusable helpers.
 - `08-responsive.css` — all breakpoint overrides + reduced motion.
+- `dist/mebtech-expandable.js` — shared Expandable Hero / Gallery interaction behavior.
+- `docs/design-system-v1.5.md` — implementation contract for the v1.5 components.
 
 ## Editing rule
 
