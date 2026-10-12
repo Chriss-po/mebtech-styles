@@ -1,6 +1,6 @@
 # MebTech Design System v1.5
 
-Status: **Accepted / live smoke-tested · 12.10.2026**
+Status: **v1.5 baseline accepted / responsive 428px update pending real-site smoke test · 12.10.2026**
 
 Figma remains the visual source of truth. This document records the accepted implementation contract, responsive behavior and component semantics for the v1.5 code release.
 
@@ -38,8 +38,9 @@ Primary promotional/navigation media component for Home. It presents one active 
 - Gap between media stage and controls: **space-4 = 16px**.
 
 ### Mobile
-The existing accepted mobile composition is preserved:
-- **1 active + 1 preview**
+The Home Hero composition is responsive by component viewport width:
+- **up to 428px: 1 active + 1 preview**
+- **from 429px through 767px: 1 active + 2 previews**
 - one horizontal swipe = exactly one adjacent item
 - native horizontal rail scrolling is disabled for Hero to prevent overshoot
 - vertical page scrolling remains available
