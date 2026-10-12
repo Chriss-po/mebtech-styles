@@ -651,25 +651,58 @@
           const visibleWidth =
             root.clientWidth;
 
-          const previewWidth =
-            cssNumber(
-              '--hero-preview-width-mobile',
-              112
-            );
-
           const gap =
             cssNumber(
               '--hero-gap',
               8
             );
 
+          /*
+            Responsive Home Hero window:
+            <=428px: one preview; 429..767px: two previews.
+            Gallery has scrollActive=false and is excluded above.
+            Match the CSS clamp so stage geometry remains accurate.
+          */
+          const previewCount =
+            window.matchMedia(
+              '(min-width: 429px) and (max-width: 767px)'
+            ).matches
+              ? 2
+              : 1;
+
           const activeWidth =
-            Math.max(
-              0,
-              visibleWidth -
-                previewWidth -
-                gap
-            );
+            previewCount === 2
+              ? Math.min(
+                  312,
+                  Math.max(
+                    168,
+                    visibleWidth * 0.56
+                  )
+                )
+              : Math.max(
+                  0,
+                  visibleWidth -
+                    cssNumber(
+                      '--hero-preview-width-mobile',
+                      112
+                    ) -
+                    gap
+                );
+
+          const previewWidth =
+            previewCount === 2
+              ? Math.max(
+                  0,
+                  (
+                    visibleWidth -
+                    activeWidth -
+                    previewCount * gap
+                  ) / previewCount
+                )
+              : cssNumber(
+                  '--hero-preview-width-mobile',
+                  112
+                );
 
           const activeMediaHeight =
             activeWidth * 4 / 3;
