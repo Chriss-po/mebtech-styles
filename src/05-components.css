@@ -1124,6 +1124,7 @@ button.slick-arrow{overflow:hidden;border-radius:var(--radius-pill);padding:var(
 
 .expandable-hero__item.is-active
 .expandable-hero__preview {
+  display: none;
   opacity: 0;
   transform:
     translateY(calc(var(--space-1) * -1));

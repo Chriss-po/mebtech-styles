@@ -413,6 +413,7 @@
 
 .expandable-hero__item.is-active
 .expandable-hero__preview {
+  display: none;
   opacity: 0;
   transform:
     translateY(calc(var(--space-1) * -1));
@@ -842,15 +843,11 @@
    - exact 3:4 aspect ratio
    - max 470px high
    - therefore max 352.5px wide
-   Desktop/tablet Hero is capped so 2 previews remain proportionate.
+   Desktop/tablet Hero fills its available column; 2 previews share the remaining width.
    Gallery is intentionally unaffected.
    ========================================================================== */
 
 @media (min-width: 768px) {
-  .expandable-hero:not(.expandable-hero--gallery) {
-    max-width: 769px;
-  }
-
   .expandable-hero:not(.expandable-hero--gallery)
   .expandable-hero__item.is-active
   .expandable-hero__media {

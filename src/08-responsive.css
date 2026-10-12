@@ -185,10 +185,6 @@
 }
 
 @media (min-width: 768px) {
-  .expandable-hero:not(.expandable-hero--gallery) {
-    max-width: 769px;
-  }
-
   .expandable-hero:not(.expandable-hero--gallery)
   .expandable-hero__item.is-active
   .expandable-hero__media {

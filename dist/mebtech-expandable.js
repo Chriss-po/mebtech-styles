@@ -138,14 +138,21 @@
       ).matches;
     }
 
+    const loopEnabled =
+      scrollActive &&
+      root.dataset.loop !== 'false' &&
+      items.length > 1;
+
     function updateControls() {
       if (prevButton) {
         prevButton.disabled =
+          !loopEnabled &&
           activeIndex === 0;
       }
 
       if (nextButton) {
         nextButton.disabled =
+          !loopEnabled &&
           activeIndex === items.length - 1;
       }
 
@@ -1085,7 +1092,15 @@
     function activateByInput(
       index
     ) {
-      if (isMobile()) {
+      /*
+        Static variants (Gallery: data-scroll-active="false")
+        do not use Hero rail-window geometry. They only switch the
+        active item so the flex transition can expand/collapse cards.
+      */
+      if (
+        isMobile() ||
+        !scrollActive
+      ) {
         activate(
           index,
           {
@@ -1099,6 +1114,73 @@
 
       activateDesktop(
         index
+      );
+    }
+
+    function navigateByStep(
+      direction
+    ) {
+      const rawIndex =
+        activeIndex + direction;
+
+      if (
+        !loopEnabled ||
+        (
+          rawIndex >= 0 &&
+          rawIndex < items.length
+        )
+      ) {
+        activateByInput(
+          rawIndex
+        );
+        return;
+      }
+
+      const wrappedIndex =
+        rawIndex < 0
+          ? items.length - 1
+          : 0;
+
+      /*
+        At the loop boundary, do not sweep through every intermediate
+        card. Reposition the stable desktop window immediately, then
+        activate the wrapped item.
+      */
+      if (
+        !isMobile() &&
+        scrollActive
+      ) {
+        desktopWindowStart =
+          wrappedIndex === 0
+            ? 0
+            : clampWindowStart(
+                items.length -
+                desktopWindowSize
+              );
+
+        activate(
+          wrappedIndex,
+          {
+            scroll: false
+          }
+        );
+
+        requestAnimationFrame(
+          () =>
+            setRailToWindow(
+              'auto'
+            )
+        );
+
+        return;
+      }
+
+      activate(
+        wrappedIndex,
+        {
+          scroll:
+            scrollActive
+        }
       );
     }
 
@@ -1341,8 +1423,8 @@
       prevButton.addEventListener(
         'click',
         () => {
-          activateByInput(
-            activeIndex - 1
+          navigateByStep(
+            -1
           );
         }
       );
@@ -1352,8 +1434,8 @@
       nextButton.addEventListener(
         'click',
         () => {
-          activateByInput(
-            activeIndex + 1
+          navigateByStep(
+            1
           );
         }
       );
@@ -1425,8 +1507,7 @@
               Same path as arrow buttons:
               one swipe = exactly one adjacent item.
             */
-            activateByInput(
-              activeIndex +
+            navigateByStep(
               direction
             );
           }
