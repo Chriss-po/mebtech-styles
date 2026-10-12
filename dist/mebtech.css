@@ -2068,9 +2068,9 @@ body#checkout:is(.form-control-success,.form-control-danger,.has-success .form-c
   }
 }
 
-/* Home Hero: one preview through 428px, two from 429px to 767px.
+/* Home Hero: one preview through 580px, two from 581px to 767px.
    The shared Showroom Gallery keeps its independent geometry. */
-@media (min-width: 429px) and (max-width: 767px) {
+@media (min-width: 581px) and (max-width: 767px) {
   .expandable-hero:not(.expandable-hero--gallery) {
     --hero-mobile-active-width: clamp(168px, 56cqw, 312px);
     --hero-preview-width-mobile: calc(
