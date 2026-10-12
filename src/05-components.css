@@ -703,3 +703,716 @@ button.slick-arrow{overflow:hidden;border-radius:var(--radius-pill);padding:var(
    Trust-benefit component and overlay variant.
    ------------------------------------------------------------ */
 .trust-benefits__icon{display:flex;align-items:center;justify-content:center;flex-shrink:0}.trust-benefits__icon svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.trust-benefits__title{margin:0;padding-top:var(--space-2);display:flex}.trust-benefits__description{margin:0;padding-top:var(--space-1);max-width:180px;color:var(--gray-600)}.trust-benefits__item--link{color:inherit;text-decoration:none}.trust-benefits__arrow{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:32px;height:32px;transition:transform var(--motion-ui) var(--ease-standard)}.trust-benefits__item--link:hover .trust-benefits__arrow{transform:translateX(3px)}.trust-benefits.trust-benefits--overlay{background:var(--glass-bg-strong);backdrop-filter:var(--glass-filter);-webkit-backdrop-filter:var(--glass-filter);border:var(--border-width-default) solid var(--glass-border);box-shadow:var(--shadow-glass)}.trust-benefits__icon{width:36px;height:36px;background:var(--green-50);color:var(--green-800);border-radius:var(--radius-md)}.trust-benefits__icon svg{width:var(--icon-md);height:var(--icon-md)}
+
+/* ------------------------------------------------------------
+   05.16 — Expandable media
+   Shared Hero / Showroom Gallery component · validated v6.5.
+   Legacy .showroom-* rules remain temporarily until site smoke test.
+   ------------------------------------------------------------ */
+/* ==========================================================================
+   MebTech · Expandable Media · v6.5
+   --------------------------------------------------------------------------
+   IMPORTANT
+   - This file assumes the current global MebTech stylesheet is already loaded.
+   - It DOES NOT redefine existing Design System tokens.
+   - It only adds the missing Label M role + component-specific layout/behavior.
+   - Current global tokens used here:
+     colors, spacing, radii, typography, glass, icon sizes, focus language.
+   ========================================================================== */
+
+/* ==========================================================================
+   00 · Missing semantic typography alias
+   Add this to the global typography layer once.
+   ========================================================================== */
+
+:root {
+  --type-label-m: 500 11px/1.2 var(--font-body);
+}
+
+.label-m {
+  font: var(--type-label-m);
+  letter-spacing: var(--ls-label);
+}
+
+/* ==========================================================================
+   01 · Root / rail
+   ========================================================================== */
+
+.expandable-hero {
+  --hero-active-width: 430px;
+  --hero-preview-width: 150px;
+  --hero-preview-width-mobile: 112px;
+  --hero-gap: var(--space-2);
+
+  position: relative;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+
+  container-type: inline-size;
+}
+
+.expandable-hero__rail {
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding-right: var(--space-16);
+
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.expandable-hero__rail::-webkit-scrollbar {
+  display: none;
+}
+
+.expandable-hero__track {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--hero-gap);
+
+  width: max-content;
+}
+
+/* ==========================================================================
+   02 · Banner geometry
+   ========================================================================== */
+
+.expandable-hero__item {
+  flex: 0 0 var(--hero-preview-width);
+  width: var(--hero-preview-width);
+  min-width: 0;
+
+  cursor: pointer;
+  outline: 0;
+  scroll-snap-align: start;
+
+  transition:
+    flex-basis 520ms cubic-bezier(.2,.8,.2,1),
+    width 520ms cubic-bezier(.2,.8,.2,1);
+}
+
+.expandable-hero__item.is-active {
+  flex-basis: var(--hero-active-width);
+  width: var(--hero-active-width);
+}
+
+.expandable-hero__media {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 150 / 267;
+
+  overflow: hidden;
+
+  border-radius: var(--radius-lg);
+  background: var(--surface-product);
+
+  transition:
+    aspect-ratio 520ms cubic-bezier(.2,.8,.2,1),
+    border-radius 180ms ease;
+}
+
+.expandable-hero__item.is-active .expandable-hero__media {
+  aspect-ratio: 430 / 540;
+}
+
+.expandable-hero__image,
+.expandable-hero__video {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: var(--hero-focal-point, center);
+
+  transform: scale(1.01);
+
+  transition:
+    transform 520ms cubic-bezier(.2,.8,.2,1);
+}
+
+.expandable-hero__item.is-active .expandable-hero__image,
+.expandable-hero__item.is-active .expandable-hero__video {
+  transform: scale(1.025);
+}
+
+/* Global focus language reused from the site */
+.expandable-hero__item:focus-visible .expandable-hero__media {
+  box-shadow:
+    inset 0 0 0 3px rgba(47,122,92,.24);
+}
+
+/* ==========================================================================
+   03 · Readability veil
+   --------------------------------------------------------------------------
+   This is not a separate glass card.
+   It supports text readability while reusing the global --glass-filter.
+   ========================================================================== */
+
+.expandable-hero__veil {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: 0;
+  z-index: 1;
+
+  height: 58%;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  background:
+    radial-gradient(
+      110% 80% at 12% 100%,
+      rgba(255,255,255,.17) 0%,
+      rgba(255,255,255,.07) 30%,
+      rgba(255,255,255,0) 64%
+    ),
+    radial-gradient(
+      90% 70% at 86% 90%,
+      rgba(255,255,255,.10) 0%,
+      rgba(255,255,255,0) 62%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,.025) 38%,
+      rgba(255,255,255,.07) 72%,
+      rgba(255,255,255,.105) 100%
+    );
+
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+
+  -webkit-mask-image:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0,0,0,.03) 10%,
+      rgba(0,0,0,.18) 25%,
+      rgba(0,0,0,.52) 48%,
+      rgba(0,0,0,.88) 72%,
+      #000 88%,
+      #000 100%
+    );
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0,0,0,.03) 10%,
+      rgba(0,0,0,.18) 25%,
+      rgba(0,0,0,.52) 48%,
+      rgba(0,0,0,.88) 72%,
+      #000 88%,
+      #000 100%
+    );
+
+  transition:
+    opacity 200ms ease;
+}
+
+.expandable-hero__item.is-video .expandable-hero__veil {
+  background:
+    radial-gradient(
+      100% 72% at 14% 100%,
+      rgba(255,255,255,.13) 0%,
+      rgba(255,255,255,.035) 34%,
+      rgba(255,255,255,0) 62%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(4,16,11,0) 0%,
+      rgba(4,16,11,.035) 30%,
+      rgba(4,16,11,.11) 54%,
+      rgba(4,16,11,.22) 76%,
+      rgba(4,16,11,.30) 100%
+    );
+}
+
+.expandable-hero__item.is-active .expandable-hero__veil {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   04 · Active content
+   ========================================================================== */
+
+.expandable-hero__copy {
+  position: absolute;
+  left: var(--space-4);
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 2;
+
+  color: var(--paper);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(var(--space-2));
+
+  transition:
+    opacity 180ms ease,
+    transform 280ms cubic-bezier(.2,.8,.2,1),
+    visibility 180ms ease;
+}
+
+.expandable-hero__item.is-active .expandable-hero__copy {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   05 · Active label
+   --------------------------------------------------------------------------
+   Uses the CURRENT global MebTech glass tokens.
+   ========================================================================== */
+
+.expandable-hero__label {
+  display: inline-flex;
+  align-items: center;
+
+  width: fit-content;
+  min-height: 30px;
+
+  margin-bottom: var(--space-2);
+  padding: 7px 10px;
+
+  border:
+    1px solid var(--glass-border-overlay);
+
+  border-radius:
+    var(--radius-pill);
+
+  background:
+    var(--glass-surface);
+
+  -webkit-backdrop-filter:
+    var(--glass-filter);
+
+  backdrop-filter:
+    var(--glass-filter);
+
+  box-shadow:
+    var(--glass-shadow);
+
+  color:
+    var(--green-800);
+}
+
+/* ==========================================================================
+   06 · Active typography
+   Active = Label M → H3 → Body Small
+   ========================================================================== */
+
+.expandable-hero__title {
+  width: 24ch;
+  max-width: none;
+
+  margin:
+    0
+    0
+    var(--space-1);
+
+  color: inherit;
+
+  font-family:
+    var(--font-head);
+
+  font-size:
+    var(--fs-h3);
+
+  line-height:
+    var(--lh-h3);
+
+  letter-spacing:
+    var(--ls-h3);
+
+  font-weight:
+    700;
+}
+
+.expandable-hero__description {
+   width: 100%;
+  max-width: none;
+
+  margin: 0;
+
+  color: inherit;
+
+  font-family:
+    var(--font-body);
+
+  font-size:
+    var(--fs-body-s);
+
+  line-height:
+    var(--lh-body-s);
+
+  letter-spacing:
+    var(--ls-body-s);
+
+  font-weight:
+    400;
+}
+
+/* ==========================================================================
+   07 · Photo text tone
+   ========================================================================== */
+
+.expandable-hero__item.tone-dark:not(.is-video)
+.expandable-hero__copy {
+  color:
+    var(--green-800);
+}
+
+.expandable-hero__item.tone-light:not(.is-video)
+.expandable-hero__copy,
+.expandable-hero__item.is-video
+.expandable-hero__copy {
+  color:
+    var(--paper);
+}
+
+.expandable-hero__item.tone-dark:not(.is-video)
+.expandable-hero__title,
+.expandable-hero__item.tone-dark:not(.is-video)
+.expandable-hero__description {
+  text-shadow: none;
+}
+
+.expandable-hero__item.tone-light:not(.is-video)
+.expandable-hero__title,
+.expandable-hero__item.tone-light:not(.is-video)
+.expandable-hero__description,
+.expandable-hero__item.is-video
+.expandable-hero__title,
+.expandable-hero__item.is-video
+.expandable-hero__description {
+  text-shadow:
+    0 1px 2px rgba(0,0,0,.16),
+    0 4px 18px rgba(0,0,0,.18);
+}
+
+/* ==========================================================================
+   08 · Preview content
+   Preview = Label M → Micro Title
+   ========================================================================== */
+
+.expandable-hero__preview {
+  min-height: 84px;
+
+  padding:
+    var(--space-2)
+    var(--space-1)
+    0;
+
+  transition:
+    opacity 160ms ease,
+    transform 240ms cubic-bezier(.2,.8,.2,1);
+}
+
+.expandable-hero__item.is-active
+.expandable-hero__preview {
+  opacity: 0;
+  transform:
+    translateY(calc(var(--space-1) * -1));
+
+  pointer-events: none;
+}
+
+.expandable-hero__preview-label {
+  display: block;
+
+  color:
+    var(--green-800);
+}
+
+.expandable-hero__preview-title {
+  margin:
+    var(--space-1)
+    0
+    0;
+
+  color:
+    var(--ink);
+
+  font-family:
+    var(--font-head);
+
+  font-size:
+    var(--fs-micro-title);
+
+  line-height:
+    var(--lh-micro-title);
+
+  letter-spacing:
+    var(--ls-micro-title);
+
+  font-weight:
+    700;
+}
+
+/* Inactive media is always visually clean */
+.expandable-hero__item:not(.is-active)
+.expandable-hero__copy,
+.expandable-hero__item:not(.is-active)
+.expandable-hero__veil {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ==========================================================================
+   09 · Controls
+   ========================================================================== */
+
+.expandable-hero__controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+
+  margin-top:
+    var(--space-2);
+}
+
+.expandable-hero__counter {
+  min-width: 64px;
+
+  text-align: center;
+
+  color:
+    var(--gray-600);
+
+  font-family:
+    var(--font-body);
+
+  font-size:
+    var(--fs-caption);
+
+  line-height:
+    var(--lh-caption);
+
+  letter-spacing:
+    var(--ls-caption);
+
+  font-weight:
+    500;
+
+  font-variant-numeric:
+    tabular-nums;
+}
+
+.expandable-hero__control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  padding: 0;
+
+  border:
+    1px solid var(--gray-200);
+
+  border-radius:
+    var(--radius-pill);
+
+  background:
+    var(--paper);
+
+  color:
+    var(--green-800);
+
+  cursor: pointer;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 100ms ease,
+    opacity 160ms ease;
+}
+
+.expandable-hero__control:hover:not(:disabled) {
+  background:
+    var(--green-50);
+
+  border-color:
+    var(--green-300);
+
+  color:
+    var(--green-700);
+}
+
+.expandable-hero__control:active:not(:disabled) {
+  transform:
+    translateY(1px);
+}
+
+.expandable-hero__control:disabled {
+  opacity: .3;
+  cursor: not-allowed;
+}
+
+.expandable-hero__control svg {
+  width:
+    var(--icon-sm);
+
+  height:
+    var(--icon-sm);
+
+  fill:
+    none;
+
+  stroke:
+    currentColor;
+
+  stroke-width:
+    1.8;
+
+  stroke-linecap:
+    round;
+
+  stroke-linejoin:
+    round;
+}
+
+/* ==========================================================================
+   10 · Mobile
+   ========================================================================== */
+
+
+
+/* ==========================================================================
+   11 · Reduced motion
+   ========================================================================== */
+
+
+
+/* ============================= END ============================= */
+
+
+/* ==========================================================================
+   12 · Showroom Gallery variant
+   --------------------------------------------------------------------------
+   Reuses the working Expandable Hero styles.
+   Only geometry/content differences are overridden here.
+   ========================================================================== */
+
+.expandable-hero--gallery {
+  max-width: 100%;
+}
+
+.expandable-hero--gallery .expandable-hero__rail {
+  overflow: hidden;
+  padding-right: 0;
+  scroll-snap-type: none;
+}
+
+.expandable-hero--gallery .expandable-hero__track {
+  width: 100%;
+  align-items: stretch;
+}
+
+.expandable-hero--gallery .expandable-hero__item {
+  flex: .75 1 0;
+  width: auto;
+  min-width: 0;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+
+  transition:
+    flex 520ms cubic-bezier(.2,.8,.2,1);
+}
+
+.expandable-hero--gallery .expandable-hero__item.is-active {
+  flex: 4.2 1 0;
+  width: auto;
+}
+
+.expandable-hero--gallery .expandable-hero__media,
+.expandable-hero--gallery .expandable-hero__item.is-active .expandable-hero__media {
+  height: 320px;
+  aspect-ratio: auto;
+}
+
+.expandable-hero--gallery .expandable-hero__copy {
+  left: var(--space-2);
+  right: auto;
+  bottom: var(--space-2);
+  max-width: calc(100% - (var(--space-2) * 2));
+}
+
+.expandable-hero--gallery .expandable-hero__label {
+  margin-bottom: 0;
+}
+
+.expandable-hero--gallery .expandable-hero__preview,
+.expandable-hero--gallery .expandable-hero__veil {
+  display: none;
+}
+
+
+
+/* Gallery media fill */
+.expandable-hero--gallery .expandable-hero__image,
+.expandable-hero--gallery .expandable-hero__video {
+  position: absolute !important;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ==========================================================================
+   Stable desktop window
+   --------------------------------------------------------------------------
+   Desktop geometry is solved before interaction:
+   active width + N full previews + gaps = visible rail width.
+   This removes persistent half-cards without hiding elements.
+   ========================================================================== */
+
+
+
+/* ==========================================================================
+   Mobile swipe stabilization · v6.5
+   ========================================================================== */
+
+
+
+/* ==========================================================================
+   Hero size constraint · v6.5
+   --------------------------------------------------------------------------
+   Active Hero banner:
+   - exact 3:4 aspect ratio
+   - max 470px high
+   - therefore max 352.5px wide
+   Desktop/tablet Hero is capped so 2 previews remain proportionate.
+   Gallery is intentionally unaffected.
+   ========================================================================== */
+

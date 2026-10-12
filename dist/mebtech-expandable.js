@@ -1490,8 +1490,3 @@
     computeDesktopGeometry();
   }
 })();
-
-document.addEventListener('click', function(e){
-  const link = e.target.closest('.beta-block a[href="#"]');
-  if (link) e.preventDefault();
-});
