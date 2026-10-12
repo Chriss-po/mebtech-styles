@@ -236,3 +236,28 @@
   }
 }
 
+/* ------------------------------------------------------------
+   08.6 — Category Quick Nav · tablet / desktop
+   ------------------------------------------------------------ */
+
+@media (min-width: 768px) {
+  .category-quick-nav__track {
+    grid-auto-flow:row;
+    grid-auto-columns:initial;
+
+    grid-template-columns:
+      repeat(auto-fit, 64px);
+
+    gap:var(--space-2); /* 8px */
+
+    justify-content:start;
+    align-items:start;
+
+    overflow:visible;
+
+    padding-inline:0;
+
+    scroll-snap-type:none;
+  }
+}
+

@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.5.2 — Category Quick Nav release fix
+
+- Added the accepted final Category Quick Nav styles to global source CSS.
+- Base component rules → `src/05-components.css`.
+- Tablet/desktop rules → `src/08-responsive.css`.
+- Item/tile: 64px; pictogram: 36px; icon→Label: space-1; item gap: space-2.
+- Mobile keeps native horizontal scrolling.
+- Tablet/desktop uses fixed 64px auto-fit columns instead of stretched columns.
+- This release corrects v1.5.1, whose tag was published before these source changes reached `main`.
+
+Rollback reference: **v1.5**.
+
 ## v1.5 — Expandable media + button semantics
 
 Validated on the live MebTech site before release.
