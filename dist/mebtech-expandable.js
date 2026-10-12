@@ -1,10 +1,79 @@
 (() => {
   'use strict';
 
-  const roots =
-    document.querySelectorAll('[data-expandable-hero]');
+  const ROOT_SELECTOR =
+    '[data-expandable-hero]';
 
-  roots.forEach(initExpandableHero);
+  /*
+    IQIT / Elementor may render custom HTML after the external script
+    has already executed. Initialize both the current DOM and any
+    matching blocks added later. The data-expandable-ready guard inside
+    initExpandableHero() prevents duplicate bindings.
+  */
+  function initScope(scope) {
+    if (!scope) {
+      return;
+    }
+
+    if (
+      scope.nodeType === 1 &&
+      scope.matches &&
+      scope.matches(ROOT_SELECTOR)
+    ) {
+      initExpandableHero(scope);
+    }
+
+    if (scope.querySelectorAll) {
+      scope
+        .querySelectorAll(ROOT_SELECTOR)
+        .forEach(initExpandableHero);
+    }
+  }
+
+  function boot() {
+    initScope(document);
+
+    const observer =
+      new MutationObserver(
+        mutations => {
+          mutations.forEach(
+            mutation => {
+              mutation.addedNodes.forEach(
+                node => {
+                  if (
+                    node.nodeType === 1
+                  ) {
+                    initScope(node);
+                  }
+                }
+              );
+            }
+          );
+        }
+      );
+
+    observer.observe(
+      document.documentElement,
+      {
+        childList: true,
+        subtree: true
+      }
+    );
+  }
+
+  if (
+    document.readyState === 'loading'
+  ) {
+    document.addEventListener(
+      'DOMContentLoaded',
+      boot,
+      {
+        once: true
+      }
+    );
+  } else {
+    boot();
+  }
 
   function initExpandableHero(root) {
     if (root.dataset.expandableReady === 'true') {
