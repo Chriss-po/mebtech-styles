@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.5.7 — Header, logo, system pager and coordinated mobile Hero (13.10.2026)
+
+**Status:** integrated into main after user-approved live Global CSS/JS tests. Versioned GitHub tag and CDN switch require separate verification; do not retag v1.5.6.
+
+- Header IQIT mobile/tablet visual adapter through 1199px. Native menu/search/account/cart and Glass retained. Rejected separate 46/56px header-height experiments are not included.
+- Original Logo.svg rendered via CSS mask and `--logo-color`; desktop 110px, mobile up to 100px (screen-constrained). Original alt/link preserved, native IMG fallback where masks are unsupported.
+- Shared carousel pagination reuses `.slick-dots` / `.slick-active` visuals from 05-components.css: 6px inactive, 20px active, `--space-2` gap, `--space-3` media-to-pager spacing. Mobile Home Hero + Showroom Gallery; desktop Hero keeps arrows and counter.
+- Mobile-only coordinated Hero animation (520ms, cubic-bezier(.2,.8,.2,1)); fixed stage height, active/preview expansion and scroll position synchronized, final slide and wrap behavior validated on actual site by owner. Desktop and Gallery remain unchanged. Reduced motion retained.
+- Preserve exact user-tested v8 JavaScript adapter behavior on release; its scoped rail.scrollTo interception is a technical integration detail, not a new Slider or visual pattern. Remove Global JS trial blocks before/when activating versioned JS to prevent duplicate listeners.
+- Legacy Chrome 109 Hero veil fallback retained. CSS test patches for 46/56px header and failed old forward-swipe attempts excluded.
+- CSS source: src/09-site-adapters.css loaded last by GitHub Actions. JS: dist/mebtech-expandable.js. DS document: docs/design-system-v1.5.7.md and separate updated HTML reference.
+
+**Deployment:** wait for action-generated `dist/mebtech.css`, verify output and JS, create fresh tag (suggested v1.5.7), update CDN CSS+JS URLs, and remove duplicate trial Global CSS/JS; maintain v1.5.6 for rollback.
+
+
 ## v1.5.4 — Mobile Hero vertical stability
 
 Corrects the v1.5.3 mobile page-jumping regression. **Do not retag old releases.**

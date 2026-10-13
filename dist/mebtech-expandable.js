@@ -1818,3 +1818,283 @@
     }
   }
 })();
+
+
+/* v1.5.7 · shared Design System carousel pagination */
+/* MebTech · Integrated DS pagination v1.5.7 · Reuse EXISTING Design System pagination.
+   Output is native DS markup: ul.slick-dots > li > button.
+   Visuals come exclusively from shared global .slick-dots CSS.
+   No HTML edits. Replace earlier Hero Dots Global JS, don't stack.
+   User-approved live-site pagination behavior, 2026-10-13. */
+(function () {
+  'use strict';
+
+  function initPagination(root) {
+    if (!root || root.dataset.mtSystemDotsReady === 'true') return;
+    var isGallery = root.classList.contains('expandable-hero--gallery');
+    var items = Array.prototype.slice.call(root.querySelectorAll('[data-hero-item]'));
+    if (items.length < 2) return;
+
+    if (!isGallery && root.dataset.scrollActive === 'false') return;
+    var controls = isGallery ? null : root.querySelector('.expandable-hero__controls');
+    if (!isGallery && !controls) return;
+
+    // Compatible with previous TEST v6, but remove old JS v2 from Global JS.
+    Array.prototype.forEach.call(root.querySelectorAll('.mt-hero-dots'),
+      function (el) { el.remove(); });
+    if (isGallery) {
+      controls = root.querySelector('.mt-gallery-dot-controls');
+      if (!controls) {
+        controls = document.createElement('div');
+        controls.className = 'mt-gallery-dot-controls';
+        root.appendChild(controls);
+      }
+    }
+
+    root.dataset.mtSystemDotsReady = 'true';
+    var list = document.createElement('ul');
+    list.className = 'slick-dots mt-system-pagination';
+    list.setAttribute('aria-label', isGallery
+      ? 'Навігація фотографіями галереї' : 'Навігація банерами');
+
+    var buttons = items.map(function (item, index) {
+      var li = document.createElement('li');
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.setAttribute('aria-label',
+        (isGallery ? 'Фото ' : 'Банер ') + (index + 1) + ' із ' + items.length);
+      button.setAttribute('aria-current', 'false');
+
+      button.addEventListener('click', function () {
+        // Existing Expandable Media activates items on focus.
+        // Hero slides can be links: do NOT call their click handler.
+        var wasFocusable = item.matches(
+          'a[href],button,input,select,textarea,[tabindex]');
+        if (!wasFocusable) item.setAttribute('tabindex', '-1');
+        try { item.focus({ preventScroll: true }); }
+        catch (err) { item.focus(); }
+        if (!wasFocusable) item.removeAttribute('tabindex');
+        try { button.focus({ preventScroll: true }); }
+        catch (err) { button.focus(); }
+        requestAnimationFrame(sync);
+      });
+      li.appendChild(button);
+      list.appendChild(li);
+      return { li: li, button: button };
+    });
+
+    function sync() {
+      var active = items.findIndex(function (item) {
+        return item.classList.contains('is-active');
+      });
+      if (active < 0) active = 0;
+      buttons.forEach(function (entry, i) {
+        entry.li.classList.toggle('slick-active', i === active);
+        entry.button.setAttribute('aria-current', i === active ? 'true' : 'false');
+      });
+    }
+
+    controls.appendChild(list);
+    var observer = new MutationObserver(function () { requestAnimationFrame(sync); });
+    items.forEach(function (item) {
+      observer.observe(item, { attributes: true, attributeFilter: ['class'] });
+    });
+    sync();
+  }
+
+  function initAll(scope) {
+    if (!scope || !scope.querySelectorAll) return;
+    if (scope.matches && scope.matches('[data-expandable-hero]'))
+      initPagination(scope);
+    Array.prototype.forEach.call(
+      scope.querySelectorAll('[data-expandable-hero]'), initPagination);
+  }
+
+  function boot() {
+    initAll(document);
+    if (!document.body) return;
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        mutation.addedNodes.forEach(function (node) {
+          if (node.nodeType === 1) initAll(node);
+        });
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+})();
+
+/* v1.5.7 · coordinated mobile Hero motion (site-tested adapter) */
+/*
+ * MebTech — Mobile Expandable Hero coordinated motion · v1.5.7
+ * Integrated after native component and DS pagination.
+ * Preserves the user-approved coordinated mobile scroll behavior.
+ * Works with existing production Expandable Hero initializer: no new slider.
+ * Home Hero only, <=767px. Desktop and Showroom Gallery unchanged.
+ */
+(function () {
+  'use strict';
+
+  var SELECTOR = '[data-expandable-hero]:not(.expandable-hero--gallery)';
+  var mobile = window.matchMedia('(max-width: 767px)');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var DURATION = 520; // Matches existing DS Hero card motion: 520ms.
+
+  function ease(t) {
+    // Cubic-bezier(.2,.8,.2,1) is approximated for scroll interpolation;
+    // geometry transitions continue using the original CSS bezier.
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function mount(root) {
+    if (root.dataset.mtCoordinatedMotion === 'v8') return;
+    if (root.dataset.scrollActive === 'false') return;
+
+    var rail = root.querySelector('[data-hero-rail]');
+    var track = root.querySelector('.expandable-hero__track');
+    var items = Array.prototype.slice.call(root.querySelectorAll('[data-hero-item]'));
+    if (!rail || !track || items.length < 3) return;
+
+    var nativeScrollTo = rail.scrollTo.bind(rail);
+    var activeIndex = items.findIndex(function (node) {
+      return node.classList.contains('is-active');
+    });
+    if (activeIndex < 0) activeIndex = 0;
+
+    var animationFrame = 0;
+    var resizeFrame = 0;
+
+    function previewWidth() {
+      // Read a stable INACTIVE card, not the two cards changing size.
+      var widths = items.reduce(function (arr, item, index) {
+        if (index === activeIndex || item.classList.contains('is-active')) return arr;
+        var width = item.getBoundingClientRect().width;
+        if (width > 0) arr.push(width);
+        return arr;
+      }, []);
+      return widths.length ? Math.min.apply(null, widths) : 0;
+    }
+
+    function target() {
+      var preview = previewWidth();
+      var styles = window.getComputedStyle(track);
+      var gap = parseFloat(styles.columnGap || styles.gap) || 0;
+      var maxScroll = Math.max(0, rail.scrollWidth - rail.clientWidth);
+      // In the final layout, all preceding cards are preview-sized.
+      // The last card naturally clamps to the end of the real track.
+      var settled = activeIndex * (preview + gap);
+      return Math.max(0, Math.min(settled, maxScroll));
+    }
+
+    function setScroll(x) {
+      // No native smooth-scroll race: the animation loop owns scrollLeft.
+      var max = Math.max(0, rail.scrollWidth - rail.clientWidth);
+      rail.scrollLeft = Math.max(0, Math.min(x, max));
+    }
+
+    function cancel() {
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      animationFrame = 0;
+    }
+
+    function move(nextIndex, priorIndex) {
+      cancel();
+      if (!mobile.matches || reduced.matches) return;
+      var from = rail.scrollLeft;
+      var wrapped = Math.abs(nextIndex - priorIndex) > 1;
+      if (wrapped) {
+        // Direct dots jumps / 1↔last wraps do not sweep through all banners.
+        setScroll(target());
+        // Re-clamp after the width interpolation settles.
+        window.setTimeout(function () {
+          if (activeIndex === nextIndex && mobile.matches) setScroll(target());
+        }, DURATION + 40);
+        return;
+      }
+      var start = performance.now();
+      function tick(now) {
+        if (!mobile.matches || reduced.matches) {
+          animationFrame = 0;
+          return;
+        }
+        var p = Math.min(1, (now - start) / DURATION);
+        setScroll(from + (target() - from) * ease(p));
+        if (p < 1) animationFrame = requestAnimationFrame(tick);
+        else {
+          animationFrame = 0;
+          setScroll(target());
+        }
+      }
+      animationFrame = requestAnimationFrame(tick);
+    }
+
+    // Native mobile ensureVisible() still calls rail.scrollTo after activation.
+    // Prevent a second, conflicting animation ONLY while this test mode is on.
+    rail.scrollTo = function (options, top) {
+      if (!mobile.matches || reduced.matches) {
+        // Preserve the native overload. Passing (options, undefined)
+        // changes scrollTo({left}) into scrollTo(x,y) and resets x to 0.
+        return arguments.length > 1
+          ? nativeScrollTo(options, top)
+          : nativeScrollTo(options);
+      }
+      return undefined;
+    };
+
+    var observer = new MutationObserver(function () {
+      var nextIndex = items.findIndex(function (node) {
+        return node.classList.contains('is-active');
+      });
+      if (nextIndex < 0 || nextIndex === activeIndex) return;
+      var priorIndex = activeIndex;
+      activeIndex = nextIndex;
+      move(nextIndex, priorIndex);
+    });
+    items.forEach(function (item) {
+      observer.observe(item, { attributes: true, attributeFilter: ['class'] });
+    });
+
+    window.addEventListener('resize', function () {
+      if (resizeFrame) cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(function () {
+        resizeFrame = 0;
+        if (mobile.matches && !reduced.matches && !animationFrame) {
+          setScroll(target());
+        }
+      });
+    }, { passive: true });
+
+    root.dataset.mtCoordinatedMotion = 'v8';
+  }
+
+  function scan(scope) {
+    if (!scope || !scope.querySelectorAll) return;
+    if (scope.matches && scope.matches(SELECTOR)) mount(scope);
+    Array.prototype.forEach.call(scope.querySelectorAll(SELECTOR), mount);
+  }
+
+  function boot() {
+    scan(document);
+    if (!document.body) return;
+    var domObserver = new MutationObserver(function (changes) {
+      changes.forEach(function (change) {
+        change.addedNodes.forEach(function (node) {
+          if (node.nodeType === 1) scan(node);
+        });
+      });
+    });
+    domObserver.observe(document.body, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+})();

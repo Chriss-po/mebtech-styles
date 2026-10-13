@@ -46,6 +46,8 @@ jobs:
           cat src/07-utilities.css >> dist/mebtech.css
           printf '\n' >> dist/mebtech.css
           cat src/08-responsive.css >> dist/mebtech.css
+          printf '\n' >> dist/mebtech.css
+          cat src/09-site-adapters.css >> dist/mebtech.css
 
       - name: Commit generated CSS
         shell: bash

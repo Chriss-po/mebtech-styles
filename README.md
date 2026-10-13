@@ -13,7 +13,7 @@ The site loads one versioned stylesheet:
 >
 ```
 
-Release target: `v1.5`. Confirmed rollback baseline: `v1.4.3`.
+Current source target: `v1.5.7` (tag/CDN change are separate deployment steps). Confirmed previous tagged baseline: `v1.5.6`.
 
 ## Architecture
 
@@ -26,14 +26,16 @@ src/
 ├── 05-components.css
 ├── 06-forms.css
 ├── 07-utilities.css
-└── 08-responsive.css
+├── 08-responsive.css
+└── 09-site-adapters.css
 
 dist/
 ├── mebtech.css
 └── mebtech-expandable.js
 
 docs/
-└── design-system-v1.5.md
+├── design-system-v1.5.md
+└── design-system-v1.5.7.md
 ```
 
 ### Ownership
@@ -45,9 +47,11 @@ docs/
 - `05-components.css` — components + PrestaShop/IQIT/Elementor visual adapters.
 - `06-forms.css` — fields and validation.
 - `07-utilities.css` — small reusable helpers.
-- `08-responsive.css` — all breakpoint overrides + reduced motion.
+- `08-responsive.css` — core responsive overrides + reduced motion.
+- `09-site-adapters.css` — approved IQIT Header, SVG brand logo, DS pager placement, legacy veil fallback and mobile Hero motion.
 - `dist/mebtech-expandable.js` — shared Expandable Hero / Gallery interaction behavior.
-- `docs/design-system-v1.5.md` — implementation contract for the v1.5 components.
+- `docs/design-system-v1.5.md` — v1.5 historical contract.
+- `docs/design-system-v1.5.7.md` — current approved 13 Oct 2026 adaptations.
 
 ## Editing rule
 
