@@ -1969,27 +1969,75 @@ body#checkout:is(.form-control-success,.form-control-danger,.has-success .form-c
 }
 
 /* ------------------------------------------------------------
-   08.6 — Category Quick Nav · tablet / desktop
+   08.6 — Category Quick Nav · tablet swipe / desktop square grid
+   v1.6.1 · User-accepted Category Quick Nav TEST v3
    ------------------------------------------------------------ */
 
-@media (min-width: 768px) {
+/* Tablet retains the mobile single-line swipe pattern. */
+@media (min-width: 768px) and (max-width: 1199px) {
   .category-quick-nav__track {
-    grid-auto-flow:row;
-    grid-auto-columns:initial;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 64px;
+    grid-template-columns: none;
+    justify-content: start;
+    align-items: start;
+    gap: var(--space-2, 8px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: var(--space-3, 12px) 0;
+  }
 
-    grid-template-columns:
-      repeat(auto-fit, 64px);
+  .category-quick-nav__track::-webkit-scrollbar {
+    display: none;
+  }
+}
 
-    gap:var(--space-2); /* 8px */
+/* Desktop uses the available parent width, not an invented max-width.
+   Icons and BELOW-tile captions retain their existing DS size/type. */
+@media (min-width: 1200px) {
+  nav.category-quick-nav {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+  }
 
-    justify-content:start;
-    align-items:start;
+  nav.category-quick-nav > .category-quick-nav__track {
+    display: grid !important;
+    grid-auto-flow: row !important;
+    grid-auto-columns: auto !important;
+    grid-template-columns: repeat(auto-fit, minmax(64px, 1fr)) !important;
+    justify-content: stretch !important;
+    justify-items: stretch;
+    align-items: start;
+    width: 100% !important;
+    min-width: 0;
+    max-width: none !important;
+    gap: var(--space-2, 8px);
+    overflow: visible;
+  }
 
-    overflow:visible;
+  nav.category-quick-nav > .category-quick-nav__track > .category-quick-nav__item {
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
 
-    padding-inline:0;
+  nav.category-quick-nav > .category-quick-nav__track > .category-quick-nav__item > .category-quick-nav__visual {
+    box-sizing: border-box;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    flex: 0 0 auto;
+  }
 
-    scroll-snap-type:none;
+  nav.category-quick-nav > .category-quick-nav__track > .category-quick-nav__item > .category-quick-nav__title {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 }
 
@@ -4285,5 +4333,18 @@ body#checkout:is(.form-control-success,.form-control-danger,.has-success .form-c
     -webkit-backdrop-filter:none !important;
     backdrop-filter:none !important;
     box-shadow:none !important;
+  }
+}
+/* v1.6.1 — Desktop utility row fine-tuning only. Main Header row unchanged. */
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready .header-nav .row.justify-content-between {
+    padding-top: var(--space-1, 4px) !important;
+  }
+  #header.mt-desktop-nav-ready .header-nav .row.justify-content-between .mt-utility-city svg {
+    width: var(--icon-sm, 16px) !important;
+    height: var(--icon-sm, 16px) !important;
+    min-height: 0 !important;
+    max-height: var(--icon-sm, 16px) !important;
+    flex: 0 0 var(--icon-sm, 16px) !important;
   }
 }

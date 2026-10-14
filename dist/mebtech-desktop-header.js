@@ -297,13 +297,39 @@
                        header.querySelector('#ps-shoppingcart-wrapper');
     var cartHome = originalCart && originalCart.parentNode;
     var cartSibling = originalCart && originalCart.nextSibling;
+    // IQIT renders the real native cart under its hidden sticky holder while
+    // leaving #ps-shoppingcart-wrapper empty. Preserve and relocate the SAME
+    // #ps-shoppingcart node, retaining its native AJAX updates and handlers.
+    var liveCart = desktop.querySelector('#ps-shoppingcart');
+    var nativeCartHome = liveCart && liveCart.parentNode;
+    var nativeCartSibling = liveCart && liveCart.nextSibling;
     var pendingCart = false;
+    function restoreNativeCart() {
+      var current = desktop.querySelector('#ps-shoppingcart') || liveCart;
+      if (!current || !nativeCartHome || !nativeCartHome.isConnected ||
+          current.parentNode === nativeCartHome) return;
+      if (nativeCartSibling && nativeCartSibling.parentNode === nativeCartHome) {
+        nativeCartHome.insertBefore(current, nativeCartSibling);
+      } else {
+        nativeCartHome.appendChild(current);
+      }
+    }
     function putCartBack() {
       pendingCart = false;
       if (!header.classList.contains('mt-desktop-nav-ready') &&
           !header.classList.contains('mt-desktop-nav-booting')) return;
       var cart = header.querySelector('#ps-shoppingcart-wrapper');
       if (cart && cart.parentNode !== actionsRow) actionsRow.appendChild(cart);
+      var nativeCart = desktop.querySelector('#ps-shoppingcart');
+      if (!cart || !nativeCart) return;
+      if (nativeCart !== liveCart) {
+        liveCart = nativeCart;
+        if (!nativeCartHome || !nativeCartHome.isConnected) {
+          nativeCartHome = nativeCart.parentNode;
+          nativeCartSibling = nativeCart.nextSibling;
+        }
+      }
+      if (nativeCart.parentNode !== cart) cart.appendChild(nativeCart);
     }
     function requestCart() {
       if (pendingCart) return;
@@ -319,6 +345,7 @@
     });
     var stickyCartHome = desktop.querySelector('#sticky-cart-wrapper');
     if (stickyCartHome) cartObserver.observe(stickyCartHome,{childList:true});
+    if (originalCart) cartObserver.observe(originalCart,{childList:true});
     cartObserver.observe(actionsRow,{childList:true});
 
     var input = searchCol.querySelector('#search_widget input[name="s"]');
@@ -366,6 +393,11 @@
     }, {signal:globalEventAbort.signal});
     window.__mtDesktopCleanup = function () {
       closeCatalog(); closeBuyers(); cartObserver.disconnect(); globalEventAbort.abort(); nativeCategoryEvents.abort();
+      if (window.prestashop && typeof window.prestashop.off === 'function') {
+        window.prestashop.off('updatedCart',requestCart);
+      }
+      // Return the original native cart subtree to IQIT before restoring shell.
+      restoreNativeCart();
       // Return native cart and language before removing transformed UI.
       if (originalCart && cartHome && cartHome.isConnected && originalCart.isConnected) {
         if (cartSibling && cartSibling.parentNode === cartHome) cartHome.insertBefore(originalCart,cartSibling);
@@ -399,6 +431,12 @@
     // Open-only prevents needless work when panel is closed.
     window.addEventListener('resize',measureOverlay,{signal:globalEventAbort.signal,passive:true});
     window.addEventListener('scroll',measureOverlay,{signal:globalEventAbort.signal,passive:true});
+    window.addEventListener('resize',requestCart,{signal:globalEventAbort.signal,passive:true});
+    window.addEventListener('scroll',requestCart,{signal:globalEventAbort.signal,passive:true});
+    document.addEventListener('prestashop:updatedCart',requestCart,{signal:globalEventAbort.signal});
+    if (window.prestashop && typeof window.prestashop.on === 'function') {
+      window.prestashop.on('updatedCart',requestCart);
+    }
 
     // Put the live cart into the correct column immediately.
     requestCart();
