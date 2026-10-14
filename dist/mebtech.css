@@ -2830,3 +2830,1460 @@ body#checkout:is(.form-control-success,.form-control-danger,.has-success .form-c
     --mt-motion-active-width: var(--hero-mobile-active-width);
   }
 }
+
+/* MebTech Desktop Header v4.5 — native IQIT global menu.
+   Load after src/09-site-adapters.css. Activated by JS via mt-desktop-nav-ready.
+   Matches the user-tested Global CSS v4.5 cascade. */
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready {
+    --mt-desktop-header-border: var(--gray-100, #e6e7e4);
+    --mt-desktop-header-ink: var(--green-800, #0c2a20);
+    --mt-desktop-header-gap: var(--space-3, 12px);
+  }
+  #header.mt-desktop-nav-ready .header-nav {
+    background:var(--paper, #fff) !important;
+    color:var(--ink, #222);
+    border:0 !important;
+    box-shadow:none !important;
+    padding:0 !important;
+    min-height:40px;
+  }
+  #header.mt-desktop-nav-ready .header-nav>.container {
+    max-width:none !important;
+    width:100% !important;
+    padding:0 clamp(16px,2vw,40px) !important;
+  }
+  #header.mt-desktop-nav-ready .header-nav .row.justify-content-between {
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    min-height:40px;
+    margin:0 !important;
+    gap:var(--space-4,16px);
+  }
+  #header.mt-desktop-nav-ready .header-nav .left-nav,
+  #header.mt-desktop-nav-ready .header-nav .right-nav {
+    width:auto !important;
+    max-width:none !important;
+    flex:0 0 auto !important;
+    padding:0 !important;
+    margin:0 !important;
+    text-align:left !important;
+  }
+  #header.mt-desktop-nav-ready .header-nav .left-nav { display:flex; align-items:center; gap:var(--space-3,12px); }
+  #header.mt-desktop-nav-ready .header-nav .center-nav {display:none !important;}
+  #header.mt-desktop-nav-ready .header-nav .social-links,
+  #header.mt-desktop-nav-ready .header-nav .block-iqitlinksmanager {display:none !important;}
+  #header.mt-desktop-nav-ready .mt-utility-city {
+    display:inline-flex; align-items:center; gap:var(--space-1,4px);
+    white-space:nowrap; color:var(--gray-700,#555); font-size:14px;
+  }
+  #header.mt-desktop-nav-ready .mt-utility-city svg {width:19px; height:19px;}
+  #header.mt-desktop-nav-ready #language_selector {display:inline-flex !important; font-size:14px;}
+  #header.mt-desktop-nav-ready #language_selector .lang-flag {display:none !important;}
+  #header.mt-desktop-nav-ready #language_selector .expand-more {color:var(--gray-700,#555) !important;}
+  #header.mt-desktop-nav-ready .mt-utility-links {display:flex; align-items:center; gap:clamp(12px,1.4vw,28px);}
+  #header.mt-desktop-nav-ready .mt-utility-links a,
+  #header.mt-desktop-nav-ready .mt-utility-buyers-button {
+    background:none; border:0; padding:5px 0; margin:0; color:var(--gray-700,#555);
+    font:inherit; font-size:14px; font-weight:500; line-height:1.3;
+    text-decoration:none; cursor:pointer; white-space:nowrap;
+  }
+  #header.mt-desktop-nav-ready .mt-utility-links .mt-utility-offers { color:var(--red-600, #bc4b35); }
+  #header.mt-desktop-nav-ready .mt-utility-links .mt-utility-custom {font-weight:700;}
+  #header.mt-desktop-nav-ready .mt-utility-links a:hover,
+  #header.mt-desktop-nav-ready .mt-utility-buyers-button:hover { color:var(--mt-desktop-header-ink); }
+  #header.mt-desktop-nav-ready .mt-utility-buyers {position:relative;}
+  #header.mt-desktop-nav-ready .mt-utility-buyers-button {display:flex; align-items:center; gap:4px;}
+  #header.mt-desktop-nav-ready .mt-utility-buyers-button svg {width:15px;height:15px;}
+  #header.mt-desktop-nav-ready .mt-utility-buyers-panel {
+    position:absolute; right:0; top:calc(100% + 8px); z-index:1002;
+    display:grid; width:270px; background:var(--paper,#fff);
+    padding:var(--space-2,8px); border:1px solid var(--mt-desktop-header-border);
+    border-radius:var(--radius-md,8px); box-shadow:var(--shadow-lg,0 12px 30px #0002);
+  }
+  #header.mt-desktop-nav-ready .mt-utility-buyers-panel[hidden],
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-panel[hidden] {display:none !important;}
+  #header.mt-desktop-nav-ready .mt-utility-buyers-panel a {
+    padding:10px 12px; white-space:normal; border-radius:var(--radius-sm,4px);
+  }
+  #header.mt-desktop-nav-ready .mt-utility-buyers-panel a:hover {background:var(--green-50,#eff5f0);}
+
+  /* Main row is the single desktop shopping/navigation surface. */
+  #header.mt-desktop-nav-ready #desktop-header {position:relative; z-index:100;}
+  #header.mt-desktop-nav-ready #desktop-header .header-top {
+    position:relative; overflow:visible !important; background:var(--paper,#fff) !important;
+    border:1px solid var(--mt-desktop-header-border); border-radius:var(--radius-lg,16px);
+    margin:var(--space-1,4px) clamp(12px,1.2vw,24px) 0 !important;
+    box-shadow:none !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #desktop-header-container {
+    width:100% !important; max-width:none !important;
+    padding:0 clamp(12px,1.7vw,28px) !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #desktop-header-container > .row {
+    display:grid !important;
+    grid-template-columns:max-content max-content minmax(180px,1fr) max-content;
+    gap:var(--mt-desktop-header-gap);
+    align-items:center !important;
+    margin:0 !important;
+    min-height:72px;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #desktop-header-container > .row > .col {
+    flex:none !important; max-width:none !important; width:auto !important;
+    min-width:0; padding:0 !important; margin:0 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop_logo {margin:0 !important;}
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-slot {position:relative;}
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-button {
+    display:inline-flex; gap:var(--space-2,8px); justify-content:center; align-items:center;
+    padding:0 var(--space-4,16px); height:52px; min-height:44px;
+    background:var(--mt-desktop-header-ink); color:var(--paper,#fff);
+    border:1px solid var(--mt-desktop-header-ink); border-radius:var(--radius-md,8px);
+    font:inherit; font-weight:700; font-size:16px; letter-spacing:0;
+    cursor:pointer; white-space:nowrap;
+    transition:background-color .2s ease,color .2s ease;
+  }
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-button svg {width:23px;height:23px;}
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-button:hover,
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-button[aria-expanded="true"] {background:var(--green-700,#1d4f3c);}
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-button:focus-visible,
+  #header.mt-desktop-nav-ready .mt-utility-links :focus-visible {outline:2px solid var(--focus-ring,#1e8f63);outline-offset:3px;}
+  #header.mt-desktop-nav-ready .col-header-center {min-width:0 !important;}
+  #header.mt-desktop-nav-ready .col-header-center #search_widget {width:100% !important;max-width:none !important;}
+  #header.mt-desktop-nav-ready .col-header-center #search_widget form {width:100% !important;}
+  #header.mt-desktop-nav-ready .col-header-center #search_widget .input-group {
+    display:flex; align-items:stretch; width:100% !important; min-height:52px;
+    border-radius:var(--radius-md,8px); background:var(--gray-50,#f7f7f5);
+    border:0; overflow:visible;
+  }
+  #header.mt-desktop-nav-ready .col-header-center #search_widget input.form-search-control {
+    order:1; flex:1 1 auto; min-width:0; width:100% !important; height:52px;
+    background:transparent !important; border:0 !important; box-shadow:none !important;
+    padding:0 var(--space-3,12px) !important; border-radius:0 !important;
+  }
+  #header.mt-desktop-nav-ready .col-header-center #search_widget button.search-btn {
+    order:0; position:static !important; inset:auto !important;
+    flex:0 0 48px; width:48px; height:52px; margin:0; padding:0;
+    display:flex; align-items:center;justify-content:center; background:transparent;
+    border:0; color:var(--mt-desktop-header-ink);
+  }
+  #header.mt-desktop-nav-ready .col-header-center #search_widget .autocomplete-suggestions {
+    max-width:100%; z-index:1005;
+  }
+  #header.mt-desktop-nav-ready .col-header-right {
+    display:flex; align-items:center; gap:clamp(8px,1vw,18px); white-space:nowrap;
+  }
+  #header.mt-desktop-nav-ready .col-header-right .ws-topphones {
+    float:none !important; display:flex;align-items:center; margin:0 !important;
+    padding:0 !important; order:0;
+  }
+  #header.mt-desktop-nav-ready .col-header-right .ws-topphones p {margin:0 !important;}
+  #header.mt-desktop-nav-ready .col-header-right .ws-topphones a {
+    display:inline-flex; align-items:center; white-space:nowrap;
+    color:var(--gray-700,#555); text-decoration:none; font-weight:500; font-size:14px;
+  }
+  #header.mt-desktop-nav-ready .col-header-right .ws-topphones .fa-phone {display:none !important;}
+  #header.mt-desktop-nav-ready .col-header-right > .row {
+    order:1; display:flex !important; flex-wrap:nowrap !important;
+    align-items:center;justify-content:flex-end !important;
+    gap:var(--space-1,4px); width:auto; margin:0 !important;
+  }
+  #header.mt-desktop-nav-ready .col-header-right > .row > * {
+    width:auto !important; flex:0 0 auto !important; max-width:none !important;
+    margin:0 !important; padding:0 !important;
+  }
+  #header.mt-desktop-nav-ready .col-header-right .header-btn,
+  #header.mt-desktop-nav-ready .col-header-right .mt-header-action a {
+    display:flex !important; align-items:center;justify-content:center;
+    min-height:44px;min-width:40px; padding:0 4px !important;
+    color:var(--mt-desktop-header-ink) !important;
+    text-decoration:none !important; background:transparent !important;
+  }
+  #header.mt-desktop-nav-ready .mt-header-action a {font-size:0 !important;}
+  #header.mt-desktop-nav-ready .mt-header-action a .fa {font-size:23px !important;}
+  #header.mt-desktop-nav-ready .col-header-right .header-btn .fa {font-size:23px !important;}
+  #header.mt-desktop-nav-ready #desktop-header > .iqit-megamenu-container {display:none !important;}
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-panel {
+    position:absolute; z-index:1010;
+    top:calc(100% + 8px); left:0;
+    display:block; width:min(1120px,calc(100vw - 40px));
+    max-height:calc(100vh - 140px); overflow-y:auto;
+    background:var(--paper,#fff);
+    border:1px solid var(--mt-desktop-header-border);
+    border-radius:var(--radius-lg,16px);
+    box-shadow:var(--shadow-lg,0 18px 38px rgba(0,0,0,.14));
+    padding:var(--space-5,20px); overscroll-behavior:contain;
+  }
+  /* IQIT's .cbp-hrsub is normally hidden until hovered inside its original nav.
+     The cloned content in this panel must always be visible when panel isn't hidden. */
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-panel .cbp-hrsub,
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-panel .cbp-hrsub-inner,
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-panel .iqitmegamenu-submenu-container {
+    display:block !important; position:static !important; visibility:visible !important;
+    opacity:1 !important; transform:none !important;
+    inset:auto !important; width:100% !important;max-width:none !important;
+    height:auto !important; min-height:0 !important;
+    border:0 !important; background:transparent !important;box-shadow:none !important;
+  }
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-panel .cbp-hrsub {padding:0 !important;}
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-panel .cbp-column-title {
+    color:var(--mt-desktop-header-ink);font-weight:700;text-decoration:none;
+  }
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-panel a {text-decoration:none;}
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-panel a:hover {color:var(--green-600,#267954);}
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-panel a:focus-visible {outline:2px solid var(--focus-ring,#1e8f63);outline-offset:2px;}
+}
+@media (min-width: 992px) and (max-width:1360px) {
+  #header.mt-desktop-nav-ready {--mt-desktop-header-gap:var(--space-2,8px);}
+  #header.mt-desktop-nav-ready .header-top #desktop-header-container {padding-inline:12px !important;}
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-button {padding-inline:12px;}
+  #header.mt-desktop-nav-ready .col-header-right {gap:8px;}
+  #header.mt-desktop-nav-ready .col-header-right .ws-topphones a {font-size:13px;}
+  #header.mt-desktop-nav-ready .mt-utility-links {gap:12px;}
+}
+@media (prefers-reduced-motion:reduce) {
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-button {transition:none !important;}
+}
+
+/* ================================================================
+   MebTech Desktop Header · site-first QA patch v1.1 · 13.10.2026
+   Append AFTER the existing Desktop Header TEST v1 CSS.
+   Requires original Global JS TEST v1; no new JavaScript is needed.
+   Desktop only (>=1200px). Never touches the mobile/tablet header.
+   ================================================================ */
+@media (min-width: 992px) {
+  /* Shared DS page container: the whole header aligns with site content. */
+  #header.mt-desktop-nav-ready .header-nav > .container {
+    box-sizing: border-box;
+    width: calc(100% - 2 * var(--space-4, 16px)) !important;
+    max-width: var(--container-max, 1280px) !important;
+    margin-inline: auto !important;
+    padding-inline: var(--space-3, 12px) !important;
+  }
+
+  /* Main Header border should NOT stretch across the browser viewport. */
+  #header.mt-desktop-nav-ready #desktop-header > .header-top {
+    box-sizing: border-box;
+    width: calc(100% - 2 * var(--space-4, 16px)) !important;
+    max-width: var(--container-max, 1280px) !important;
+    margin: var(--space-2, 8px) auto 0 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header #desktop-header-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-inline: var(--space-5, 20px) !important;
+  }
+
+  /* The native IQIT / PrestaShop cart remains in the action row. */
+  #header.mt-desktop-nav-ready #ps-shoppingcart-wrapper,
+  #header.mt-desktop-nav-ready #ps-shoppingcart,
+  #header.mt-desktop-nav-ready #blockcart {
+    display: block !important;
+    width: auto !important;
+    min-width: 0;
+    overflow: visible !important;
+  }
+  #header.mt-desktop-nav-ready #cart-toogle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    color: var(--green-800, #0C2A20) !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    cursor: pointer;
+  }
+  #header.mt-desktop-nav-ready #cart-toogle > .info-wrapper {
+    display: none !important;
+  }
+  #header.mt-desktop-nav-ready #cart-toogle > i.fa-shopping-bag {
+    display: block !important;
+    position: relative;
+    flex: 0 0 var(--icon-md, 24px);
+    width: var(--icon-md, 24px);
+    height: var(--icon-md, 24px);
+    font-size: 0 !important;
+    line-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Exact cart pictogram already used by the DS mobile Header. */
+  #header.mt-desktop-nav-ready #cart-toogle > i.fa-shopping-bag::before {
+    content: "" !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: currentColor !important;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.8%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M4%205h2l2.2%2011.2a2%202%200%200%200%202%201.6h7a2%202%200%200%200%202-1.6L21%208H7%22/%3E%20%3Ccircle%20cx%3D%2210%22%20cy%3D%2221%22%20r%3D%221.4%22/%3E%20%3Ccircle%20cx%3D%2218%22%20cy%3D%2221%22%20r%3D%221.4%22/%3E%20%3C/svg%3E") center / contain no-repeat !important;
+            mask: url("data:image/svg+xml,%3Csvg%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.8%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M4%205h2l2.2%2011.2a2%202%200%200%200%202%201.6h7a2%202%200%200%200%202-1.6L21%208H7%22/%3E%20%3Ccircle%20cx%3D%2210%22%20cy%3D%2221%22%20r%3D%221.4%22/%3E%20%3Ccircle%20cx%3D%2218%22%20cy%3D%2221%22%20r%3D%221.4%22/%3E%20%3C/svg%3E") center / contain no-repeat !important;
+  }
+
+  /* Keep the actual cart counter bound to the original PrestaShop state. */
+  #header.mt-desktop-nav-ready #cart-toogle > i .cart-products-count-btn {
+    display: inline-flex !important; /* overrides theme's d-none (zero) */
+    align-items: center !important;
+    justify-content: center !important;
+    position: absolute !important;
+    z-index: 2;
+    top: -7px !important;
+    right: -9px !important;
+    left: auto !important;
+    bottom: auto !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    padding: 0 3px !important;
+    border-radius: var(--radius-pill, 999px) !important;
+    background: var(--green-800, #0C2A20) !important;
+    color: var(--paper, #fff) !important;
+    font-family: var(--font-body, Arial, sans-serif) !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    white-space: nowrap;
+    box-shadow: 0 0 0 2px var(--paper, #fff);
+  }
+  #header.mt-desktop-nav-ready #cart-toogle:hover,
+  #header.mt-desktop-nav-ready #cart-toogle:focus-visible {
+    color: var(--green-700, #123C2C) !important;
+  }
+}
+
+/* =====================================================================
+   MebTech Desktop Header · SITE-FIRST TEST v1.2 · Sticky + DS Glass
+   Append AFTER: Desktop Header v1 CSS and container/cart v1.1 CSS.
+   Requires: Desktop Header Global JS v1 + Sticky Glass JS v1.2.
+   Scope >=1200px only. No GitHub / production release until approved.
+   ===================================================================== */
+@media (min-width: 992px) {
+  /* Existing theme container remains centered at the DS maximum. */
+  #header.mt-desktop-nav-ready #desktop-header > .header-top {
+    box-sizing: border-box;
+    width: calc(100% - 2 * var(--space-4, 16px)) !important;
+    max-width: var(--container-max, 1280px) !important;
+    margin: var(--space-2, 8px) auto 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    background: var(--paper, #fff) !important;
+    background-image: none !important;
+    border: 1px solid var(--glass-border, rgba(11,42,32,.12)) !important;
+    box-shadow: none !important;
+    transition: background-color var(--motion-base,250ms) ease,
+                box-shadow var(--motion-base,250ms) ease;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #desktop-header-container {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  /* The spacer retains the natural document flow when the header is fixed. */
+  #header.mt-desktop-nav-ready .mt-desktop-sticky-placeholder {
+    display: block;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    pointer-events: none;
+  }
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck {
+    position: fixed !important;
+    z-index: 1100 !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+  /* Mobile Header analogue: opaque at top, glass once stuck. */
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck > .header-top {
+    margin: 0 auto !important;
+    border-radius: 0 !important;
+    background: var(--glass-bg-strong, rgba(255,255,255,.68)) !important;
+    -webkit-backdrop-filter: var(--glass-filter, blur(18px) saturate(175%) contrast(102%)) !important;
+    backdrop-filter: var(--glass-filter, blur(18px) saturate(175%) contrast(102%)) !important;
+    box-shadow: var(--glass-shadow, 0 6px 18px rgba(4,16,11,.08)) !important;
+  }
+  /* No opaque layers between the background and its blur. */
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck > .header-top > #desktop-header-container,
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck > .header-top > #desktop-header-container > .row,
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck .col-header-left,
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck .col-header-right {
+    background: transparent !important;
+    background-image: none !important;
+  }
+  /* Panels and the live IQIT search/cart widgets remain interactive. */
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck .mt-desktop-catalog-panel,
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck .autocomplete-suggestions,
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck #_desktop_blockcart-content {
+    z-index: 1150;
+  }
+}
+@media (min-width: 992px) and (prefers-reduced-motion:reduce) {
+  #header.mt-desktop-nav-ready #desktop-header > .header-top {
+    transition:none !important;
+  }
+}
+
+
+/* DS control: 36px visual height, 44px targets for icon-only actions.
+   Corrects legacy IQIT full-height stretched search background. */
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready {
+    --mt-d-search-height: var(--control-height-sm, 36px);
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #desktop-header-container > .row {
+    min-height: 64px !important;
+    grid-template-columns: max-content max-content minmax(0, 1fr) max-content !important;
+  }
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-button {
+    height: var(--mt-d-search-height) !important;
+    min-height: var(--mt-d-search-height) !important;
+    font-size: var(--fs-ui, 14px) !important;
+    border-radius: var(--radius-sm, 8px) !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top .col-header-center {
+    align-self: center !important;
+    height: var(--mt-d-search-height) !important;
+    min-height: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget {
+    max-width: 460px !important;
+    width: 100% !important;
+    height: var(--mt-d-search-height) !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+  }
+  #header.mt-desktop-nav-ready #search_widget form,
+  #header.mt-desktop-nav-ready #search_widget .input-group {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: var(--mt-d-search-height) !important;
+    min-height: 0 !important;
+    max-height: var(--mt-d-search-height) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: var(--radius-sm,8px) !important;
+    background: var(--gray-50,#f7f6f2) !important;
+    border: 1px solid var(--gray-100,#e5e3db) !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+  #header.mt-desktop-nav-ready #search_widget form { border:0 !important; }
+  #header.mt-desktop-nav-ready #search_widget input.form-search-control {
+    box-sizing: border-box !important;
+    flex: 1 1 auto !important;
+    height: 34px !important;
+    min-height: 0 !important;
+    max-height: 34px !important;
+    line-height: 34px !important;
+    width: 100% !important;
+    padding: 0 var(--space-3,12px) !important;
+    margin: 0 !important;
+    font-size: var(--fs-ui,14px) !important;
+    background: transparent !important;
+    border: 0 !important;
+  }
+  #header.mt-desktop-nav-ready #search_widget button.search-btn {
+    box-sizing: border-box !important;
+    flex: 0 0 36px !important;
+    width: 36px !important;
+    height: 34px !important;
+    min-height: 0 !important;
+    max-height: 34px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+  #header.mt-desktop-nav-ready #search_widget .search-btn .fa-search {
+    font-size: 0 !important;
+    color: var(--green-800,#0c2a20) !important;
+  }
+  #header.mt-desktop-nav-ready #search_widget .search-btn .fa-search::before {
+    content: "" !important;
+    display: block !important;
+    width: var(--icon-sm,16px) !important;
+    height: var(--icon-sm,16px) !important;
+    background: currentColor !important;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%227%22%2F%3E%3Cline%20x1%3D%2221%22%20x2%3D%2216.5%22%20y1%3D%2221%22%20y2%3D%2216.5%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%227%22%2F%3E%3Cline%20x1%3D%2221%22%20x2%3D%2216.5%22%20y1%3D%2221%22%20y2%3D%2216.5%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;
+  }
+  #header.mt-desktop-nav-ready .col-header-right {flex-shrink:0 !important;}
+  #header.mt-desktop-nav-ready .mt-header-action-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 44px !important;
+    width: 44px !important;
+    height: 44px !important;
+    color: var(--green-800,#0c2a20) !important;
+    text-decoration: none !important;
+  }
+  #header.mt-desktop-nav-ready .mt-header-action-link .mt-action-icon {
+    display: block !important;
+    width: var(--icon-md,24px);
+    height: var(--icon-md,24px);
+    background: currentColor;
+  }
+  #header.mt-desktop-nav-ready .mt-action-wish .mt-action-icon {
+    -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M20.8%204.7a5.3%205.3%200%200%200-7.5%200L12%206l-1.3-1.3a5.3%205.3%200%200%200-7.5%207.5L12%2021l8.8-8.8a5.3%205.3%200%200%200%200-7.5z%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M20.8%204.7a5.3%205.3%200%200%200-7.5%200L12%206l-1.3-1.3a5.3%205.3%200%200%200-7.5%207.5L12%2021l8.8-8.8a5.3%205.3%200%200%200%200-7.5z%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;
+  }
+  #header.mt-desktop-nav-ready .mt-action-compare .mt-action-icon {
+    -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%207h15l-3-3m3%203-3%203M20%2017H5l3-3m-3%203%203%203%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%207h15l-3-3m3%203-3%203M20%2017H5l3-3m-3%203%203%203%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;
+  }
+  #header.mt-desktop-nav-ready #header-user-btn .header-btn .fa-user::before {
+    content: "" !important;
+    display: block !important;
+    width: 24px !important;
+    height: 24px !important;
+    background: currentColor !important;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%228%22%20r%3D%223.5%22%2F%3E%3Cpath%20d%3D%22M5.5%2020c.7-4%203-6%206.5-6s5.8%202%206.5%206%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%228%22%20r%3D%223.5%22%2F%3E%3Cpath%20d%3D%22M5.5%2020c.7-4%203-6%206.5-6s5.8%202%206.5%206%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;
+  }
+  #header.mt-desktop-nav-ready #ps-shoppingcart-wrapper { position:relative; display:block !important; flex:0 0 44px !important; }
+  #header.mt-desktop-nav-ready #cart-toogle > i.fa-shopping-bag::before {
+    -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%205h2l2.2%2011.2a2%202%200%200%200%202%201.6h7a2%202%200%200%200%202-1.6L21%208H7%22%2F%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2221%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%2221%22%20r%3D%221.4%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat !important;
+    mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%205h2l2.2%2011.2a2%202%200%200%200%202%201.6h7a2%202%200%200%200%202-1.6L21%208H7%22%2F%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2221%22%20r%3D%221.4%22%2F%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%2221%22%20r%3D%221.4%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top .col-header-right > .row {
+    display:flex !important;
+    flex:0 0 auto !important;
+    flex-wrap:nowrap !important;
+    align-items:center !important;
+  }
+  #header.mt-desktop-nav-ready #cart-toogle,
+  #header.mt-desktop-nav-ready #header-user-btn .header-btn {
+    min-width:44px !important;
+    width:44px !important;
+    height:44px !important;
+  }
+  /* Hide the legacy navigation visually only after v2 initialization. */
+  #header.mt-desktop-nav-ready #desktop-header > .iqit-megamenu-container { display:none !important; }
+}
+
+/* Prevent the long legacy third row flashing on first paint.
+   1.5s CSS fail-safe returns legacy navigation if global JS never starts.
+   Global-JS-only integration cannot guarantee zero layout shift before first paint. */
+@media (min-width: 992px) {
+  #header.desktop-header-style-w-2:not(.mt-desktop-nav-ready)
+  #desktop-header > .iqit-megamenu-container {
+    visibility:hidden;
+    animation: mt-d2-legacy-fallback 0s linear 1.5s forwards;
+  }
+  #header.mt-desktop-nav-ready #desktop-header > .iqit-megamenu-container { animation:none !important; }
+  @keyframes mt-d2-legacy-fallback {to {visibility:visible;}}
+}
+
+/* After the two DS icon links are created, hide old utility text duplicates. */
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready .header-nav .right-nav > .d-inline-block {
+    display: none !important;
+  }
+}
+
+
+/* Approved current user requested layout specification 13.10.2026 */
+/* MebTech Desktop Header — layout correction v2.1 (SITE TEST ONLY)
+   Append AFTER consolidated Desktop Header v2 CSS.
+   No JavaScript changes; remove when superseded by consolidated release.
+*/
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready {
+    --mt-desktop-header-gap: var(--space-4, 16px);
+    --mt-main-radius: var(--radius-md, 12px);
+  }
+
+  /* Frame: DS spacing and border. Restore radius, including sticky state. */
+  #header.mt-desktop-nav-ready #desktop-header > .header-top,
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck > .header-top {
+    box-sizing: border-box !important;
+    padding: var(--space-3, 12px) var(--space-4, 16px) !important;
+    border: .5px solid var(--gray-100, #e5e3db) !important;
+    border-radius: var(--mt-main-radius) !important;
+    overflow: visible !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #desktop-header-container {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  /* Layout 16px between logo, catalog, search and actions; search takes leftover. */
+  #header.mt-desktop-nav-ready #desktop-header .header-top #desktop-header-container > .row {
+    display: grid !important;
+    grid-template-columns: max-content max-content minmax(0, 1fr) max-content !important;
+    align-items: center !important;
+    gap: var(--space-4, 16px) !important;
+    min-height: 44px !important;
+    height: auto !important;
+    margin: 0 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top .col-header-center {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    display: block !important;
+    align-self: center !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget,
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget form,
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget .input-group {
+    width: 100% !important;
+    max-width: none !important;
+  }
+  /* 36px DS search, centered placeholder and actual typed text. */
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget,
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget form,
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget .input-group {
+    height: var(--control-height-sm, 36px) !important;
+    min-height: var(--control-height-sm, 36px) !important;
+    max-height: var(--control-height-sm, 36px) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget .input-group {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    border-radius: var(--radius-sm, 8px) !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget input.form-search-control {
+    box-sizing: border-box !important;
+    display: block !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    max-height: 34px !important;
+    line-height: normal !important;
+    padding: 0 var(--space-3, 12px) !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    float: none !important;
+    transform: none !important;
+    vertical-align: middle !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget input.form-search-control::placeholder {
+    line-height: normal !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget button.search-btn {
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 36px !important;
+    width: 36px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    max-height: 34px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+    transform: none !important;
+    line-height: normal !important;
+  }
+  /* Keep whole action group aligned with preceding search at 16px. */
+  #header.mt-desktop-nav-ready #desktop-header .header-top .col-header-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: var(--space-4, 16px) !important;
+  }
+  /* Individual icons: 12px visual spacing, preserving 44px targets. */
+  #header.mt-desktop-nav-ready #desktop-header .header-top .col-header-right > .row {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: var(--space-3, 12px) !important;
+    margin: 0 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top .col-header-right > .row > * {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+
+/* ----- Desktop Global IQIT Vertical Catalog / geometry refinements ----- */
+@media (min-width: 992px) {
+  /* Source contains an empty fourth <div class="col-12"><div class="row"></div></div>,
+     which otherwise becomes an empty second line of the header grid. */
+  #header.mt-desktop-nav-ready #desktop-header
+  #desktop-header-container > .row > .col-12:last-child {
+    display:none !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header
+  #desktop-header-container > .row { min-height:44px !important; }
+
+  /* 24px icons separated by 12px visually: a 36px horizontal action slot,
+     with 44px vertical pointer height. Keeps original cart link/count. */
+  #header.mt-desktop-nav-ready #desktop-header .col-header-right > .row {
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    justify-content:flex-end !important;
+    align-items:center !important;
+    gap:0 !important;
+    width:auto !important;
+    margin:0 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .col-header-right > .row > * {
+    box-sizing:border-box !important;
+    flex:0 0 36px !important;
+    width:36px !important;
+    min-width:36px !important;
+    max-width:36px !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .mt-header-action-link,
+  #header.mt-desktop-nav-ready #desktop-header #cart-toogle,
+  #header.mt-desktop-nav-ready #desktop-header #header-user-btn .header-btn {
+    box-sizing:border-box !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    min-width:36px !important;
+    width:36px !important;
+    height:44px !important;
+    min-height:44px !important;
+    padding:0 !important;
+    margin:0 !important;
+  }
+
+}
+
+/* ==============================================================
+   MebTech Desktop Header v4 — IQIT GLOBAL / HEADER menu only
+   Source: existing IQIT Vertical Menu activated via Theme Editor.
+   NEVER target the Home/Elementor sidebar menu outside #header.
+   Panel aligned to BOTH edges of the 1280px header container.
+   ============================================================= */
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready #desktop-header > .header-top {
+    position: relative !important;
+    overflow: visible !important;
+    isolation: auto !important;
+  }
+  /* Do not anchor dropdown to tiny Catalog button cell. */
+  #header.mt-desktop-nav-ready #desktop-header .mt-desktop-catalog-slot {
+    position: static !important;
+    z-index: auto !important;
+  }
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-slot > .mt-native-catalog[hidden] {
+    display: none !important;
+  }
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-slot > .mt-native-catalog:not([hidden]) {
+    --mt-native-side-width: clamp(258px, 25%, 320px);
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    box-sizing: border-box !important;
+    position: absolute !important;
+    top: calc(100% + var(--space-2, 8px)) !important;
+    bottom: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: min(640px, calc(100vh - 160px)) !important;
+    height: min(640px, calc(100vh - 160px)) !important;
+    max-height: calc(100vh - 120px) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: var(--paper, #fff) !important;
+    color: var(--green-800, #0C2A20) !important;
+    border: 0.5px solid var(--gray-100, #e5e3db) !important;
+    border-radius: var(--radius-md, 12px) !important;
+    box-shadow: var(--shadow-lg, 0 18px 38px rgba(0,0,0,.14)) !important;
+    z-index: 1300 !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog > .cbp-vertical-title {
+    display: none !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-root-list {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    box-sizing: border-box !important;
+    position: static !important;
+    float: none !important;
+    width: var(--mt-native-side-width) !important;
+    min-width: var(--mt-native-side-width) !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    padding: var(--space-2, 8px) !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    list-style: none !important;
+    background: var(--paper, #fff) !important;
+    border: 0 !important;
+    border-right: .5px solid var(--gray-100, #e5e3db) !important;
+    border-radius: var(--radius-md, 12px) 0 0 var(--radius-md, 12px) !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-root-list > li {
+    box-sizing: border-box !important;
+    position: static !important;
+    float: none !important;
+    width: 100% !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-root-list > li > a {
+    display: flex !important;
+    align-items: center !important;
+    gap: var(--space-2,8px) !important;
+    box-sizing: border-box !important;
+    min-height: 44px !important;
+    width: 100% !important;
+    padding: var(--space-2,8px) var(--space-3,12px) !important;
+    margin: 0 !important;
+    font-family: var(--font-body, Inter, sans-serif);
+    font-size: var(--fs-ui, 14px) !important;
+    font-weight: 500 !important;
+    line-height: 1.25 !important;
+    text-decoration: none !important;
+    color: var(--green-800, #0C2A20) !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: var(--radius-sm, 8px) !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-root-list > li:is(:hover,:focus-within,.cbp-hropen,.cbp-hrmenu-tab-active,.mt-initial-active) > a {
+    background: var(--green-50,#eaf6ef) !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog .cbp-mainlink-iicon {
+    width: 24px !important;
+    height: 24px !important;
+    flex: 0 0 24px !important;
+    object-fit: contain !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog .cbp-submenu-aindicator {
+    margin-left: auto !important;
+  }
+  /* IQIT's large submenus stay anchored to the RIGHT part of the same panel. */
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-root-list > li > .cbp-hrsub-wrapper {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    box-sizing: border-box !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: var(--mt-native-side-width) !important;
+    right: 0 !important;
+    width: calc(100% - var(--mt-native-side-width)) !important;
+    max-width: none !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    padding: var(--space-5,20px) !important;
+    margin: 0 !important;
+    transform: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    background: var(--paper,#fff) !important;
+    color: var(--ink,#111311) !important;
+    border: 0 !important;
+    border-radius: 0 var(--radius-md,12px) var(--radius-md,12px) 0 !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
+    z-index: 1310 !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-root-list > li:is(:hover,:focus-within,.cbp-hropen,.cbp-hrmenu-tab-active,.mt-initial-active) > .cbp-hrsub-wrapper {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog .cbp-hrsub,
+  #header.mt-desktop-nav-ready .mt-native-catalog .cbp-hrsub-inner {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    overflow: visible !important;
+    background: transparent !important;
+  }
+}
+
+
+/* ======================================================================
+   Desktop Header TEST v4.2 · FULL-BLEED GLASS + SYSTEM GRID (14.10.2026)
+   Supersedes earlier framed Header and Card-menu rules IN THIS FILE.
+   Header is viewport-wide, actual controls aligned to DS container 1280.
+   Native IQIT Header Vertical Menu is the only category source.
+   ====================================================================== */
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready {
+    --mt-menu-page-max: var(--container-max, 1280px);
+    --mt-menu-gutter: max(var(--space-4, 16px), calc((100% - var(--mt-menu-page-max)) / 2 + var(--space-4,16px)));
+    --mt-icon-art: var(--icon-md,24px);
+    --mt-icon-spacing: var(--space-3,12px);
+    --mt-icon-cell: calc(var(--mt-icon-art) + var(--mt-icon-spacing));
+  }
+
+  /* Main Header surface — REMOVE the boxed border/rounded card. The surface
+     spans the same full viewport as COMFY, while its content stays centered. */
+  #header.mt-desktop-nav-ready #desktop-header > .header-top,
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck > .header-top {
+    box-sizing:border-box !important;
+    position:relative !important;
+    width:100% !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding:var(--space-3,12px) 0 !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:var(--paper,#fff) !important;
+    box-shadow:none !important;
+    overflow:visible !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck > .header-top {
+    background:var(--glass-bg-strong,rgba(255,255,255,.68)) !important;
+    -webkit-backdrop-filter:var(--glass-filter,blur(18px) saturate(175%) contrast(102%)) !important;
+    backdrop-filter:var(--glass-filter,blur(18px) saturate(175%) contrast(102%)) !important;
+    box-shadow:var(--glass-shadow,0 6px 18px rgba(4,16,11,.08)) !important;
+  }
+
+  #header.mt-desktop-nav-ready #desktop-header > .header-top > #desktop-header-container {
+    box-sizing:border-box !important;
+    width:100% !important;
+    max-width:var(--mt-menu-page-max) !important;
+    margin:0 auto !important;
+    padding:0 var(--space-4,16px) !important;
+  }
+  #header.mt-desktop-nav-ready .header-nav > .container {
+    box-sizing:border-box !important;
+    width:100% !important;
+    max-width:var(--mt-menu-page-max) !important;
+    margin:0 auto !important;
+    padding:0 var(--space-4,16px) !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header > .header-top > #desktop-header-container > .row {
+    display:grid !important;
+    grid-template-columns:max-content max-content minmax(0,1fr) max-content !important;
+    gap:var(--space-4,16px) !important;
+    align-items:center !important;
+    height:auto !important;
+    min-height:44px !important;
+    margin:0 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header #desktop-header-container > .row > .col-12:last-child {
+    display:none !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .col-header-right {
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+    gap:var(--space-4,16px) !important;
+    padding:0 !important;
+    flex-shrink:0 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .col-header-right > .row {
+    display:flex !important;
+    flex-flow:row nowrap !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+    gap:0 !important;
+    flex:0 0 auto !important;
+    width:max-content !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+  /* 24px actual icon picture + 12px SPACE between pictures. All four actions
+     occupy 36px width / 44px height, with no Bootstrap gutter artifacts. */
+  #header.mt-desktop-nav-ready #desktop-header .col-header-right > .row > * {
+    box-sizing:border-box !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    flex:0 0 var(--mt-icon-cell) !important;
+    width:var(--mt-icon-cell) !important;
+    min-width:var(--mt-icon-cell) !important;
+    max-width:var(--mt-icon-cell) !important;
+    height:44px !important;
+    min-height:44px !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .col-header-right > .row > * > a,
+  #header.mt-desktop-nav-ready #desktop-header .col-header-right > .row > * .header-btn,
+  #header.mt-desktop-nav-ready #desktop-header .mt-header-action-link,
+  #header.mt-desktop-nav-ready #desktop-header #cart-toogle,
+  #header.mt-desktop-nav-ready #desktop-header #header-user-btn .header-btn {
+    box-sizing:border-box !important;
+    width:var(--mt-icon-cell) !important;
+    min-width:var(--mt-icon-cell) !important;
+    max-width:var(--mt-icon-cell) !important;
+    height:44px !important;
+    min-height:44px !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .mt-header-action-link .mt-action-icon,
+  #header.mt-desktop-nav-ready #desktop-header #cart-toogle > i.fa-shopping-bag,
+  #header.mt-desktop-nav-ready #desktop-header #header-user-btn .header-btn .fa-user::before {
+    width:var(--mt-icon-art) !important;
+    height:var(--mt-icon-art) !important;
+    flex:0 0 var(--mt-icon-art) !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header #ps-shoppingcart-wrapper,
+  #header.mt-desktop-nav-ready #desktop-header #ps-shoppingcart,
+  #header.mt-desktop-nav-ready #desktop-header #blockcart {
+    width:var(--mt-icon-cell) !important;
+    max-width:var(--mt-icon-cell) !important;
+    min-width:0 !important;
+    padding:0 !important;
+    margin:0 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header #cart-toogle > i.fa-shopping-bag {
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  /* ONE full-viewport frosted overlay, NOT a card below Catalog button. */
+  #header.mt-desktop-nav-ready #desktop-header .mt-desktop-catalog-slot {
+    position:static !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .mt-desktop-catalog-slot > .mt-native-catalog:not([hidden]) {
+    --mt-native-side-width:clamp(260px,25%,320px);
+    box-sizing:border-box !important;
+    position:absolute !important;
+    left:0 !important;
+    right:0 !important;
+    top:100% !important;
+    bottom:auto !important;
+    width:100% !important;
+    max-width:none !important;
+    height:min(680px,calc(100vh - 130px)) !important;
+    min-height:0 !important;
+    max-height:calc(100vh - 90px) !important;
+    margin:0 !important;
+    padding:0 !important;
+    transform:none !important;
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:0 14px 28px rgba(4,16,11,.10) !important;
+    background:var(--glass-bg-strong,rgba(255,255,255,.68)) !important;
+    -webkit-backdrop-filter:var(--glass-filter,blur(18px) saturate(175%) contrast(102%)) !important;
+    backdrop-filter:var(--glass-filter,blur(18px) saturate(175%) contrast(102%)) !important;
+    overflow:visible !important;
+    z-index:1400 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .mt-native-catalog > .mt-native-root-list {
+    box-sizing:border-box !important;
+    position:static !important;
+    height:100% !important;
+    max-height:100% !important;
+    width:var(--mt-native-side-width) !important;
+    min-width:var(--mt-native-side-width) !important;
+    margin:0 0 0 var(--mt-menu-gutter) !important;
+    padding:var(--space-2,8px) var(--space-2,8px) var(--space-2,8px) 0 !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    background:transparent !important;
+    border:0 !important;
+    border-right:1px solid var(--glass-border,rgba(11,42,32,.12)) !important;
+    border-radius:0 !important;
+    scrollbar-width:thin;
+    overscroll-behavior:contain;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .mt-native-catalog > .mt-native-root-list > li > .cbp-hrsub-wrapper {
+    box-sizing:border-box !important;
+    position:absolute !important;
+    top:0 !important;
+    left:calc(var(--mt-menu-gutter) + var(--mt-native-side-width)) !important;
+    right:var(--mt-menu-gutter) !important;
+    bottom:0 !important;
+    width:auto !important;
+    max-width:none !important;
+    height:100% !important;
+    max-height:100% !important;
+    padding:var(--space-5,20px) !important;
+    margin:0 !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    overscroll-behavior:contain;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-root-list > li:is(:hover,:focus-within,.cbp-hropen,.cbp-hrmenu-tab-active,.mt-initial-active) > .cbp-hrsub-wrapper {
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+  }
+  /* No opaque wrappers over the main Glass surface; retain native images,
+     links and IQIT category panels, including product thumbnails. */
+  #header.mt-desktop-nav-ready .mt-native-catalog .cbp-hrsub,
+  #header.mt-desktop-nav-ready .mt-native-catalog .cbp-hrsub-inner,
+  #header.mt-desktop-nav-ready .mt-native-catalog .menu_row,
+  #header.mt-desktop-nav-ready .mt-native-catalog .cbp-menu-column-inner {
+    background:transparent !important;
+  }
+}
+
+@media (min-width:992px) and (max-width:1199px) {
+  /* Keep actions compact at narrower desktop; if IQIT switches to mobile at
+     this width, v4 JS already declines initialization. */
+  #header.mt-desktop-nav-ready .mt-utility-links {gap:var(--space-3,12px) !important;}
+  #header.mt-desktop-nav-ready .mt-utility-links a {font-size:12px !important;}
+  #header.mt-desktop-nav-ready .col-header-right .ws-topphones a {font-size:12px !important;}
+}
+
+/* Precise DS artwork spacing: this selector intentionally outranks v2.1's
+   .header-top .col-header-right > .row {gap:12px !important}, which otherwise
+   adds 12px TWICE (36px action cells plus a flex gap). */
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready #desktop-header .header-top .col-header-right > .row {
+    gap: 0 !important;
+    column-gap: 0 !important;
+    row-gap: 0 !important;
+    justify-content: flex-end !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top .col-header-right > .row > * {
+    margin:0 !important;
+    padding:0 !important;
+  }
+}
+
+
+/* ======================================================================
+   MebTech · Desktop Header site-first TEST v4.3 · live IQIT geometry fix
+   - Existing site container is measured, never replaced by DS's 1280px max.
+   - Full-bleed native IQIT panel is positioned from the ACTUAL header bottom.
+   - Soft bottom-only visual separation for borderless Header.
+   ====================================================================== */
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready {
+    /* Supplied by JS from the actual non-Header site .container at runtime. */
+    --mt-menu-gutter: var(--mt-site-content-left, 16px);
+    --mt-menu-gutter-right: var(--mt-site-content-right, 16px);
+  }
+
+  #header.mt-desktop-nav-ready #desktop-header > .header-top > #desktop-header-container,
+  #header.mt-desktop-nav-ready .header-nav > .container {
+    max-width: var(--mt-site-container-width, 1366px) !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Header is full-bleed; separation is SHADOW, not an outline. */
+  #header.mt-desktop-nav-ready #desktop-header > .header-top {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: 0 8px 18px -14px rgba(12,42,32,.30) !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck > .header-top {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: var(--glass-shadow, 0 6px 18px rgba(4,16,11,.08)),
+                0 9px 22px -12px rgba(12,42,32,.26) !important;
+  }
+
+  /* Always position against the TRUE absolute containing block (which the
+     live IQIT theme may assign differently than our static QA fixture).
+     The JS provides viewport width and a top equal to Header's bottom edge. */
+  #header.mt-desktop-nav-ready #desktop-header .mt-desktop-catalog-slot > .mt-native-catalog:not([hidden]) {
+    position: absolute !important;
+    top: var(--mt-overlay-top, 100%) !important;
+    left: var(--mt-overlay-left, 0px) !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: var(--mt-overlay-width, 100vw) !important;
+    max-width: none !important;
+    height: var(--mt-overlay-height, min(680px, calc(100vh - 96px))) !important;
+    min-height: 0 !important;
+    max-height: var(--mt-overlay-height, calc(100vh - 96px)) !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: 0 16px 28px -14px rgba(12,42,32,.28) !important;
+    z-index: 1400 !important;
+  }
+  /* Never show a wrongly positioned flash while live bounds are measured. */
+  #header.mt-desktop-nav-ready #desktop-header .mt-desktop-catalog-slot > .mt-native-catalog:not([hidden]):not(.mt-overlay-measured) {
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .mt-desktop-catalog-slot > .mt-native-catalog.mt-overlay-measured:not([hidden]) {
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  #header.mt-desktop-nav-ready #desktop-header .mt-native-catalog > .mt-native-root-list {
+    margin-left: var(--mt-menu-gutter) !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .mt-native-catalog > .mt-native-root-list > li > .cbp-hrsub-wrapper {
+    left: calc(var(--mt-menu-gutter) + var(--mt-native-side-width)) !important;
+    right: var(--mt-menu-gutter-right) !important;
+  }
+}
+
+/* ========================================================================
+   MebTech Desktop Header · SINGLE REPLACEABLE TEST v4.4 (14.10.2026)
+   Fixes live QA: initial furniture submenu, clipping, double-glass,
+   header seam, native separators, utility type and 42px controls.
+   Included within the FULL v4.4 CSS: do not stack with previous versions.
+   ======================================================================== */
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready {
+    --mt-d-search-height: 42px;
+    --mt-menu-gutter: var(--mt-site-content-left,16px);
+    --mt-menu-gutter-right: var(--mt-site-content-right,16px);
+  }
+  /* Compact two-line Header, existing site container, no new max width. */
+  #header.mt-desktop-nav-ready .header-nav,
+  #header.mt-desktop-nav-ready .header-nav .row.justify-content-between {
+    min-height: 30px !important;
+    height: auto !important;
+  }
+  #header.mt-desktop-nav-ready .header-nav > .container {padding-block:0 !important;}
+  #header.mt-desktop-nav-ready .mt-utility-city,
+  #header.mt-desktop-nav-ready #language_selector,
+  #header.mt-desktop-nav-ready .mt-utility-links > a,
+  #header.mt-desktop-nav-ready .mt-utility-buyers-button {
+    font-family:var(--font-body,Inter,sans-serif) !important;
+    font-size:var(--fs-body-s,13px) !important;
+    line-height:var(--lh-body-s,1.6) !important;
+  }
+  #header.mt-desktop-nav-ready .mt-utility-city svg {width:24px !important;height:24px !important;}
+  #header.mt-desktop-nav-ready .mt-utility-buyers-button svg {width:16px !important;height:16px !important;}
+  /* Theme's cosmetic vertical rules seen as stray small lines. Retain language caret. */
+  #header.mt-desktop-nav-ready .header-nav .left-nav > *,
+  #header.mt-desktop-nav-ready .header-nav .right-nav > *,
+  #header.mt-desktop-nav-ready .header-nav .left-nav > *::before,
+  #header.mt-desktop-nav-ready .header-nav .left-nav > *::after,
+  #header.mt-desktop-nav-ready .header-nav .right-nav > *::before,
+  #header.mt-desktop-nav-ready .header-nav .right-nav > *::after {
+    border-left:0 !important;border-right:0 !important;
+    box-shadow:none !important;
+  }
+  #header.mt-desktop-nav-ready .header-nav .left-nav > *::before,
+  #header.mt-desktop-nav-ready .header-nav .left-nav > *::after,
+  #header.mt-desktop-nav-ready .header-nav .right-nav > *::before,
+  #header.mt-desktop-nav-ready .header-nav .right-nav > *::after {
+    content:none !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header > .header-top,
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck > .header-top {
+    padding-block:6px !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #desktop-header-container > .row {
+    min-height:44px !important;
+  }
+  /* User requested visual height: 42px; native links remain intact. */
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-button {
+    height:42px !important;min-height:42px !important;max-height:42px !important;
+  }
+  #header.mt-desktop-nav-ready .mt-desktop-catalog-button svg {width:24px !important;height:24px !important;}
+  #header.mt-desktop-nav-ready #desktop-header .header-top .col-header-center,
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget,
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget form,
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget .input-group {
+    height:42px !important;min-height:42px !important;max-height:42px !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget .form-search-control,
+  #header.mt-desktop-nav-ready #desktop-header .header-top #search_widget .search-btn {
+    height:40px !important;min-height:40px !important;max-height:40px !important;
+    line-height:normal !important;
+  }
+  /* Use ONE visual glass plane when Catalog is expanded, no seam or shadow. */
+  #header.mt-desktop-nav-ready.mt-catalog-is-open #desktop-header > .header-top,
+  #header.mt-desktop-nav-ready.mt-catalog-is-open #desktop-header.mt-desktop-stuck > .header-top {
+    box-shadow:none !important;
+    border:0 !important;border-bottom:0 !important;
+    background:var(--paper,#fff) !important;
+  }
+  #header.mt-desktop-nav-ready.mt-catalog-is-open #desktop-header .mt-desktop-catalog-slot > .mt-native-catalog:not([hidden]) {
+    box-shadow:0 15px 24px -20px rgba(12,42,32,.20) !important;
+    border:0 !important;border-radius:0 !important;
+    /* Glass applied only here; color-mix with white improves contrast
+       without adding another translucent overlay on top of the pane. */
+    background:var(--paper,#fff) !important;
+    background:color-mix(in srgb,var(--glass-bg-strong,rgba(255,255,255,.68)) 35%,var(--paper,#fff) 65%) !important;
+    -webkit-backdrop-filter:var(--glass-filter,blur(18px) saturate(175%)) !important;
+    backdrop-filter:var(--glass-filter,blur(18px) saturate(175%)) !important;
+    isolation:isolate !important;
+  }
+  /* One scrollable root column; native flyout is mounted alongside UL,
+     not inside the clipped UL. Keep one submenu visible at a time. */
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-root-list {
+    overflow-y:auto !important;overflow-x:hidden !important;
+    scrollbar-width:thin;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog .mt-native-root-list > li > .cbp-hrsub-wrapper {
+    display:none !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog .mt-native-root-list > li.mt-category-active > a {
+    background:var(--green-50,#eaf6ef) !important;
+  }
+  /* Existing native submenus are MOVED to this host only while active.
+     Not a second catalog or copied data. */
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-flyout-host {
+    box-sizing:border-box !important;
+    position:absolute !important;
+    top:0 !important;
+    bottom:0 !important;
+    left:calc(var(--mt-menu-gutter) + var(--mt-native-side-width)) !important;
+    right:var(--mt-menu-gutter-right) !important;
+    padding:var(--space-5,20px) !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    overscroll-behavior:contain;
+    border:0 !important;border-left:1px solid var(--glass-border,rgba(11,42,32,.12)) !important;
+    border-radius:0 !important;
+    background:transparent !important;
+    background-image:none !important;
+    box-shadow:none !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    z-index:2 !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-flyout-host > .cbp-hrsub-wrapper {
+    display:block !important;
+    box-sizing:border-box !important;
+    position:static !important;
+    inset:auto !important;
+    float:none !important;
+    width:100% !important;max-width:100% !important;
+    height:auto !important;min-height:0 !important;max-height:none !important;
+    margin:0 !important;padding:0 !important;
+    overflow:visible !important;
+    visibility:visible !important;opacity:1 !important;
+    transform:none !important;
+    pointer-events:auto !important;
+    border:0 !important;border-radius:0 !important;
+    background:transparent !important;background-image:none !important;
+    box-shadow:none !important;-webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    z-index:auto !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog .mt-native-flyout-host :is(
+      .cbp-hrsub,.cbp-hrsub-inner,.iqitmegamenu-submenu-container,
+      .menu_row,.cbp-menu-column,.cbp-menu-column-inner) {
+    background:transparent !important;background-image:none !important;
+    box-shadow:none !important;-webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;filter:none !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog .mt-native-flyout-host :is(
+      .cbp-hrsub,.cbp-hrsub-inner) {
+    position:static !important;inset:auto !important;
+    display:block !important;visibility:visible !important;opacity:1 !important;
+    width:100% !important;max-width:none !important;
+    height:auto !important;min-height:0 !important;
+    padding:0 !important;margin:0 !important;
+    border:0 !important;transform:none !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog .mt-native-flyout-host :is(
+      .cbp-hrsub-wrapper,.cbp-hrsub,.cbp-hrsub-inner,.cbp-menu-column)::before,
+  #header.mt-desktop-nav-ready .mt-native-catalog .mt-native-flyout-host :is(
+      .cbp-hrsub-wrapper,.cbp-hrsub,.cbp-hrsub-inner,.cbp-menu-column)::after {
+    content:none !important;
+  }
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-root-list > li:not(.mt-category-active) > a {
+    background:transparent !important;
+  }
+}
+
+
+/* ========================================================================
+   MEBTECH Desktop Header | replacement TEST v4.5 | 14.10.2026
+   Live QA correction: compact root category rows, consistent sticky contrast,
+   restored 12px main Header padding.  This block lives INSIDE the complete
+   v4.5 CSS file; do not append it separately to v4.4 or layer old trials.
+   ======================================================================== */
+@media (min-width: 992px) {
+  /* Desktop root categories: 14 items must not consume unnecessary vertical
+     space. Icon remains DS --icon-md (24px); 36px is for desktop mouse/keyboard.
+     Mobile/touch header is outside the scope of this selector. */
+  #header.mt-desktop-nav-ready #desktop-header
+  .mt-native-catalog > .mt-native-root-list > li > a {
+    box-sizing:border-box !important;
+    height:36px !important;
+    min-height:36px !important;
+    max-height:36px !important;
+    padding:4px var(--space-3,12px) !important;
+    line-height:1.25 !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header
+  .mt-native-catalog > .mt-native-root-list {
+    padding-top:var(--space-2,8px) !important;
+    padding-bottom:var(--space-2,8px) !important;
+  }
+
+  /* Restore the Header MAIN BAR padding. Previous v4.4 reduced this to 6px
+     to bring utility and shopping rows closer, which compressed the control
+     bar. Keep utility compact independently instead. */
+  #header.mt-desktop-nav-ready #desktop-header > .header-top,
+  #header.mt-desktop-nav-ready #desktop-header.mt-desktop-stuck > .header-top {
+    padding-top:var(--space-3,12px) !important;
+    padding-bottom:var(--space-3,12px) !important;
+  }
+
+  /* Fix native background-filter stacking on a scrolled page. The sticky
+     header's own backdrop-filter creates an intermediate backdrop root, so
+     the nested native IQIT menu cannot reliably sample/blur the page behind
+     it. While Catalog is OPEN, remove the PARENT filter and apply blur only
+     to the FULL-BLEED MENU. Keep the header itself legible as white. */
+  #header.mt-desktop-nav-ready.mt-catalog-is-open
+  #desktop-header > .header-top,
+  #header.mt-desktop-nav-ready.mt-catalog-is-open
+  #desktop-header.mt-desktop-stuck > .header-top {
+    background:var(--paper,#fff) !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    filter:none !important;
+    box-shadow:none !important;
+  }
+  /* At page top, keep the previously accepted Glass opacity/filter. */
+  #header.mt-desktop-nav-ready.mt-catalog-is-open
+  #desktop-header:not(.mt-desktop-stuck)
+  .mt-desktop-catalog-slot > .mt-native-catalog.mt-overlay-measured:not([hidden]) {
+    -webkit-backdrop-filter:var(--glass-filter,blur(18px) saturate(175%) contrast(102%)) !important;
+    backdrop-filter:var(--glass-filter,blur(18px) saturate(175%) contrast(102%)) !important;
+  }
+  /* Mid-page sticky: stronger tint ensures legibility even if a browser's
+     compositing pipeline is unable to blur the live page behind this panel.
+     It is still a single layer (not another nested Glass). */
+  #header.mt-desktop-nav-ready.mt-catalog-is-open
+  #desktop-header.mt-desktop-stuck
+  .mt-desktop-catalog-slot > .mt-native-catalog.mt-overlay-measured:not([hidden]) {
+    background:var(--paper,#fff) !important; /* non-filter fallback */
+    background:rgba(255,255,255,.95) !important;
+    -webkit-backdrop-filter:var(--glass-filter,blur(18px) saturate(175%) contrast(102%)) !important;
+    backdrop-filter:var(--glass-filter,blur(18px) saturate(175%) contrast(102%)) !important;
+    box-shadow:0 15px 24px -20px rgba(12,42,32,.20) !important;
+  }
+  /* No second translucent or opaque plane on the right. */
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-flyout-host,
+  #header.mt-desktop-nav-ready .mt-native-catalog > .mt-native-root-list {
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    box-shadow:none !important;
+  }
+}
