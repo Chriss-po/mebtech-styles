@@ -27,11 +27,14 @@ src/
 ├── 06-forms.css
 ├── 07-utilities.css
 ├── 08-responsive.css
-└── 09-site-adapters.css
+├── 09-site-adapters.css
+├── 10-desktop-header.css
+└── 10-desktop-header.js
 
 dist/
 ├── mebtech.css
-└── mebtech-expandable.js
+├── mebtech-expandable.js
+└── mebtech-desktop-header.js
 
 docs/
 ├── design-system-v1.5.md
@@ -48,8 +51,11 @@ docs/
 - `06-forms.css` — fields and validation.
 - `07-utilities.css` — small reusable helpers.
 - `08-responsive.css` — core responsive overrides + reduced motion.
-- `09-site-adapters.css` — approved IQIT Header, SVG brand logo, DS pager placement, legacy veil fallback and mobile Hero motion.
+- `09-site-adapters.css` — approved mobile IQIT Header, SVG brand logo, DS pager placement, legacy veil fallback and mobile Hero motion.
+- `10-desktop-header.css` — Desktop Header v4.5 and IQIT native global vertical mega-menu CSS, appended after existing adapters.
+- `10-desktop-header.js` — Desktop Header v4.5 behavior; source of generated `dist/mebtech-desktop-header.js`.
 - `dist/mebtech-expandable.js` — shared Expandable Hero / Gallery interaction behavior.
+- `dist/mebtech-desktop-header.js` — separate Desktop Header v4.5 script; load **once** after theme markup with the matching release CSS. Keep IQIT global Vertical Menu enabled.
 - `docs/design-system-v1.5.md` — v1.5 historical contract.
 - `docs/design-system-v1.5.7.md` — current approved 13 Oct 2026 adaptations.
 
@@ -57,7 +63,7 @@ docs/
 
 Edit `/src`, not `/dist`.
 
-The GitHub Action `.github/workflows/build-css.yml` concatenates source files in the approved cascade order and updates `dist/mebtech.css`.
+The GitHub Action `.github/workflows/build-css.yml` concatenates source files in the approved cascade order, updates `dist/mebtech.css`, and copies Desktop Header JS into `dist/mebtech-desktop-header.js`.
 
 Do not reorder source files without regression QA: cascade order is part of the implementation contract.
 
@@ -67,7 +73,8 @@ Do not reorder source files without regression QA: cascade order is part of the 
 2. Commit to `main`.
 3. Wait for the **Build MebTech CSS** action to finish.
 4. Verify `dist/mebtech.css`.
-5. Create a new version tag/release, e.g. `v1.4.1`.
+5. Create a new version tag/release only after the build has committed `dist/mebtech.css` and `dist/mebtech-desktop-header.js`.
+   For Desktop Header v4.5, the site must use the same version for CSS and Header JS; before enabling the new release, remove the standalone Global CSS/JS v4.5 test snippets to avoid double initialization.
 6. Change only the version in the site's CDN `<link>`.
 7. Keep the previous tag for instant rollback.
 
