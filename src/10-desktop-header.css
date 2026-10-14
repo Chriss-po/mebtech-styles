@@ -1454,3 +1454,16 @@
     box-shadow:none !important;
   }
 }
+/* v1.6.1 — Desktop utility row fine-tuning only. Main Header row unchanged. */
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready .header-nav .row.justify-content-between {
+    padding-top: var(--space-1, 4px) !important;
+  }
+  #header.mt-desktop-nav-ready .header-nav .row.justify-content-between .mt-utility-city svg {
+    width: var(--icon-sm, 16px) !important;
+    height: var(--icon-sm, 16px) !important;
+    min-height: 0 !important;
+    max-height: var(--icon-sm, 16px) !important;
+    flex: 0 0 var(--icon-sm, 16px) !important;
+  }
+}
