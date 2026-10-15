@@ -60,6 +60,38 @@
       a.className = className || '';
       return a;
     }
+    // Category slugs are translated by PrestaShop. Resolve links by their
+    // stable category IDs and preserve the actual native URL of this locale.
+    // Never select an unrelated CMS link or a different-language destination.
+    function safeCloneCategoryLink(categoryId, title, className) {
+      var locale = russian ? 'ru' : 'uk';
+      var idPattern = new RegExp('^/' + locale + '/c' + categoryId + '(?:-|$)');
+      var selectors = 'a[href*="c' + categoryId + '-"]';
+      var roots = [
+        header.querySelector('#_desktop_iqitmegamenu-mobile'),
+        desktop,
+        header,
+        document
+      ];
+      for (var k = 0; k < roots.length; k++) {
+        var scope = roots[k];
+        if (!scope) continue;
+        var sources = scope.querySelectorAll(selectors);
+        for (var m = 0; m < sources.length; m++) {
+          var href = sources[m].getAttribute('href');
+          if (!href) continue;
+          var url;
+          try { url = new URL(href, location.href); } catch (e) { continue; }
+          if (url.origin !== location.origin || !idPattern.test(url.pathname)) continue;
+          var a = document.createElement('a');
+          a.href = url.href;
+          a.textContent = title;
+          a.className = className || '';
+          return a;
+        }
+      }
+      return null;
+    }
     function stripDuplicateIds(root) {
       root.querySelectorAll('[id],script,[onclick],[onmouseover],[onmouseenter]').forEach(function (el) {
         if (el.tagName.toLowerCase() === 'script') {el.remove();return;}
@@ -230,7 +262,7 @@
 
     var links = document.createElement('div');
     links.className = 'mt-utility-links';
-    var offers = safeCloneLink('#_desktop_iqitmegamenu-mobile a[href*="c1207-akcijni-tovari"]',words.offers,'mt-utility-offers');
+    var offers = safeCloneCategoryLink('1207',words.offers,'mt-utility-offers');
     if (offers) links.appendChild(offers);
 
     var buyerSource = desktop.querySelector('#cbp-hrmenu-tab-37 .cbp-hrsub');
@@ -265,7 +297,7 @@
       }
     }
     var news = safeCloneLink('#cbp-hrmenu-tab-37 a[href*="/blog"]',words.news);
-    var custom = safeCloneLink('#cbp-hrmenu-tab-57 a[href*="c1212-mebli-na-zamovlennya"]',words.custom,'mt-utility-custom');
+    var custom = safeCloneCategoryLink('1212',words.custom,'mt-utility-custom');
     if (news) links.appendChild(news);
     if (custom) links.appendChild(custom);
     utilityRight.insertBefore(links,utilityRight.firstChild);
