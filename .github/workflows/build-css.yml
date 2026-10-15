@@ -52,17 +52,18 @@ jobs:
           printf '\n' >> dist/mebtech.css
           cat src/10-desktop-header.css >> dist/mebtech.css
           cp src/10-desktop-header.js dist/mebtech-desktop-header.js
+          cp src/11-furniture-showcase.js dist/mebtech-furniture-showcase.js
 
       - name: Commit generated production assets
         shell: bash
         run: |
-          if git diff --quiet -- dist/mebtech.css dist/mebtech-desktop-header.js; then
+          git add dist/mebtech.css dist/mebtech-desktop-header.js dist/mebtech-furniture-showcase.js
+          if git diff --cached --quiet; then
             echo "No build changes."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add dist/mebtech.css dist/mebtech-desktop-header.js
           git commit -m "build: update mebtech CSS and desktop header JS"
           git push
