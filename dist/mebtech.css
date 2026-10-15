@@ -4348,3 +4348,18 @@ body#checkout:is(.form-control-success,.form-control-danger,.has-success .form-c
     flex: 0 0 var(--icon-sm, 16px) !important;
   }
 }
+
+/* v1.7.x · Shared desktop search alignment across UK/RU locales.
+   Live RU computed geometry: column top=48, widget top=61 (13px offset).
+   Tested column display:flex + align-items:center yields matching top=48.
+   Scoped to Desktop Header only; does not affect mobile Header. */
+@media (min-width: 992px) {
+  #header.mt-desktop-nav-ready #desktop-header .header-top .col-header-center {
+    display: flex !important;
+    align-items: center !important;
+  }
+  #header.mt-desktop-nav-ready #desktop-header .header-top .col-header-center > #search_widget {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+}
