@@ -1,10 +1,11 @@
-name: Build MebTech CSS
+name: Build MebTech CSS & JS
 
 on:
   push:
     paths:
       - "src/**.css"
       - "src/**.js"
+      - "src/js/**"
       - ".github/workflows/build-css.yml"
   workflow_dispatch:
 
@@ -19,7 +20,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build dist/mebtech.css
+      - name: Build production CSS and JS assets
         shell: bash
         run: |
           mkdir -p dist
@@ -51,13 +52,27 @@ jobs:
           cat src/09-site-adapters.css >> dist/mebtech.css
           printf '\n' >> dist/mebtech.css
           cat src/10-desktop-header.css >> dist/mebtech.css
-          cp src/10-desktop-header.js dist/mebtech-desktop-header.js
-          cp src/11-furniture-showcase.js dist/mebtech-furniture-showcase.js
+          # Keep previously released standalone endpoints for rollback.
+          cp src/js/01-expandable-hero.js dist/mebtech-expandable.js
+          cp src/js/02-desktop-header.js dist/mebtech-desktop-header.js
+          cp src/js/03-furniture-showcase.js dist/mebtech-furniture-showcase.js
+
+          # One production JS entrypoint; each self-contained module remains
+          # in its own source file and is separated by an ASI-safe semicolon.
+          {
+            printf '/* MEBTECH PRODUCTION JAVASCRIPT BUNDLE. Generated from src/js; do not edit directly. */\n'
+            cat src/js/01-expandable-hero.js
+            printf '\n;\n'
+            cat src/js/02-desktop-header.js
+            printf '\n;\n'
+            cat src/js/03-furniture-showcase.js
+            printf '\n'
+          } > dist/mebtech.js
 
       - name: Commit generated production assets
         shell: bash
         run: |
-          git add dist/mebtech.css dist/mebtech-desktop-header.js dist/mebtech-furniture-showcase.js
+          git add dist/mebtech.css dist/mebtech.js dist/mebtech-expandable.js dist/mebtech-desktop-header.js dist/mebtech-furniture-showcase.js
           if git diff --cached --quiet; then
             echo "No build changes."
             exit 0
@@ -65,5 +80,5 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "build: update mebtech CSS and desktop header JS"
+          git commit -m "build: update mebtech CSS and JS bundles"
           git push
