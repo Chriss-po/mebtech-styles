@@ -741,6 +741,12 @@ button.slick-arrow{overflow:hidden;border-radius:var(--radius-pill);padding:var(
    ------------------------------------------------------------ */
 .trust-benefits__icon{display:flex;align-items:center;justify-content:center;flex-shrink:0}.trust-benefits__icon svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.trust-benefits__title{margin:0;padding-top:var(--space-2);display:flex}.trust-benefits__description{margin:0;padding-top:var(--space-1);max-width:180px;color:var(--gray-600)}.trust-benefits__item--link{color:inherit;text-decoration:none}.trust-benefits__arrow{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:32px;height:32px;transition:transform var(--motion-ui) var(--ease-standard)}.trust-benefits__item--link:hover .trust-benefits__arrow{transform:translateX(3px)}.trust-benefits.trust-benefits--overlay{background:var(--glass-bg-strong);backdrop-filter:var(--glass-filter);-webkit-backdrop-filter:var(--glass-filter);border:var(--border-width-default) solid var(--glass-border);box-shadow:var(--shadow-glass)}.trust-benefits__icon{width:36px;height:36px;background:var(--green-50);color:var(--green-800);border-radius:var(--radius-md)}.trust-benefits__icon svg{width:var(--icon-md);height:var(--icon-md)}
 
+/* Furniture Showcase — Glass spacing correction */
+.furniture-showcase .trust-benefits.trust-benefits--overlay {
+  gap: var(--space-3, 16px);
+}
+
+
 /* ------------------------------------------------------------
    05.16 — Expandable media
    Shared Hero / Showroom Gallery component · validated v6.5.
