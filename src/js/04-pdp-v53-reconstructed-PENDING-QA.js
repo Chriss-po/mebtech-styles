@@ -980,6 +980,9 @@
     syncHalfSheetMessage();
     refreshStock();
     refreshPriceVisibility();
+    // No-price status is resolved only now; reposition native description
+    // outside hidden purchase markup on status-only catalog products.
+    prepareEditorialColumns();
     updateVariants();
     prepareBottomThumbnails();
     removeNode(gallery.querySelector('.mt-pdp-v4-photo-dots'));
