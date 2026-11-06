@@ -270,44 +270,72 @@
   }
 }
 
-/* Existing IQIT mobile description accordion: visual alignment only.
-   Keep its native reveal/hide interaction; do NOT create a second accordion. */
-@media (max-width:767px) {
-  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 #product-infos-accordion-mobile {
+/* Native IQIT mobile tabs accordion.
+   #product-infos-tabs is the original tab navigation; on mobile IQIT
+   renders the accordion into #product-infos-accordion-mobile, a sibling of
+   #main-product-wrapper under #main. Keep all native collapse handlers. */
+@media (max-width: 767px) {
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
+  > #product-infos-accordion-mobile {
     margin: 16px 0 24px !important;
     padding: 0 !important;
     border: 0 !important;
     background: transparent !important;
+    box-shadow: none !important;
   }
-  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 #product-infos-accordion-mobile
-  :is(.card-header, .panel-heading, .accordion-header) {
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
+  > #product-infos-accordion-mobile :is(.card, .panel, .accordion-item) {
     margin: 0 !important;
     padding: 0 !important;
-    background: transparent !important;
     border: 0 !important;
-    border-bottom: 1px solid var(--gray-100,#E5E3DB) !important;
+    border-bottom: 1px solid var(--gray-100, #E5E3DB) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
     box-shadow: none !important;
   }
-  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 #product-infos-accordion-mobile
-  :is(.card-header, .panel-heading, .accordion-header) :is(a,button) {
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
+  > #product-infos-accordion-mobile :is(.card-header, .panel-heading, .accordion-header) {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
+  > #product-infos-accordion-mobile
+  :is(.card-header, .panel-heading, .accordion-header)
+  :is(a, button, .btn, .card-title) {
+    box-sizing: border-box !important;
     display: flex !important;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    min-height: 52px;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    min-height: 52px !important;
+    margin: 0 !important;
     padding: 16px 0 !important;
-    background: transparent !important;
-    color: var(--ink,#111311) !important;
-    font: 600 16px/1.35 var(--font-body,Inter,sans-serif) !important;
-    text-align: left;
     border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
     box-shadow: none !important;
+    color: var(--ink, #111311) !important;
+    font: 600 16px/1.35 var(--font-body, Inter, sans-serif) !important;
     text-decoration: none !important;
+    text-align: left !important;
   }
-  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 #product-infos-accordion-mobile
-  :is(.card-body, .panel-body) {
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
+  > #product-infos-accordion-mobile
+  :is(.card-header, .panel-heading, .accordion-header) :is(a, button, .btn):focus-visible {
+    outline: 2px solid var(--green-500, #2F7A5C) !important;
+    outline-offset: 2px;
+  }
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
+  > #product-infos-accordion-mobile :is(.card-body, .panel-body, .accordion-body) {
+    box-sizing: border-box !important;
     padding: 0 0 20px !important;
-    color: var(--ink,#111311);
+    border: 0 !important;
+    background: transparent !important;
+    color: var(--ink, #111311) !important;
     overflow-wrap: anywhere;
   }
 }
