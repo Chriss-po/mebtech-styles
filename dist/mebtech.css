@@ -7152,7 +7152,7 @@ a.furniture-project-order-btn:active {
 #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-purchase
 .product-information > [id^="product-description-short"] {
   display: block !important;
-  margin: 16px 0 20px !important;
+  margin: 8px 0 16px !important;
   color: var(--gray-600, #5F5E5A) !important;
   font: 400 13px/1.6 var(--font-body, 'Inter', Arial, sans-serif) !important;
   overflow-wrap: anywhere;
@@ -7166,4 +7166,40 @@ a.furniture-project-order-btn:active {
   color: var(--green-800, #0C2A20) !important;
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+/* PDP status-only / non-buyable variant: avoid a tall empty purchase slot.
+   Preserve native availability, and show short description after status
+   instead of inside a hidden .product-information form. */
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-purchase
+[id^="product-description-short"].mt-pdp-short-after-cart {
+  margin: 8px 0 16px !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-purchase
+> [id^="product-description-short"].mt-pdp-short-no-cart {
+  display: block !important;
+  margin: 8px 0 16px !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  color: var(--gray-600, #5F5E5A) !important;
+  font: 400 13px/1.6 var(--font-body, 'Inter', Arial, sans-serif) !important;
+  overflow-wrap: anywhere;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-pdp-v51-no-price
+.mt-pdp-v4-purchase .product_header_container,
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-pdp-v51-no-price
+.mt-pdp-v4-purchase .product-prices {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-bottom: 0 !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-pdp-v51-no-price
+.mt-pdp-v4-purchase .product-prices {
+  margin: 0 !important;
+  row-gap: 0 !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-pdp-v51-no-price
+.mt-pdp-v4-purchase > .product-information {
+  display: none !important;
 }
