@@ -261,14 +261,6 @@
 .delivery-icon:has(> .mt-p05-svg) > img {
   display: none !important;
 }
-/* Disable browser scroll anchoring inside open PDP accordions, preventing
-   content above the trigger from pulling the panel unexpectedly upward. */
-@media (max-width: 767px) {
-  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5
-  .mt-pdp-v4-accordion-panel {
-    overflow-anchor: none;
-  }
-}
 
 /* Native IQIT mobile tabs accordion.
    #product-infos-tabs is the original tab navigation; on mobile IQIT
@@ -337,5 +329,29 @@
     background: transparent !important;
     color: var(--ink, #111311) !important;
     overflow-wrap: anywhere;
+  }
+}
+
+/* Mobile PDP: clear separation after specs and a neutral native IQIT tab shell.
+   Keep the original Warehouse collapse JS and arrow behavior. */
+@media (max-width:767px) {
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-specifications {
+    padding-bottom: 24px !important;
+  }
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
+  > .product-tabs,
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
+  > #product-infos-accordion-mobile,
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
+  .product-tabs {
+    margin-top: 24px !important;
+  }
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
+  :is(.product-tabs, #product-infos-accordion-mobile)
+  :is(.card, .card-header, .panel, .panel-heading, .accordion-item, .accordion-header) {
+    background: transparent !important;
+    background-image: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
   }
 }
