@@ -262,96 +262,13 @@
   display: none !important;
 }
 
-/* Native IQIT mobile tabs accordion.
-   #product-infos-tabs is the original tab navigation; on mobile IQIT
-   renders the accordion into #product-infos-accordion-mobile, a sibling of
-   #main-product-wrapper under #main. Keep all native collapse handlers. */
+/* Deferred mobile IQIT/Warehouse accordion visual restyling (2026-11-06).
+   Previous experimental selectors and broad background overrides were removed:
+   they did not fix the gray/green native tabs and risked CSS cascade conflicts.
+   Keep the stock IQIT interaction until its rendered mobile DOM can be tested.
+   This scoped spacing rule is separate from the unresolved accordion styling. */
 @media (max-width: 767px) {
-  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
-  > #product-infos-accordion-mobile {
-    margin: 16px 0 24px !important;
-    padding: 0 !important;
-    border: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
-  > #product-infos-accordion-mobile :is(.card, .panel, .accordion-item) {
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-    border-bottom: 1px solid var(--gray-100, #E5E3DB) !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
-  > #product-infos-accordion-mobile :is(.card-header, .panel-heading, .accordion-header) {
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
-  > #product-infos-accordion-mobile
-  :is(.card-header, .panel-heading, .accordion-header)
-  :is(a, button, .btn, .card-title) {
-    box-sizing: border-box !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    width: 100% !important;
-    min-height: 52px !important;
-    margin: 0 !important;
-    padding: 16px 0 !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    color: var(--ink, #111311) !important;
-    font: 600 16px/1.35 var(--font-body, Inter, sans-serif) !important;
-    text-decoration: none !important;
-    text-align: left !important;
-  }
-  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
-  > #product-infos-accordion-mobile
-  :is(.card-header, .panel-heading, .accordion-header) :is(a, button, .btn):focus-visible {
-    outline: 2px solid var(--green-500, #2F7A5C) !important;
-    outline-offset: 2px;
-  }
-  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
-  > #product-infos-accordion-mobile :is(.card-body, .panel-body, .accordion-body) {
-    box-sizing: border-box !important;
-    padding: 0 0 20px !important;
-    border: 0 !important;
-    background: transparent !important;
-    color: var(--ink, #111311) !important;
-    overflow-wrap: anywhere;
-  }
-}
-
-/* Mobile PDP: clear separation after specs and a neutral native IQIT tab shell.
-   Keep the original Warehouse collapse JS and arrow behavior. */
-@media (max-width:767px) {
   #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-specifications {
     padding-bottom: 24px !important;
-  }
-  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
-  > .product-tabs,
-  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
-  > #product-infos-accordion-mobile,
-  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
-  .product-tabs {
-    margin-top: 24px !important;
-  }
-  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5)
-  :is(.product-tabs, #product-infos-accordion-mobile)
-  :is(.card, .card-header, .panel, .panel-heading, .accordion-item, .accordion-header) {
-    background: transparent !important;
-    background-image: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
   }
 }
