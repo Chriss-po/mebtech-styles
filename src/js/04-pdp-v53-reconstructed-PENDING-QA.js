@@ -342,25 +342,41 @@
     }
     var context = ensureSlot(aside, 'mt-pdp-v5-context');
     if (spec && context.previousElementSibling !== spec) spec.insertAdjacentElement('afterend', context);
-    // Place the NATIVE short product description immediately after the
-    // purchase action (under "У кошик") on every PDP, not above Format.
-    // This moves the original node; it does not create/clone product copy.
-    // Prefer freshly AJAX-updated description when the variant changes.
-    var freshDescription = purchase.querySelector('.product-information > [id^="product-description-short"]');
+    // Move native short description below the real purchase button ONLY on
+    // purchasable product pages. Do not move it into a hidden purchase form
+    // on catalog/status-only pages (including native missing/zero prices).
+    // Prefer fresh PrestaShop AJAX content over stale moved description.
+    var freshDescription = purchase.querySelector('.product-information [id^="product-description-short"]');
     var oldDescription = purchase.querySelector(':scope > [id^="product-description-short"]') ||
       context.querySelector('[id^="product-description-short"]');
     if (freshDescription && oldDescription && freshDescription !== oldDescription) removeNode(oldDescription);
     var description = freshDescription || oldDescription;
     var nativeInfo = purchase.querySelector('.product-information');
     var addToCart = nativeInfo && nativeInfo.querySelector('.product-add-to-cart');
-    if (description && addToCart &&
-        (description.parentElement !== addToCart.parentElement ||
-         description.previousElementSibling !== addToCart)) {
-      addToCart.insertAdjacentElement('afterend', description);
-    } else if (description && nativeInfo && !addToCart &&
-               description.nextElementSibling !== nativeInfo) {
-      // Status-only catalog item with no buy control: preserve readability.
-      purchase.insertBefore(description, nativeInfo);
+    var button = addToCart && addToCart.querySelector('button.add-to-cart[data-button-action="add-to-cart"]');
+    var priceNode = purchase.querySelector('.product-prices [itemprop="price"], .product-prices .product-price');
+    var rawPrice = priceNode && (priceNode.getAttribute('content') || stringOf(priceNode));
+    var priceAmount = rawPrice ? Number(String(rawPrice).replace(/\u00a0/g, '').replace(/\s/g, '').replace(/,(?=\d{1,2}$)/, '.').replace(/[^0-9.]/g, '')) : NaN;
+    var purchasable = !!(button && !button.disabled && Number.isFinite(priceAmount) && priceAmount > 0 &&
+      nativeInfo && window.getComputedStyle(nativeInfo).display !== 'none');
+    if (description && purchasable && addToCart) {
+      if (description.parentElement !== addToCart.parentElement ||
+          description.previousElementSibling !== addToCart) {
+        addToCart.insertAdjacentElement('afterend', description);
+      }
+      description.classList.add('mt-pdp-short-after-cart');
+      description.classList.remove('mt-pdp-short-no-cart');
+    } else if (description && nativeInfo) {
+      // Restore a visible position immediately after price/status, outside
+      // the form that PDP no-price rules can hide. Never delete the copy.
+      var header = purchase.querySelector('.product_header_container');
+      var anchor = purchase.querySelector('.delivery-information.mt-pdp-price-info-attached') || header;
+      if (anchor && (description.parentElement !== purchase ||
+          description.previousElementSibling !== anchor)) {
+        anchor.insertAdjacentElement('afterend', description);
+      }
+      description.classList.remove('mt-pdp-short-after-cart');
+      description.classList.add('mt-pdp-short-no-cart');
     }
     // Retain all real content, but remove empty old wrappers when safe.
     aside.querySelectorAll('.mt-pdp-features-slot, .mt-pdp-delivery-slot').forEach(function (empty) {
