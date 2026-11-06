@@ -7306,3 +7306,44 @@ a.furniture-project-order-btn:active {
     overflow-anchor: none;
   }
 }
+
+/* Full description responsive behavior — desktop visible section, mobile
+   accordion. Both modes reuse one original native description DOM node. */
+@media (min-width: 768px) {
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+  > .mt-pdp-v4-accordion[data-panel="description"] {
+    margin: 40px 0 50px !important;
+    border: 0 !important;
+  }
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+  > .mt-pdp-v4-accordion[data-panel="description"]
+  > .mt-pdp-v4-accordion-trigger {
+    display: none !important;
+  }
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+  > .mt-pdp-v4-accordion[data-panel="description"]
+  > .mt-pdp-v5-description-heading {
+    display: block !important;
+    margin: 0 0 18px !important;
+    color: var(--ink, #111311);
+    font: 700 26px/1.2 var(--font-body, 'Inter', Arial, sans-serif);
+  }
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+  > .mt-pdp-v4-accordion[data-panel="description"]
+  > .mt-pdp-v4-accordion-panel {
+    display: block !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+}
+@media (max-width: 767px) {
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+  > .mt-pdp-v4-accordion[data-panel="description"]
+  > .mt-pdp-v5-description-heading {
+    display: none !important;
+  }
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+  > .mt-pdp-v4-accordion[data-panel="description"] {
+    margin: 16px 0 24px !important;
+  }
+}
