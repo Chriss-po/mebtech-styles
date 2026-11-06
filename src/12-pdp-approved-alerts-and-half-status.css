@@ -247,3 +247,66 @@
     margin-right: 0 !important;
   }
 }
+
+/* PDP Accordion QA: one full description section with the same native
+   trigger/chevron/divider/panel system as Delivery and Returns. */
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5 > .mt-pdp-v4-accordion[data-panel="description"] {
+  margin: 16px 0 0 !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+.mt-pdp-v4-accordion[data-panel="description"] > .mt-pdp-v4-accordion-panel {
+  padding: 0 0 20px !important;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+.mt-pdp-v4-accordion[data-panel="description"] .tab-pane {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+.mt-pdp-v4-accordion[data-panel="description"] .rte-content {
+  max-width: 100%;
+}
+/* The original tab label was already represented by the one accordion.
+   Do not discard product-details JSON, which is still read by PDP AJAX. */
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+.product-tabs.mt-pdp-v5-description-moved #product-infos-tabs a[href="#description"],
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+.product-tabs.mt-pdp-v5-description-moved #product-infos-tabs a[href="#product-description"] {
+  display: none !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+.product-tabs.mt-pdp-v5-description-moved #product-infos-tabs li:has(a[href="#description"]),
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+.product-tabs.mt-pdp-v5-description-moved #product-infos-tabs li:has(a[href="#product-description"]),
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+.product-tabs.mt-pdp-v5-details-nav-empty #product-details-tab-nav {
+  display: none !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+.product-tabs.mt-pdp-v5-description-moved.mt-pdp-v5-details-nav-empty {
+  display: none !important;
+}
+/* Service PDPs keep original CMS images when REPLACEMENT 05 does not
+   inject a replacement SVG. This also handles any other unmodified option. */
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-p05-ready
+.delivery-icon:not(:has(> .mt-p05-svg)) > img {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  object-fit: contain;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-p05-ready
+.delivery-icon:has(> .mt-p05-svg) > img {
+  display: none !important;
+}
+/* Disable browser scroll anchoring inside open PDP accordions, preventing
+   content above the trigger from pulling the panel unexpectedly upward. */
+@media (max-width: 767px) {
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5
+  .mt-pdp-v4-accordion-panel {
+    overflow-anchor: none;
+  }
+}
