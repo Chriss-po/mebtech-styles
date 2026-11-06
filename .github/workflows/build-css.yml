@@ -68,6 +68,9 @@ jobs:
             cat src/js/02-desktop-header.js
             printf '\n;\n'
             cat src/js/03-furniture-showcase.js
+            printf '\n;\n'
+            # Restored site-approved PDP core and REPLACEMENT 05. Runs only on PDP.
+            cat src/js/04-pdp-v53-reconstructed-PENDING-QA.js
             printf '\n'
           } > dist/mebtech.js
 
