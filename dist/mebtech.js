@@ -3178,16 +3178,24 @@
     }
     var context = ensureSlot(aside, 'mt-pdp-v5-context');
     if (spec && context.previousElementSibling !== spec) spec.insertAdjacentElement('afterend', context);
-    // Keep the native short description, including the recommended edge banding,
-    // in its original BUY area just below price/availability and above Format.
-    // AJAX can reinsert a fresh description under .product-information: prefer it.
+    // Place the NATIVE short product description immediately after the
+    // purchase action (under "У кошик") on every PDP, not above Format.
+    // This moves the original node; it does not create/clone product copy.
+    // Prefer freshly AJAX-updated description when the variant changes.
     var freshDescription = purchase.querySelector('.product-information > [id^="product-description-short"]');
     var oldDescription = purchase.querySelector(':scope > [id^="product-description-short"]') ||
       context.querySelector('[id^="product-description-short"]');
     if (freshDescription && oldDescription && freshDescription !== oldDescription) removeNode(oldDescription);
     var description = freshDescription || oldDescription;
     var nativeInfo = purchase.querySelector('.product-information');
-    if (description && nativeInfo && description.nextElementSibling !== nativeInfo) {
+    var addToCart = nativeInfo && nativeInfo.querySelector('.product-add-to-cart');
+    if (description && addToCart &&
+        (description.parentElement !== addToCart.parentElement ||
+         description.previousElementSibling !== addToCart)) {
+      addToCart.insertAdjacentElement('afterend', description);
+    } else if (description && nativeInfo && !addToCart &&
+               description.nextElementSibling !== nativeInfo) {
+      // Status-only catalog item with no buy control: preserve readability.
       purchase.insertBefore(description, nativeInfo);
     }
     // Retain all real content, but remove empty old wrappers when safe.
