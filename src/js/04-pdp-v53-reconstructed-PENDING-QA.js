@@ -972,6 +972,29 @@
     if (!nativeDescription && !section) return;
     if (!section) section = ensureAccordion(root, 'description', 'Опис товару');
     var panel = section.querySelector('.mt-pdp-v4-accordion-panel');
+    var trigger = section.querySelector('.mt-pdp-v4-accordion-trigger');
+    // Desktop: original always-open description section with H2.
+    // Mobile: same content in one collapsed PDP accordion.
+    if (!section.querySelector('.mt-pdp-v5-description-heading')) {
+      var heading = document.createElement('h2');
+      heading.className = 'mt-pdp-v5-description-heading';
+      heading.textContent = 'Опис товару';
+      section.insertBefore(heading, trigger);
+    }
+    if (!section.dataset.mtDescriptionModeBound) {
+      section.dataset.mtDescriptionModeBound = '1';
+      var viewport = window.matchMedia('(max-width: 767px)');
+      var syncDescriptionMode = function () {
+        var mode = viewport.matches ? 'mobile' : 'desktop';
+        if (section.dataset.mtDescriptionMode === mode) return;
+        section.dataset.mtDescriptionMode = mode;
+        trigger.setAttribute('aria-expanded', mode === 'desktop' ? 'true' : 'false');
+        panel.hidden = mode === 'mobile';
+      };
+      if (viewport.addEventListener) viewport.addEventListener('change', syncDescriptionMode);
+      else if (viewport.addListener) viewport.addListener(syncDescriptionMode);
+      syncDescriptionMode();
+    }
     if (nativeDescription && stringOf(nativeDescription).length >= 15) {
       // Move the original description pane. Do not clone or recreate text.
       panel.appendChild(nativeDescription);
