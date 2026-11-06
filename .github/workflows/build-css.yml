@@ -77,6 +77,8 @@ jobs:
             cat src/js/05-pdp-half-preorder-presentation.js
             printf '\n;\n'
             cat src/js/06-pdp-delivery-copy.js
+            printf '\n;\n'
+            cat src/js/07-pdp-price-info-placement.js
             printf '\n'
           } > dist/mebtech.js
 
