@@ -7203,3 +7203,43 @@ a.furniture-project-order-btn:active {
 .mt-pdp-v4-purchase > .product-information {
   display: none !important;
 }
+
+/* PDP mobile outer gutter · 2026-11-06
+   DOM confirmed: #inner-wrapper.container > #content-wrapper > #main
+   contains both #main-product-wrapper and related product sections.
+   One shared 16px gutter; neutralize Bootstrap .row negative margins.
+   Do not add another 16px to child cards/sections or the fixed header. */
+@media (max-width: 767px) {
+  #wrapper #inner-wrapper.container:has(#main-product-wrapper.mt-pdp-v4.mt-pdp-v5) {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-row > .mt-pdp-v4-gallery,
+  #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-row > .mt-pdp-v4-purchase {
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5) > section.product-accessories,
+  #main:has(> #main-product-wrapper.mt-pdp-v4.mt-pdp-v5) > section.category-products {
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
