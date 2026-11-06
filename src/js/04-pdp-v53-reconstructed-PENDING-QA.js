@@ -158,8 +158,17 @@
     content.hidden = true;
     button.addEventListener('click', function () {
       var open = button.getAttribute('aria-expanded') === 'true';
+      var mobile = window.matchMedia('(max-width: 767px)').matches;
+      var initialTop = mobile ? button.getBoundingClientRect().top : 0;
       button.setAttribute('aria-expanded', String(!open));
       content.hidden = open;
+      if (mobile && !open) {
+        requestAnimationFrame(function () {
+          // Keep the trigger at the tapped position; panel expands BELOW it.
+          var displacement = button.getBoundingClientRect().top - initialTop;
+          if (Math.abs(displacement) > 1) window.scrollBy(0, displacement);
+        });
+      }
     });
     section.appendChild(button);
     section.appendChild(content);
@@ -951,14 +960,39 @@
   }
 
   function descriptionWhenPresent() {
+    // The owner approved ONE full-width accordion using the existing PDP
+    // accordion component. Never duplicate native full description content.
+    root.querySelectorAll('.mt-pdp-v4-description-title').forEach(removeNode);
     var tabs = root.querySelector('.product-tabs');
-    if (!tabs) return;
-    var desc = firstOf(tabs, ['#description', '#product-description', '[id$="-description-tab"]']);
-    if (!desc || stringOf(desc).length < 15 || root.querySelector('.mt-pdp-v4-description-title')) return;
-    var h2 = document.createElement('h2');
-    h2.className = 'mt-pdp-v4-description-title';
-    h2.textContent = 'Опис товару';
-    tabs.insertAdjacentElement('beforebegin', h2);
+    if (!tabs || !tabs.parentNode) return;
+    var section = root.querySelector('.mt-pdp-v4-accordion[data-panel="description"]');
+    var nativeDescription = firstOf(tabs, [
+      '#description', '#product-description', '.tab-pane[id$="-description-tab"]'
+    ]);
+    if (!nativeDescription && !section) return;
+    if (!section) section = ensureAccordion(root, 'description', 'Опис товару');
+    var panel = section.querySelector('.mt-pdp-v4-accordion-panel');
+    if (nativeDescription && stringOf(nativeDescription).length >= 15) {
+      // Move the original description pane. Do not clone or recreate text.
+      panel.appendChild(nativeDescription);
+    }
+    var hasDescription = !!panel && stringOf(panel).length >= 15;
+    section.hidden = !hasDescription;
+    if (hasDescription && section.nextElementSibling !== tabs) {
+      tabs.parentNode.insertBefore(section, tabs);
+    }
+    tabs.classList.toggle('mt-pdp-v5-description-moved', hasDescription);
+    // Native product-details markup contains AJAX product JSON and must stay
+    // in the DOM even when its empty presentation tab is hidden.
+    var details = tabs.querySelector('#product-details-tab');
+    var detailsContent = details && details.cloneNode(true);
+    if (detailsContent) {
+      detailsContent.querySelectorAll(
+        '#product-details, .product-features, .product-manufacturer, .product-reference, .product-quantities, .product-out-of-stock, meta, link, script'
+      ).forEach(removeNode);
+    }
+    tabs.classList.toggle('mt-pdp-v5-details-nav-empty', !detailsContent ||
+      (!stringOf(detailsContent) && !detailsContent.querySelector('img,video,a[href],table')));
   }
 
   var scheduled = false;
