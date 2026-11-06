@@ -54,6 +54,8 @@ jobs:
           cat src/10-desktop-header.css >> dist/mebtech.css
           printf '\n' >> dist/mebtech.css
           cat src/11-pdp-validated.css >> dist/mebtech.css
+          printf '\n' >> dist/mebtech.css
+          cat src/12-pdp-approved-alerts-and-half-status.css >> dist/mebtech.css
           # Keep previously released standalone endpoints for rollback.
           cp src/js/01-expandable-hero.js dist/mebtech-expandable.js
           cp src/js/02-desktop-header.js dist/mebtech-desktop-header.js
@@ -71,6 +73,8 @@ jobs:
             printf '\n;\n'
             # Restored site-approved PDP core and REPLACEMENT 05. Runs only on PDP.
             cat src/js/04-pdp-v53-reconstructed-PENDING-QA.js
+            printf '\n;\n'
+            cat src/js/05-pdp-half-preorder-presentation.js
             printf '\n'
           } > dist/mebtech.js
 
