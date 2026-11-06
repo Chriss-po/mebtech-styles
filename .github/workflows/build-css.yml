@@ -75,6 +75,8 @@ jobs:
             cat src/js/04-pdp-v53-reconstructed-PENDING-QA.js
             printf '\n;\n'
             cat src/js/05-pdp-half-preorder-presentation.js
+            printf '\n;\n'
+            cat src/js/06-pdp-delivery-copy.js
             printf '\n'
           } > dist/mebtech.js
 
