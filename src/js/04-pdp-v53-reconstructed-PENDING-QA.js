@@ -157,18 +157,11 @@
     content.setAttribute('aria-labelledby', button.id);
     content.hidden = true;
     button.addEventListener('click', function () {
+      // Native-style disclosure: content appears directly below its trigger.
+      // Do not change scroll position when opening or closing.
       var open = button.getAttribute('aria-expanded') === 'true';
-      var mobile = window.matchMedia('(max-width: 767px)').matches;
-      var initialTop = mobile ? button.getBoundingClientRect().top : 0;
       button.setAttribute('aria-expanded', String(!open));
       content.hidden = open;
-      if (mobile && !open) {
-        requestAnimationFrame(function () {
-          // Keep the trigger at the tapped position; panel expands BELOW it.
-          var displacement = button.getBoundingClientRect().top - initialTop;
-          if (Math.abs(displacement) > 1) window.scrollBy(0, displacement);
-        });
-      }
     });
     section.appendChild(button);
     section.appendChild(content);
