@@ -960,62 +960,25 @@
   }
 
   function descriptionWhenPresent() {
-    // The owner approved ONE full-width accordion using the existing PDP
-    // accordion component. Never duplicate native full description content.
+    // Existing IQIT desktop tabs and mobile description accordion already work.
+    // Only remove the duplicate heading introduced by our PDP script.
     root.querySelectorAll('.mt-pdp-v4-description-title').forEach(removeNode);
+
+    // Cleanup for a previously loaded experimental description accordion:
+    // restore the ORIGINAL tab pane before removing our duplicate wrapper.
+    var generated = root.querySelector('.mt-pdp-v4-accordion[data-panel="description"]');
+    if (generated) {
+      var tabs = root.querySelector('.product-tabs');
+      var content = tabs && tabs.querySelector('#product-infos-tabs-content');
+      var original = generated.querySelector(
+        '.tab-pane#description, .tab-pane#product-description, .tab-pane[id$="-description-tab"]'
+      );
+      if (content && original && original.parentElement !== content) content.appendChild(original);
+      removeNode(generated);
+    }
+
     var tabs = root.querySelector('.product-tabs');
-    if (!tabs || !tabs.parentNode) return;
-    var section = root.querySelector('.mt-pdp-v4-accordion[data-panel="description"]');
-    var nativeDescription = firstOf(tabs, [
-      '#description', '#product-description', '.tab-pane[id$="-description-tab"]'
-    ]);
-    if (!nativeDescription && !section) return;
-    if (!section) section = ensureAccordion(root, 'description', 'Опис товару');
-    var panel = section.querySelector('.mt-pdp-v4-accordion-panel');
-    var trigger = section.querySelector('.mt-pdp-v4-accordion-trigger');
-    // Desktop: original always-open description section with H2.
-    // Mobile: same content in one collapsed PDP accordion.
-    if (!section.querySelector('.mt-pdp-v5-description-heading')) {
-      var heading = document.createElement('h2');
-      heading.className = 'mt-pdp-v5-description-heading';
-      heading.textContent = 'Опис товару';
-      section.insertBefore(heading, trigger);
-    }
-    if (!section.dataset.mtDescriptionModeBound) {
-      section.dataset.mtDescriptionModeBound = '1';
-      var viewport = window.matchMedia('(max-width: 767px)');
-      var syncDescriptionMode = function () {
-        var mode = viewport.matches ? 'mobile' : 'desktop';
-        if (section.dataset.mtDescriptionMode === mode) return;
-        section.dataset.mtDescriptionMode = mode;
-        trigger.setAttribute('aria-expanded', mode === 'desktop' ? 'true' : 'false');
-        panel.hidden = mode === 'mobile';
-      };
-      if (viewport.addEventListener) viewport.addEventListener('change', syncDescriptionMode);
-      else if (viewport.addListener) viewport.addListener(syncDescriptionMode);
-      syncDescriptionMode();
-    }
-    if (nativeDescription && stringOf(nativeDescription).length >= 15) {
-      // Move the original description pane. Do not clone or recreate text.
-      panel.appendChild(nativeDescription);
-    }
-    var hasDescription = !!panel && stringOf(panel).length >= 15;
-    section.hidden = !hasDescription;
-    if (hasDescription && section.nextElementSibling !== tabs) {
-      tabs.parentNode.insertBefore(section, tabs);
-    }
-    tabs.classList.toggle('mt-pdp-v5-description-moved', hasDescription);
-    // Native product-details markup contains AJAX product JSON and must stay
-    // in the DOM even when its empty presentation tab is hidden.
-    var details = tabs.querySelector('#product-details-tab');
-    var detailsContent = details && details.cloneNode(true);
-    if (detailsContent) {
-      detailsContent.querySelectorAll(
-        '#product-details, .product-features, .product-manufacturer, .product-reference, .product-quantities, .product-out-of-stock, meta, link, script'
-      ).forEach(removeNode);
-    }
-    tabs.classList.toggle('mt-pdp-v5-details-nav-empty', !detailsContent ||
-      (!stringOf(detailsContent) && !detailsContent.querySelector('img,video,a[href],table')));
+    if (tabs) tabs.classList.remove('mt-pdp-v5-description-moved', 'mt-pdp-v5-details-nav-empty');
   }
 
   var scheduled = false;
