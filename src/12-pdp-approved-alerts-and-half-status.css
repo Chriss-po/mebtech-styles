@@ -1,0 +1,128 @@
+/* MEBTECH PDP · approved DS alerts + half-sheet preorder visual status · 2026-11-06.
+   CSS only for message types. JS half-sheet status is a separate presentation module.
+   No edits to delivery/pickup rules, shipping eligibility, returns, prices or CMS text. */
+
+/* Shared Alert anatomy: approved 12×16 padding, 0.5px stroke, Inter 13px. */
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-p05-ready
+:is(.mt-p05-lead, .mt-p05-restriction) > .mt-p05-notice {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 12px 16px !important;
+  border: 0.5px solid transparent !important;
+  border-radius: var(--radius-sm, 8px);
+  box-shadow: none !important;
+  font: 400 13px/1.5 var(--font-body, 'Inter', Arial, sans-serif) !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-p05-ready
+:is(.mt-p05-lead, .mt-p05-restriction) > .mt-p05-notice strong {
+  display: block;
+  font: 700 13px/1.5 var(--font-body, 'Inter', Arial, sans-serif) !important;
+  color: inherit !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-p05-ready
+:is(.mt-p05-lead, .mt-p05-restriction) > .mt-p05-notice p {
+  margin: 2px 0 0 !important;
+  font: 400 13px/1.5 var(--font-body, 'Inter', Arial, sans-serif) !important;
+  color: inherit !important;
+}
+
+/* Info: product is preorder; delivery message remains exactly as is. */
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-p05-ready .mt-p05-lead > .mt-p05-notice {
+  background: var(--gray-50, #F7F6F2) !important;
+  border-color: var(--gray-100, #E5E3DB) !important;
+  color: var(--ink-soft, #3A3D3A) !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-p05-ready .mt-p05-lead > .mt-p05-notice > .mt-p05-svg {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  color: var(--ink-soft, #3A3D3A) !important;
+}
+
+/* Warning: physical board shipping restriction; exact copy stays unchanged. */
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-p05-ready .mt-p05-restriction > .mt-p05-notice {
+  background: var(--amber-bg, #FAF0DC) !important;
+  border-color: rgba(156,107,11,.20) !important;
+  color: var(--amber, #9C6B0B) !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-p05-ready .mt-p05-restriction > .mt-p05-notice > .mt-p05-svg {
+  display: none !important;
+}
+/* The current generated JS uses an info SVG. CSS replaces its visual with
+   a warning glyph. Semantics/real HTML icon remain a later QA item. */
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5.mt-p05-ready .mt-p05-restriction > .mt-p05-notice::before {
+  content: '!';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 18px;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border: 1.7px solid currentColor;
+  border-radius: 50%;
+  color: var(--amber, #9C6B0B);
+  font: 700 12px/1 var(--font-body, 'Inter', Arial, sans-serif);
+}
+
+/* Info: existing price clarification span; text/content are preserved. */
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .delivery-information {
+  box-sizing: border-box;
+  display: flex !important;
+  align-items: flex-start;
+  gap: 9px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 12px;
+  padding: 12px 16px !important;
+  background: var(--gray-50, #F7F6F2) !important;
+  border: 0.5px solid var(--gray-100, #E5E3DB) !important;
+  border-radius: var(--radius-sm, 8px) !important;
+  box-shadow: none !important;
+  color: var(--ink-soft, #3A3D3A) !important;
+  font: 400 13px/1.5 var(--font-body, 'Inter', Arial, sans-serif) !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .delivery-information::before {
+  content: 'i';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border: 1.7px solid currentColor;
+  border-radius: 50%;
+  color: var(--ink-soft, #3A3D3A);
+  font: 700 12px/1 var(--font-body, 'Inter', Arial, sans-serif);
+}
+
+/* Half sheet always visually indicates preorder, without changing stock data. */
+#main-product-wrapper.mt-pdp-v5.mt-pdp-half-preorder-ui .mt-pdp-v4-purchase #product-availability {
+  display: none !important;
+}
+#main-product-wrapper.mt-pdp-v5 .mt-pdp-v4-purchase .mt-pdp-half-preorder-status {
+  display: inline-flex !important;
+  grid-area: availability;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  width: fit-content;
+  color: var(--amber, #9C6B0B) !important;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: 600 var(--fs-label, 12px)/var(--lh-label, 1.3) var(--font-body, 'Inter', Arial, sans-serif);
+}
+#main-product-wrapper.mt-pdp-v5 .mt-pdp-v4-purchase .mt-pdp-half-preorder-status::before {
+  content: '';
+  display: inline-block;
+  flex: 0 0 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
