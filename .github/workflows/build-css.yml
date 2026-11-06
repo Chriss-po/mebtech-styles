@@ -52,6 +52,8 @@ jobs:
           cat src/09-site-adapters.css >> dist/mebtech.css
           printf '\n' >> dist/mebtech.css
           cat src/10-desktop-header.css >> dist/mebtech.css
+          printf '\n' >> dist/mebtech.css
+          cat src/11-pdp-validated.css >> dist/mebtech.css
           # Keep previously released standalone endpoints for rollback.
           cp src/js/01-expandable-hero.js dist/mebtech-expandable.js
           cp src/js/02-desktop-header.js dist/mebtech-desktop-header.js
