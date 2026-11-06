@@ -7133,3 +7133,16 @@ a.furniture-project-order-btn:active {
   color: var(--ink-soft, #3A3D3A) !important;
   font: 500 12px/1.4 var(--font-body, 'Inter', Arial, sans-serif) !important;
 }
+
+/* PDP price clarification: keep approved Info Alert styling, tighten price adjacency.
+   Existing node is moved next to .product-prices by JS07; no copy changes. */
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-purchase
+.product-prices.mt-pdp-has-price-info {
+  margin-bottom: 0 !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-purchase
+.delivery-information.mt-pdp-price-info-attached {
+  width: fit-content;
+  max-width: 100%;
+  margin: 6px 0 12px !important;
+}
