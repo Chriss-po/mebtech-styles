@@ -68,7 +68,7 @@
   font: 700 12px/1 var(--font-body, 'Inter', Arial, sans-serif);
 }
 
-/* Info: existing price clarification span; text/content are preserved. */
+/* Warning: price must be confirmed by manager; preserve original text. */
 #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .delivery-information {
   box-sizing: border-box;
   display: flex !important;
@@ -78,15 +78,15 @@
   max-width: 100%;
   margin-top: 12px;
   padding: 12px 16px !important;
-  background: var(--gray-50, #F7F6F2) !important;
-  border: 0.5px solid var(--gray-100, #E5E3DB) !important;
+  background: var(--amber-bg, #FAF0DC) !important;
+  border: 0.5px solid rgba(156, 107, 11, .20) !important;
   border-radius: var(--radius-sm, 8px) !important;
   box-shadow: none !important;
-  color: var(--ink-soft, #3A3D3A) !important;
-  font: 400 13px/1.5 var(--font-body, 'Inter', Arial, sans-serif) !important;
+  color: var(--amber, #9C6B0B) !important;
+  font: 700 13px/1.5 var(--font-body, 'Inter', Arial, sans-serif) !important;
 }
 #main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .delivery-information::before {
-  content: 'i';
+  content: '!';
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -97,7 +97,7 @@
   margin-top: 1px;
   border: 1.7px solid currentColor;
   border-radius: 50%;
-  color: var(--ink-soft, #3A3D3A);
+  color: var(--amber, #9C6B0B);
   font: 700 12px/1 var(--font-body, 'Inter', Arial, sans-serif);
 }
 
@@ -149,4 +149,25 @@
   width: fit-content;
   max-width: 100%;
   margin: 6px 0 12px !important;
+}
+
+/* Native short description is moved below .product-add-to-cart by PDP Core.
+   Preserve the same type role, wrapping and inline links after relocation. */
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-purchase
+.product-information > [id^="product-description-short"] {
+  display: block !important;
+  margin: 16px 0 20px !important;
+  color: var(--gray-600, #5F5E5A) !important;
+  font: 400 13px/1.6 var(--font-body, 'Inter', Arial, sans-serif) !important;
+  overflow-wrap: anywhere;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-purchase
+.product-information > [id^="product-description-short"] p {
+  margin: 0 !important;
+}
+#main-product-wrapper.mt-pdp-v4.mt-pdp-v5 .mt-pdp-v4-purchase
+.product-information > [id^="product-description-short"] a {
+  color: var(--green-800, #0C2A20) !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
