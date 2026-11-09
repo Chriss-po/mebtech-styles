@@ -1855,14 +1855,14 @@
     var list = document.createElement('ul');
     list.className = 'slick-dots mt-system-pagination';
     list.setAttribute('aria-label', isGallery
-      ? 'Навігація фотографіями галереї' : 'Навігація банерами');
+      ? window.MebTechI18n.t("heroGallery") : window.MebTechI18n.t("heroBanners"));
 
     var buttons = items.map(function (item, index) {
       var li = document.createElement('li');
       var button = document.createElement('button');
       button.type = 'button';
       button.setAttribute('aria-label',
-        (isGallery ? 'Фото ' : 'Банер ') + (index + 1) + ' із ' + items.length);
+        (isGallery ? window.MebTechI18n.t("photo") : window.MebTechI18n.t("banner")) + (index + 1) + window.MebTechI18n.t("of") + items.length);
       button.setAttribute('aria-current', 'false');
 
       button.addEventListener('click', function () {
