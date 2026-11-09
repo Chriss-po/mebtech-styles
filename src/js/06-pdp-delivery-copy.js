@@ -13,15 +13,15 @@
     var dl = root.querySelector('.mt-pdp-v4-specifications dl.data-sheet, dl.data-sheet');
     if (!dl) return '';
     for (var dt = dl.firstElementChild; dt; dt = dt.nextElementSibling) {
-      if (dt.tagName === 'DT' && /група\s+товару/i.test(txt(dt))) return txt(dt.nextElementSibling).toLowerCase();
+      if (dt.tagName === 'DT' && /(?:група|группа)\s+товар[уа]/i.test(txt(dt))) return txt(dt.nextElementSibling).toLowerCase();
     }
     return '';
   }
   function kind() {
     var g = group();
     var name = txt(root.querySelector('.mt-pdp-v5-identity h1, .page-title')).toLowerCase();
-    var service = /послуг|порізк|розкр|допил|крайкуван|свердлінн|присадк/.test(g) ||
-      /^(послуг|порізк|розкр|допил|крайкуван|свердлінн|присадк)/.test(name);
+    var service = /послуг|услуг|порізк|порезк|розкр|раскр|распил|допил|крайкуван|кромкован|свердлінн|сверлен|присадк/.test(g) ||
+      /^(послуг|услуг|порізк|порезк|розкр|раскр|распил|допил|крайкуван|кромкован|свердлінн|сверлен|присадк)/.test(name);
     // Only confirmed furniture-hardware groups get explicit NP prices.
     // Product-title fallback is deliberately conservative.
     var hardware = !service && (
@@ -56,7 +56,7 @@
         // Preserve the newest native price if a combination AJAX swapped it.
         savedPrices.set(price, {html:price.innerHTML, free:price.classList.contains('free')});
       }
-      price.textContent = 'За тарифами перевізника';
+      price.textContent = window.MebTechI18n.t("rate");
       price.classList.remove('free');
       price.classList.add('mt-dc06-tariff');
     }
@@ -74,19 +74,19 @@
       // Changes copy only: no action on availability/hide flags.
       cityOptions.forEach(function (option) {
         var title = txt(option.querySelector('.delivery-left > div:not(.delivery-icon) > div:first-child'));
-        if (/самовивіз/i.test(title)) setOptionSub(option, 'Після підтвердження готовності майстром');
-        else if (/нов(ої|а|ою)\s+пошт/i.test(title)) setOptionSub(option, 'Після підтвердження готовності майстром, орієнтовно 1–3 дні в дорозі');
-        else setOptionSub(option, 'Після підтвердження готовності майстром');
+        if (/самовивіз|самовывоз/i.test(title)) setOptionSub(option, window.MebTechI18n.t("serviceReady"));
+        else if (/нов(ої|а|ою)\s+пошт|нов(ой|ая)\s+почт/i.test(title)) setOptionSub(option, window.MebTechI18n.t("serviceTravel"));
+        else setOptionSub(option, window.MebTechI18n.t("serviceReady"));
       });
       countryOptions.forEach(function (option) {
-        setOptionSub(option, 'Після підтвердження готовності майстром, орієнтовно 1–3 дні в дорозі');
+        setOptionSub(option, window.MebTechI18n.t("serviceTravel"));
       });
     }
     // Native shipping prices only remain displayed for confirmed hardware.
     // Every other goods/service class shows provider tariffs for NP options.
     cityOptions.concat(countryOptions).forEach(function (option) {
       var title = txt(option.querySelector('.delivery-left > div:not(.delivery-icon) > div:first-child'));
-      if (/нов(ої|а|ою)\s+пошт|кур.?єр/i.test(title)) updateCarrierPrice(option, m.hardware);
+      if (/нов(ої|а|ою)\s+пошт|нов(ой|ая)\s+почт|кур.?єр|курьер/i.test(title)) updateCarrierPrice(option, m.hardware);
     });
   }
   var scheduled = false;

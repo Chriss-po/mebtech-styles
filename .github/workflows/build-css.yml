@@ -65,6 +65,8 @@ jobs:
           # in its own source file and is separated by an ASI-safe semicolon.
           {
             printf '/* MEBTECH PRODUCTION JAVASCRIPT BUNDLE. Generated from src/js; do not edit directly. */\n'
+            cat src/js/00-i18n.js
+            printf '\n;\n'
             cat src/js/01-expandable-hero.js
             printf '\n;\n'
             cat src/js/02-desktop-header.js

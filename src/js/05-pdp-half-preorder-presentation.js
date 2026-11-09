@@ -23,7 +23,7 @@
       overlay.className = 'mt-pdp-half-preorder-status';
       overlay.setAttribute('role', 'status');
       overlay.setAttribute('aria-live', 'polite');
-      overlay.textContent = 'Під замовлення';
+      overlay.textContent = window.MebTechI18n.t("preorder");
     }
 
     // Place alongside, not inside, the real PrestaShop availability element.

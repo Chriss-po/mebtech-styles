@@ -123,7 +123,7 @@
     rows.forEach(function (pair, index) {
       pair[0].hidden = pair[1].hidden = !expanded && index >= 5;
     });
-    button.textContent = expanded ? 'Згорнути характеристики' : 'Показати всі характеристики';
+    button.textContent = expanded ? window.MebTechI18n.t("collapse") : window.MebTechI18n.t("expand");
   }
 
   function findModule(id) {
@@ -186,8 +186,8 @@
       preserveFormAssociation(module, purchaseForm);
     });
 
-    var shipping = ensureAccordion(holder, 'shipping', 'Доставка й оплата');
-    var returns = ensureAccordion(holder, 'returns', 'Повернення й обмін');
+    var shipping = ensureAccordion(holder, 'shipping', window.MebTechI18n.t("delivery"));
+    var returns = ensureAccordion(holder, 'returns', window.MebTechI18n.t("returns"));
     var shippingPanel = shipping.querySelector('.mt-pdp-v4-accordion-panel');
     var returnsPanel = returns.querySelector('.mt-pdp-v4-accordion-panel');
     // Some IQIT versions replace .product-additional-info on each combination
@@ -219,7 +219,7 @@
         p.className = 'mt-pdp-v4-return-link';
         var a = document.createElement('a');
         a.href = link.href;
-        a.textContent = 'Переглянути правила повернення та обміну';
+        a.textContent = window.MebTechI18n.t("returnsView");
         p.appendChild(a);
         returnsPanel.appendChild(p);
       } else {
@@ -259,8 +259,8 @@
       button = document.createElement('button');
       button.type = 'button';
       button.className = 'mt-pdp-v4-copy-sku';
-      button.setAttribute('aria-label', 'Скопіювати артикул');
-      button.title = 'Скопіювати артикул';
+      button.setAttribute('aria-label', window.MebTechI18n.t("copy"));
+      button.title = window.MebTechI18n.t("copy");
       button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>';
       var feedback = document.createElement('span');
       feedback.className = 'mt-pdp-v4-sr-only mt-pdp-v4-copy-feedback';
@@ -287,7 +287,7 @@
         };
         var setFeedback = function (success) {
           if (!button.isConnected) return;
-          var message = success ? 'Артикул скопійовано' : 'Не вдалося скопіювати артикул';
+          var message = success ? window.MebTechI18n.t("copied") : window.MebTechI18n.t("copyFailed");
           button.title = message;
           button.setAttribute('aria-label', message);
           button.dataset.copied = String(success);
@@ -295,8 +295,8 @@
           if (button._mtCopyTimeout) clearTimeout(button._mtCopyTimeout);
           button._mtCopyTimeout = setTimeout(function () {
             if (!button.isConnected) return;
-            button.title = 'Скопіювати артикул';
-            button.setAttribute('aria-label', 'Скопіювати артикул');
+            button.title = window.MebTechI18n.t("copy");
+            button.setAttribute('aria-label', window.MebTechI18n.t("copy"));
             button.dataset.copied = '';
           }, 1500);
         };
@@ -472,11 +472,11 @@
     var node = purchase.querySelector('#product-availability');
     if (!node) return;
     var label = stringOf(node).toLowerCase();
-    var kind = /під замовлення|предзамовлення|передзамовлен|під заказ|pre.?order/i.test(label)
+    var kind = /під замовлення|предзамовлення|передзамовлен|под заказ|під заказ|pre.?order/i.test(label)
       ? 'preorder'
-      : (/немає|відсутн|немає в наявності|out of stock/i.test(label)
+      : (/немає|відсутн|нет в наличии|отсутств|out of stock/i.test(label)
         ? 'unavailable'
-        : (node.classList.contains('product-available') || /в наявності|на складі|in stock/i.test(label))
+        : (node.classList.contains('product-available') || /в наявності|на складі|в наличии|на складе|in stock/i.test(label))
           ? 'available' : 'neutral');
     node.dataset.mtPdpStatus = kind;
   }
@@ -516,12 +516,12 @@
       var label = document.createElement('label');
       label.className = 'mt-pdp-v4-qty-label';
       label.htmlFor = input.id;
-      label.textContent = 'Кількість';
+      label.textContent = window.MebTechI18n.t("qty");
       quantity.insertBefore(label, quantity.firstChild);
     }
     quantity.querySelectorAll('.bootstrap-touchspin-up, .bootstrap-touchspin-down').forEach(function (button) {
       if (!button.hasAttribute('aria-label')) {
-        button.setAttribute('aria-label', button.classList.contains('bootstrap-touchspin-up') ? 'Збільшити кількість' : 'Зменшити кількість');
+        button.setAttribute('aria-label', button.classList.contains('bootstrap-touchspin-up') ? window.MebTechI18n.t("qtyUp") : window.MebTechI18n.t("qtyDown"));
       }
     });
   }
@@ -642,22 +642,22 @@
         symbol.setAttribute('aria-hidden', 'true');
         symbol.textContent = 'i';
         var strong = document.createElement('strong');
-        strong.textContent = 'Зверніть увагу';
+        strong.textContent = window.MebTechI18n.t("notice");
         heading.append(symbol, strong);
         var paragraph = document.createElement('p');
-        paragraph.append('При замовленні половини листа додається послуга ');
+        paragraph.append(window.MebTechI18n.t("halfLead"));
         var a = document.createElement('a');
         a.className = 'mt-pdp-v52-cut-link';
         a.href = serviceLink;
-        a.textContent = '«Допил плитних матеріалів» (арт. 41875)';
-        paragraph.append(a, '. На складі зберігаються лише цілі листи.');
+        a.textContent = window.MebTechI18n.t("cut");
+        paragraph.append(a, window.MebTechI18n.t("halfEnd"));
         own.append(heading, paragraph);
       }
       // Existing element can survive product AJAX updates: keep label/URL current.
       var currentCutLink = own.querySelector('.mt-pdp-v52-cut-link');
       if (currentCutLink) {
         currentCutLink.href = serviceLink;
-        currentCutLink.textContent = '«Допил плитних матеріалів» (арт. 41875)';
+        currentCutLink.textContent = window.MebTechI18n.t("cut");
       }
       own.hidden = !half;
     }
@@ -681,7 +681,7 @@
     // selected configuration is in stock; do not show for preorders.
     var status = root.querySelector('#product-availability');
     if (!status || !status.classList.contains('product-available') ||
-        /під замовлення|немає|відсутн|передзамовлен/i.test(stringOf(status))) return;
+        /під замовлення|под заказ|немає|відсутн|нет в наличии|отсутств|передзамовлен/i.test(stringOf(status))) return;
     if (data.show_availability === false || data.availability !== 'available') return;
     var qty = Number(data.quantity);
     if (!Number.isInteger(qty) || qty <= 0) return;
@@ -691,8 +691,8 @@
     var backendUnit = typeof data.quantity_label === 'string'
       ? data.quantity_label.trim() : '';
     var unit = (!backendUnit || /^(од\.?|шт\.?|штук)$/i.test(backendUnit))
-      ? 'шт.' : backendUnit;
-    label.textContent = 'На складі: ' + qty.toLocaleString('uk-UA') + ' ' + unit;
+      ? window.MebTechI18n.t("pieces") : backendUnit;
+    label.textContent = window.MebTechI18n.t("inStock") + qty.toLocaleString(window.MebTechI18n.lang==='ru'?'ru-RU':'uk-UA') + ' ' + unit;
     label.hidden = false;
     root.classList.remove('mt-pdp-v4-stock-hidden');
   }
@@ -740,8 +740,8 @@
     // Stable sibling survives AJAX replacement of native .product-prices.
     var holder = header.querySelector('.mt-pdp-v44-price-actions');
     var sources = [
-      {id:'iqit-wishlist-product-btn', label:'Додати до списку бажань'},
-      {id:'iqit-compare-product-btn', label:'Порівняти товар'}
+      {id:'iqit-wishlist-product-btn', label:window.MebTechI18n.t("wish")},
+      {id:'iqit-compare-product-btn', label:window.MebTechI18n.t("compare")}
     ];
     sources.forEach(function (cfg) {
       // Prefer a new native source inserted by PrestaShop on AJAX refresh.
@@ -752,7 +752,7 @@
         holder = document.createElement('div');
         holder.className = 'mt-pdp-v44-price-actions';
         holder.setAttribute('role', 'group');
-        holder.setAttribute('aria-label', 'Дії з товаром');
+        holder.setAttribute('aria-label', window.MebTechI18n.t("actions"));
         header.appendChild(holder);
       }
       var cell = button.closest('.col');
@@ -812,8 +812,8 @@
       var button = document.createElement('button');
       button.className = 'mt-pdp-v44-zoom-button';
       button.type = 'button';
-      button.setAttribute('aria-label','Збільшити фото товару');
-      button.textContent = 'Збільшити';
+      button.setAttribute('aria-label',window.MebTechI18n.t("zoomAria"));
+      button.textContent = window.MebTechI18n.t("zoom");
       button.addEventListener('click', function () {
         var active = slider.querySelector('.slick-slide.slick-current:not(.slick-cloned) .product-lmage-large > .expander') ||
           slider.querySelector('.slick-slide.slick-active:not(.slick-cloned) .product-lmage-large > .expander') ||
@@ -838,7 +838,7 @@
       dots = document.createElement('div');
       dots.className = 'mt-pdp-v4-photo-dots';
       dots.setAttribute('role', 'group');
-      dots.setAttribute('aria-label', 'Фотографії товару');
+      dots.setAttribute('aria-label', window.MebTechI18n.t("galleryPhotos"));
       imagesContainer.insertAdjacentElement('afterend', dots);
     }
     if (dots.children.length !== count) {
@@ -848,7 +848,7 @@
           var button = document.createElement('button');
           button.type = 'button';
           button.className = 'mt-pdp-v4-photo-dot';
-          button.setAttribute('aria-label', 'Переглянути фото ' + (index + 1));
+          button.setAttribute('aria-label', window.MebTechI18n.t("photoView") + (index + 1));
           button.addEventListener('click', function () {
             var jq = window.jQuery;
             var active = gallery.querySelector('#product-images-large');
@@ -892,7 +892,7 @@
       strip = document.createElement('div');
       strip.className = 'mt-pdp-v51-bottom-thumbnails';
       strip.setAttribute('role', 'group');
-      strip.setAttribute('aria-label', 'Мініатюри фотографій товару');
+      strip.setAttribute('aria-label', window.MebTechI18n.t("thumbs"));
     }
     if (strip.dataset.signature !== signature) {
       strip.replaceChildren();
@@ -900,7 +900,7 @@
         var button = document.createElement('button');
         button.type = 'button';
         button.className = 'mt-pdp-v51-thumb';
-        button.setAttribute('aria-label', 'Показати фотографію ' + (index + 1));
+        button.setAttribute('aria-label', window.MebTechI18n.t("photoShow") + (index + 1));
         var img = document.createElement('img');
         img.src = source.getAttribute('data-image-medium-src') || source.getAttribute('src') || '';
         img.alt = '';
@@ -1112,7 +1112,7 @@
 'use strict';
 var r=document.querySelector('#main-product-wrapper.mt-pdp-v4.mt-pdp-v5');
 if(!r||!window.MebTechPDPv4||window.MebTechPDPv4.version!=='5.3'||window.MTP05)return;
-var url='https://mebteh.com.ua/uk/info/22-pravila-povernennya-ta-obminu';
+var policyLink=document.querySelector('a[href*="pravila-povernennya-ta-obminu"],a[href*="pravila-vozvrata-i-obmena"]');var url=policyLink&&/^https?:$/.test(new URL(policyLink.href).protocol)?policyLink.href:'';
 var shapes={
  store:'<path d="M3 9h18l-2-5H5L3 9Z"/><path d="M5 9v11h14V9M9 20v-7h6v7"/>',
  truck:'<path d="M3 5h11v12H3zM14 9h4l3 4v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>',
@@ -1138,11 +1138,11 @@ function formatHalf(){
  }
  return r.classList.contains('mt-pdp-v4-half-selected');
 }
-function group(){var ds=r.querySelector('dl.data-sheet');if(!ds)return '';for(var dt=ds.firstElementChild;dt;dt=dt.nextElementSibling){if(dt.tagName==='DT'&&/група\s+товару/i.test(txt(dt)))return txt(dt.nextElementSibling).toLowerCase();}return '';}
+function group(){var ds=r.querySelector('dl.data-sheet');if(!ds)return '';for(var dt=ds.firstElementChild;dt;dt=dt.nextElementSibling){if(dt.tagName==='DT'&&/(?:група|группа)\s+товар[уа]/i.test(txt(dt)))return txt(dt.nextElementSibling).toLowerCase();}return '';}
 function model(){
  var half=formatHalf(),name=txt(r.querySelector('.mt-pdp-v5-identity h1,.page-title')).toLowerCase(),g=group();
  var avail=r.querySelector('#product-availability');
- var service=/^(послуг|порізк|розкр|допил|крайкуван)/.test(g)||/^(послуг|порізк|розкр|допил|крайкуван)/.test(name);
+ var service=/^(послуг|услуг|порізк|порезк|розкр|раскр|распил|допил|крайкуван|кромкован)/.test(g)||/^(послуг|услуг|порізк|порезк|розкр|раскр|распил|допил|крайкуван|кромкован)/.test(name);
  var board=!service&&(half||/^(л?дсп|мдф|двп|фанер|плитн|стільниц|столешниц|компакт.?.?плит)/.test(g)||/^(л?дсп\s|мдф\s|двп\s|фанера\s|стільниц[ья]\s|столешниц\s|компакт.?плита\s)/.test(name));
  var pre=!half&&!service&&((avail&&avail.dataset.mtPdpStatus==='preorder')||/під\s*замовлення|передзамовлення|под\s*заказ/i.test(txt(avail)));
  return {half:half,board:board,service:service,pre:pre};
@@ -1159,20 +1159,20 @@ function shipping(m){
  var pickup=locals[0],own=locals[1],localNP=locals[2],courier=nation[0],branch=nation[1];
  var top=card.querySelector('.delivery-top'),lead=slot(card,'mt-p05-lead',top);
  // Only supplier preorders get a top notice; half-sheet readiness is in local pickup.
- var leadText=m.pre?note('Товар під замовлення','Орієнтовне постачання — 2–3 тижні. Термін і ціну підтвердить менеджер.','clock'):'';
+ var leadText=m.pre?note(window.MebTechI18n.t("preorderProduct"),window.MebTechI18n.t("preorderTime"),'clock'):'';
  html(lead,leadText);lead.hidden=!leadText;
  [pickup,own,localNP,courier,branch].forEach(function(x){x.removeAttribute('data-mt-p05-hide');});
- deliveryOption(pickup,m.board?'Самовивіз зі складу':'Самовивіз із магазину',m.half?'Наступного дня після підтвердження · до 15:00':m.board?'Після підтвердження готовності · до 15:00':m.pre?'Після надходження · до 16:30':'Після підтвердження готовності · до 16:30','store');
- deliveryOption(own,'Доставка по Миколаєву','Нашим транспортом','truck');
- var tariff=own.querySelector('.tariff-link');if(tariff)set(tariff,'Див. тарифи');
- deliveryOption(localNP,'До відділення Нової пошти',m.pre?'Після надходження товару':'За тарифами перевізника','package');
- deliveryOption(branch,'До відділення Нової пошти',m.pre?'Після надходження товару':'За тарифами перевізника','package');
- deliveryOption(courier,'Кур’єр Нової пошти',m.pre?'Адресна доставка після надходження':'Адресна доставка','truck');
+ deliveryOption(pickup,m.board?window.MebTechI18n.t("pickupWarehouse"):window.MebTechI18n.t("pickupStore"),m.half?window.MebTechI18n.t("pickupNextDay"):m.board?window.MebTechI18n.t("ready15"):m.pre?window.MebTechI18n.t("arrive1630"):window.MebTechI18n.t("ready1630"),'store');
+ deliveryOption(own,window.MebTechI18n.t("city"),window.MebTechI18n.t("own"),'truck');
+ var tariff=own.querySelector('.tariff-link');if(tariff)set(tariff,window.MebTechI18n.t("tariffLink"));
+ deliveryOption(localNP,window.MebTechI18n.t("np"),m.pre?window.MebTechI18n.t("arrive"):window.MebTechI18n.t("rate"),'package');
+ deliveryOption(branch,window.MebTechI18n.t("np"),m.pre?window.MebTechI18n.t("arrive"):window.MebTechI18n.t("rate"),'package');
+ deliveryOption(courier,window.MebTechI18n.t("courier"),m.pre?window.MebTechI18n.t("addressAfter"):window.MebTechI18n.t("address"),'truck');
  if(branch.nextElementSibling===null&&courier.parentElement===ua)ua.insertBefore(branch,courier);
  var warning=slot(ua,'mt-p05-restriction',ua.firstElementChild);
  if(m.board){
   [localNP,courier,branch].forEach(function(x){x.setAttribute('data-mt-p05-hide','');});
-  html(warning,note('Обмеження доставки',m.half?'Половину листа Новою поштою не відправляємо.':'Цілі плити Новою поштою не відправляємо.','info')+'<div class="mt-p05-carrier">'+svg('truck')+'<div><strong>Забір вашим перевізником</strong><p>За погодженням із менеджером</p><small>Будні · 09:00–14:30 · після повної оплати</small></div></div>');
+  html(warning,note(window.MebTechI18n.t("limit"),m.half?window.MebTechI18n.t("noNPs"):window.MebTechI18n.t("noNPb"),'info')+'<div class="mt-p05-carrier">'+svg('truck')+window.MebTechI18n.t("carrierHtml"));
  }else html(warning,'');
  warning.hidden=!m.board;
  r.classList.add('mt-p05-ready');
@@ -1180,11 +1180,11 @@ function shipping(m){
 function returns(m){
  var panel=r.querySelector('#mt-pdp-v4-panel-returns');if(!panel)return;
  var cut=m.half||m.service;
- var copy=cut?'Послугу можна скасувати до початку виконання. Після виконання повернення оплати за належно надану послугу не передбачене. Претензії щодо недоліків розглядаються окремо.':
- m.pre?'Товари під замовлення поверненню не підлягають.':
- 'Обмін або повернення протягом 14 днів за умови дотримання правил повернення товарів належної якості.';
+ var copy=cut?window.MebTechI18n.t("serviceReturn"):
+ m.pre?window.MebTechI18n.t("preReturn"):
+ window.MebTechI18n.t("normalReturn");
  var holder=slot(panel,'mt-p05-returns',panel.firstChild);
- html(holder,'<div class="mt-p05-return-row">'+svg(cut?'scissors':m.pre?'info':'refresh')+'<div><p>'+copy+'</p><a href="'+url+'">Правила повернення та обміну</a></div></div>');
+ html(holder,'<div class="mt-p05-return-row">'+svg(cut?'scissors':m.pre?'info':'refresh')+'<div><p>'+copy+'</p>'+(url?'<a href="'+url+'">'+window.MebTechI18n.t('rules')+'</a>':'')+'</div></div>');
  panel.classList.add('mt-p05-returns-ready');
 }
 function halfQty(m){

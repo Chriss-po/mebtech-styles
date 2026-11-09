@@ -19,9 +19,9 @@
     if (!media || !slider || !slides.length) return;
 
     root.setAttribute('role', 'region');
-    root.setAttribute('aria-roledescription', 'карусель');
+    root.setAttribute('aria-roledescription', window.MebTechI18n.t("carousel"));
     if (!root.hasAttribute('aria-label')) {
-      root.setAttribute('aria-label', 'Реалізовані меблеві проєкти');
+      root.setAttribute('aria-label', window.MebTechI18n.t("realized"));
     }
     slider.setAttribute('aria-live', 'off');
 
@@ -33,12 +33,12 @@
       media.appendChild(dots);
     }
     dots.classList.add('slick-dots', 'furniture-showcase__dots');
-    dots.setAttribute('aria-label', 'Навігація по проєктах');
+    dots.setAttribute('aria-label', window.MebTechI18n.t("projectNav"));
     const buttons = slides.map((_, index) => {
       const li = document.createElement('li');
       const button = document.createElement('button');
       button.type = 'button';
-      button.setAttribute('aria-label', 'Проєкт ' + (index + 1) + ' із ' + slides.length);
+      button.setAttribute('aria-label', window.MebTechI18n.t("project") + (index + 1) + window.MebTechI18n.t("of") + slides.length);
       li.appendChild(button);
       return { li, button };
     });
@@ -62,8 +62,8 @@
         slide.setAttribute('aria-hidden', String(!active));
         slide.inert = !active;
         slide.setAttribute('role', 'group');
-        slide.setAttribute('aria-roledescription', 'слайд');
-        slide.setAttribute('aria-label', 'Проєкт ' + (i + 1) + ' із ' + slides.length);
+        slide.setAttribute('aria-roledescription', window.MebTechI18n.t("slide"));
+        slide.setAttribute('aria-label', window.MebTechI18n.t("project") + (i + 1) + window.MebTechI18n.t("of") + slides.length);
       });
       buttons.forEach(({ li, button }, i) => {
         const active = i === current;
