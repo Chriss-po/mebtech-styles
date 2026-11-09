@@ -203,7 +203,7 @@
     // It includes the store's own return-policy link; never invent legal rules.
     var paymentBody = payment && payment.querySelector('.rte-content > div');
     var returnParagraph = paymentBody && Array.prototype.find.call(paymentBody.children, function (child) {
-      return !!child.querySelector('a[href*="povernennya"]');
+      return !!child.querySelector('a[href*="povernennya"], a[href*="vozvrat"], a[href*="obmen"]');
     });
     if (returnParagraph && returnParagraph.parentElement !== returnsPanel) {
       // A fresh CMS fragment may also replace the old returns paragraph.
@@ -213,7 +213,7 @@
     }
     // If the store CMS content differs, only link the real existing policy.
     if (!returnsPanel.children.length) {
-      var link = document.querySelector('a[href*="pravila-povernennya-ta-obminu"]');
+      var link = document.querySelector('a[href*="pravila-povernennya-ta-obminu"], a[href*="pravila-vozvrata-i-obmena"]');
       if (link && link.href) {
         var p = document.createElement('p');
         p.className = 'mt-pdp-v4-return-link';
@@ -222,11 +222,10 @@
         a.textContent = window.MebTechI18n.t("returnsView");
         p.appendChild(a);
         returnsPanel.appendChild(p);
-      } else {
-        // Avoid empty nonfunctional accordion if no verified policy source.
-        returns.hidden = true;
       }
     }
+    // CMS may lack a locale-specific link; MTP05 will render return content.
+    returns.hidden = !returnsPanel.children.length;
     // Remove only empty containers created by older PDP variants.
     root.querySelectorAll('.mt-pdp-delivery-slot, .mt-pdp-v2-delivery-and-payment, .mt-pdp-v3-delivery-and-payment').forEach(function (node) {
       if (node !== holder && !node.children.length && !stringOf(node)) removeNode(node);
@@ -1186,6 +1185,9 @@ function returns(m){
  var holder=slot(panel,'mt-p05-returns',panel.firstChild);
  html(holder,'<div class="mt-p05-return-row">'+svg(cut?'scissors':m.pre?'info':'refresh')+'<div><p>'+copy+'</p>'+(url?'<a href="'+url+'">'+window.MebTechI18n.t('rules')+'</a>':'')+'</div></div>');
  panel.classList.add('mt-p05-returns-ready');
+ // The core may have hidden this accordion before MTP05 populated it.
+ var accordion=panel.closest('.mt-pdp-v4-accordion[data-panel="returns"]');
+ if(accordion && holder.textContent.trim()) accordion.hidden=false;
 }
 function halfQty(m){
  r.classList.toggle('mt-p05-half',m.half);
