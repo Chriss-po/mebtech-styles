@@ -1138,13 +1138,30 @@ function formatHalf(){
  return r.classList.contains('mt-pdp-v4-half-selected');
 }
 function group(){var ds=r.querySelector('dl.data-sheet');if(!ds)return '';for(var dt=ds.firstElementChild;dt;dt=dt.nextElementSibling){if(dt.tagName==='DT'&&/(?:група|группа)\s+товар[уа]/i.test(txt(dt)))return txt(dt.nextElementSibling).toLowerCase();}return '';}
+// c48 is the current edging-material category. Check product breadcrumbs,
+ // never the global navigation, related products or page URL alone.
+ function isMeterCutC48(){
+  var crumb=document.querySelector('nav.breadcrumb, .breadcrumb, [aria-label="breadcrumb"]');
+  if(!crumb)return false;
+  var links=crumb.querySelectorAll('a[href]');
+  var inCategory=Array.prototype.some.call(links,function(a){
+   try{var u=new URL(a.href,location.href);
+    return u.origin===location.origin && /\/(?:uk|ru)\/c48(?:[-\/]|$)/i.test(u.pathname);
+   }catch(e){return false;}
+  });
+  if(!inCategory)return false;
+  // c48 also contains Glue (Клей). Do not infer a cut-to-length sale
+  // merely from category membership.
+  var copy=txt(r.querySelector('.delivery-information, .mt-pdp-price-info-attached'));
+  return /погонн(?:ий|ого|ому|им|ых|ый)\s+метр|пог\.?\s*м(?:\.|\s|$)/i.test(copy);
+ }
 function model(){
  var half=formatHalf(),name=txt(r.querySelector('.mt-pdp-v5-identity h1,.page-title')).toLowerCase(),g=group();
  var avail=r.querySelector('#product-availability');
  var service=/^(послуг|услуг|порізк|порезк|розкр|раскр|распил|допил|крайкуван|кромкован)/.test(g)||/^(послуг|услуг|порізк|порезк|розкр|раскр|распил|допил|крайкуван|кромкован)/.test(name);
  var board=!service&&(half||/^(л?дсп|мдф|двп|фанер|плитн|стільниц|столешниц|компакт.?.?плит)/.test(g)||/^(л?дсп\s|мдф\s|двп\s|фанера\s|стільниц[ья]\s|столешниц\s|компакт.?плита\s)/.test(name));
  var pre=!half&&!service&&((avail&&avail.dataset.mtPdpStatus==='preorder')||/під\s*замовлення|передзамовлення|под\s*заказ/i.test(txt(avail)));
- return {half:half,board:board,service:service,pre:pre};
+ return {half:half,board:board,service:service,pre:pre,meterCut:!service&&isMeterCutC48()};
 }
 function note(heading,body,k){return '<div class="mt-p05-notice">'+svg(k||'info')+'<div><strong>'+heading+'</strong><p>'+body+'</p></div></div>';}
 function icon(opt,k){var container=opt&&opt.querySelector('.delivery-icon');if(!container)return;var e=container.querySelector('.mt-p05-svg');var s=svg(k);if(!e||e.outerHTML!==s) {if(e)e.remove();container.insertAdjacentHTML('afterbegin',s);}}
@@ -1180,6 +1197,7 @@ function returns(m){
  var panel=r.querySelector('#mt-pdp-v4-panel-returns');if(!panel)return;
  var cut=m.half||m.service;
  var copy=cut?window.MebTechI18n.t("serviceReturn"):
+ m.meterCut?window.MebTechI18n.t("meterCutReturn"):
  m.pre?window.MebTechI18n.t("preReturn"):
  window.MebTechI18n.t("normalReturn");
  var holder=slot(panel,'mt-p05-returns',panel.firstChild);
