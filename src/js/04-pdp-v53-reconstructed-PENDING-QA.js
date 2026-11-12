@@ -650,7 +650,7 @@
       var serviceId = countertop ? '43757' : '41875';
       // Confirmed service destination supplied by MebTech; no guessed RU slug.
       var serviceLink = countertop
-        ? 'https://mebteh.com.ua/uk/15728-12580-rozpil-pitnikh-materialiv#/259-material-stilnicya_kompakt_plita_stinova/286-raspil-minimalnij_do_1_m'
+        ? '/15728-12580-rozpil-pitnikh-materialiv#/259-material-stilnicya_kompakt_plita_stinova/286-raspil-minimalnij_do_1_m'
         : 'https://mebteh.com.ua/uk/24475-12603-dopil-pitnikh-materialiv#/108-tovshhina-18/281-material-ldsp_mdf/288-raspil-minimalnij_do_4_m';
       var leadKey = countertop ? 'halfCountertopLead' : 'halfLead';
       var cutKey = countertop ? 'halfCountertopCut' : 'cut';
