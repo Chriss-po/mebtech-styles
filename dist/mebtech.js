@@ -3460,7 +3460,7 @@ window.MebTechI18n=Object.freeze({lang:locale,t:function(key){return dict[locale
     var list = root.querySelector('.mt-pdp-v4-specifications dl.data-sheet, .product-features dl.data-sheet');
     if (list) {
       for (var dt = list.firstElementChild; dt; dt = dt.nextElementSibling) {
-        if (dt.tagName !== 'DT' || !/(?:група|группа)\\s+товар[уа]/i.test(stringOf(dt))) continue;
+        if (dt.tagName !== 'DT' || !/(?:група|группа)\s+товар[уа]/i.test(stringOf(dt))) continue;
         return !!(dt.nextElementSibling && /стільниц|столешниц/i.test(stringOf(dt.nextElementSibling)));
       }
     }
@@ -3493,10 +3493,9 @@ window.MebTechI18n=Object.freeze({lang:locale,t:function(key){return dict[locale
       // This block contains business copy only, NEVER adds a cutting service to cart.
       var countertop = isCountertopForHalfCut();
       var serviceId = countertop ? '43757' : '41875';
+      // Confirmed service destination supplied by MebTech; no guessed RU slug.
       var serviceLink = countertop
-        ? (window.MebTechI18n.lang === 'ru'
-            ? 'https://mebteh.com.ua/ru/15728-raspil-plitnykh-materialov#/259-material-stilnicya_kompakt_plita_stinova/286-raspil-minimalnij_do_1_m'
-            : 'https://mebteh.com.ua/uk/15728-12580-rozpil-pitnikh-materialiv#/259-material-stilnicya_kompakt_plita_stinova/286-raspil-minimalnij_do_1_m')
+        ? 'https://mebteh.com.ua/uk/15728-12580-rozpil-pitnikh-materialiv#/259-material-stilnicya_kompakt_plita_stinova/286-raspil-minimalnij_do_1_m'
         : 'https://mebteh.com.ua/uk/24475-12603-dopil-pitnikh-materialiv#/108-tovshhina-18/281-material-ldsp_mdf/288-raspil-minimalnij_do_4_m';
       var leadKey = countertop ? 'halfCountertopLead' : 'halfLead';
       var cutKey = countertop ? 'halfCountertopCut' : 'cut';
