@@ -609,6 +609,21 @@
     return /^(половин|пів\s*лист)/i.test(selectedFormatText(selectedFormatGroup()));
   }
 
+  // Native PrestaShop product feature, not URL, SKU or variant dimensions.
+  // The product group is stable across RU/UK and is already moved into PDP.
+  function isCountertopForHalfCut() {
+    var list = root.querySelector('.mt-pdp-v4-specifications dl.data-sheet, .product-features dl.data-sheet');
+    if (list) {
+      for (var dt = list.firstElementChild; dt; dt = dt.nextElementSibling) {
+        if (dt.tagName !== 'DT' || !/(?:група|группа)\\s+товар[уа]/i.test(stringOf(dt))) continue;
+        return !!(dt.nextElementSibling && /стільниц|столешниц/i.test(stringOf(dt.nextElementSibling)));
+      }
+    }
+    // Product name is only a fallback when the native group is absent.
+    var h1 = root.querySelector('.mt-pdp-v5-identity h1, h1.page-title');
+    return /^(?:стільниц|столешниц)/i.test(stringOf(h1));
+  }
+
   function syncHalfSheetMessage() {
     var group = selectedFormatGroup();
     var half = !!group && isHalfSheet();
@@ -631,8 +646,18 @@
     if (own) {
       // Stable, text-based symbol: no icon font or theme SVG size inheritance.
       // This block contains business copy only, NEVER adds a cutting service to cart.
-      var serviceLink = 'https://mebteh.com.ua/uk/24475-12603-dopil-pitnikh-materialiv#/108-tovshhina-18/281-material-ldsp_mdf/288-raspil-minimalnij_do_4_m';
-      if (!own.querySelector('.mt-pdp-v52-cut-link') || !own.querySelector('.mt-pdp-v52-info-icon')) {
+      var countertop = isCountertopForHalfCut();
+      var serviceId = countertop ? '43757' : '41875';
+      var serviceLink = countertop
+        ? (window.MebTechI18n.lang === 'ru'
+            ? 'https://mebteh.com.ua/ru/15728-raspil-plitnykh-materialov#/259-material-stilnicya_kompakt_plita_stinova/286-raspil-minimalnij_do_1_m'
+            : 'https://mebteh.com.ua/uk/15728-12580-rozpil-pitnikh-materialiv#/259-material-stilnicya_kompakt_plita_stinova/286-raspil-minimalnij_do_1_m')
+        : 'https://mebteh.com.ua/uk/24475-12603-dopil-pitnikh-materialiv#/108-tovshhina-18/281-material-ldsp_mdf/288-raspil-minimalnij_do_4_m';
+      var leadKey = countertop ? 'halfCountertopLead' : 'halfLead';
+      var cutKey = countertop ? 'halfCountertopCut' : 'cut';
+      var endKey = countertop ? 'halfCountertopEnd' : 'halfEnd';
+      if (own.dataset.mtCutService !== serviceId || !own.querySelector('.mt-pdp-v52-cut-link') || !own.querySelector('.mt-pdp-v52-info-icon')) {
+        own.dataset.mtCutService = serviceId;
         own.replaceChildren();
         var heading = document.createElement('div');
         heading.className = 'mt-pdp-v4-half-note__heading';
@@ -644,19 +669,19 @@
         strong.textContent = window.MebTechI18n.t("notice");
         heading.append(symbol, strong);
         var paragraph = document.createElement('p');
-        paragraph.append(window.MebTechI18n.t("halfLead"));
+        paragraph.append(window.MebTechI18n.t(leadKey));
         var a = document.createElement('a');
         a.className = 'mt-pdp-v52-cut-link';
         a.href = serviceLink;
-        a.textContent = window.MebTechI18n.t("cut");
-        paragraph.append(a, window.MebTechI18n.t("halfEnd"));
+        a.textContent = window.MebTechI18n.t(cutKey);
+        paragraph.append(a, window.MebTechI18n.t(endKey));
         own.append(heading, paragraph);
       }
       // Existing element can survive product AJAX updates: keep label/URL current.
       var currentCutLink = own.querySelector('.mt-pdp-v52-cut-link');
       if (currentCutLink) {
         currentCutLink.href = serviceLink;
-        currentCutLink.textContent = window.MebTechI18n.t("cut");
+        currentCutLink.textContent = window.MebTechI18n.t(cutKey);
       }
       own.hidden = !half;
     }
