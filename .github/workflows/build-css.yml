@@ -60,6 +60,8 @@ jobs:
           cp src/js/01-expandable-hero.js dist/mebtech-expandable.js
           cp src/js/02-desktop-header.js dist/mebtech-desktop-header.js
           cp src/js/03-furniture-showcase.js dist/mebtech-furniture-showcase.js
+          # Independent search hotfix: opt-in script with one-line rollback.
+          cp src/js/08-search-routing.js dist/mebtech-search-routing.js
 
           # One production JS entrypoint; each self-contained module remains
           # in its own source file and is separated by an ASI-safe semicolon.
@@ -79,15 +81,13 @@ jobs:
             cat src/js/06-pdp-delivery-copy.js
             printf '\n;\n'
             cat src/js/07-pdp-price-info-placement.js
-            printf '\n;\n'
-            cat src/js/08-search-routing.js
             printf '\n'
           } > dist/mebtech.js
 
       - name: Commit generated production assets
         shell: bash
         run: |
-          git add dist/mebtech.css dist/mebtech.js dist/mebtech-expandable.js dist/mebtech-desktop-header.js dist/mebtech-furniture-showcase.js
+          git add dist/mebtech.css dist/mebtech.js dist/mebtech-expandable.js dist/mebtech-desktop-header.js dist/mebtech-furniture-showcase.js dist/mebtech-search-routing.js
           if git diff --cached --quiet; then
             echo "No build changes."
             exit 0
