@@ -62,6 +62,8 @@ jobs:
           cp src/js/03-furniture-showcase.js dist/mebtech-furniture-showcase.js
           # Independent search hotfix: opt-in script with one-line rollback.
           cp src/js/08-search-routing.js dist/mebtech-search-routing.js
+          # Opt-in PDP sale-unit display; independent from existing PDP bundle.
+          cp src/js/09-pdp-sale-unit.js dist/mebtech-pdp-sale-unit.js
 
           # One production JS entrypoint; each self-contained module remains
           # in its own source file and is separated by an ASI-safe semicolon.
@@ -87,7 +89,7 @@ jobs:
       - name: Commit generated production assets
         shell: bash
         run: |
-          git add dist/mebtech.css dist/mebtech.js dist/mebtech-expandable.js dist/mebtech-desktop-header.js dist/mebtech-furniture-showcase.js dist/mebtech-search-routing.js
+          git add dist/mebtech.css dist/mebtech.js dist/mebtech-expandable.js dist/mebtech-desktop-header.js dist/mebtech-furniture-showcase.js dist/mebtech-search-routing.js dist/mebtech-pdp-sale-unit.js
           if git diff --cached --quiet; then
             echo "No build changes."
             exit 0
