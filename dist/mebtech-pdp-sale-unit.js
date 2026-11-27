@@ -1,5 +1,5 @@
-/* MebTech PDP — display native "Відпускається" unit next to price.
- * Presentation only: no price calculation, checkout, cart or stock changes.
+/* MebTech PDP — show "Відпускається" beside price and stock count.
+ * Presentation only: no price calculation, checkout, cart or inventory changes.
  * Independent opt-in asset for immediate rollback.
  */
 (function () {
@@ -32,11 +32,24 @@
     return '';
   }
 
+  function syncStock(unit) {
+    // The PDP core owns quantity, selected-variant validation and availability.
+    // Edit only the printed unit after the count; never calculate or fabricate stock.
+    var label = root.querySelector('.mt-pdp-v4-stock');
+    if (!label || !unit || label.hidden || !text(label)) return;
+    var current = text(label);
+    var match = current.match(/^(На складі|На складе)\s*:\s*([\d\s\u00a0\u202f.,]+?)\s+([^\s].*)$/i);
+    if (!match) return;
+    var desired = match[1] + ': ' + match[2].trim() + ' ' + unit;
+    if (current !== desired) label.textContent = desired;
+  }
+
   function sync() {
     if (!root.isConnected) return;
     var price = root.querySelector(PRICE_SELECTOR);
     var existing = root.querySelector('.' + UNIT_CLASS);
     var unit = saleUnit();
+    syncStock(unit);
     if (!price || !unit || !text(price.querySelector('[itemprop="price"], .current-price-value, .price'))) {
       if (existing) existing.remove();
       return;
@@ -75,14 +88,15 @@
         var m = mutations[i];
         if (m.target.closest && m.target.closest('.' + UNIT_CLASS)) continue;
         if (m.target.closest && (m.target.closest('.product-prices') ||
-            m.target.closest('.product-features') || m.target.closest('#product-details'))) {
+            m.target.closest('.product-features') || m.target.closest('#product-details') ||
+            m.target.closest('.mt-pdp-v4-stock') || m.target.closest('.product-quantity'))) {
           schedule();
           return;
         }
       }
     });
     observer.observe(root, {childList:true,subtree:true,characterData:true});
-    window.MebTechPDPSaleUnit = {version:'test-1',sync:sync};
+    window.MebTechPDPSaleUnit = {version:'test-2',sync:sync};
   }
 
   if (document.readyState === 'loading') {
