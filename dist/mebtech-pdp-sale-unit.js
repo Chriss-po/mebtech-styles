@@ -44,7 +44,7 @@
     if (!existing) {
       existing = document.createElement('span');
       existing.className = UNIT_CLASS;
-      existing.setAttribute('aria-label', 'Ціна за одиницю продажу');
+      existing.setAttribute('aria-label', /^ru/i.test(document.documentElement.lang || '') ? 'Цена за единицу продажи' : 'Ціна за одиницю продажу');
     }
     if (existing.parentNode !== price) price.appendChild(existing);
     var display = '/ ' + unit;
@@ -55,7 +55,7 @@
     if (!document.querySelector('#' + 'mt-pdp-sale-unit-style')) {
       var style = document.createElement('style');
       style.id = 'mt-pdp-sale-unit-style';
-      style.textContent = '.' + UNIT_CLASS + '{display:inline-block;margin-inline-start:.5rem;font-size:.55em;font-weight:500;color:#667085;vertical-align:baseline;white-space:nowrap}';
+      style.textContent = '.' + UNIT_CLASS + '{display:inline-block;margin-inline-start:.5rem;font-size:.55em;font-weight:500;color:var(--color-text-secondary,#5F5E5A);vertical-align:baseline;white-space:nowrap}';
       document.head.appendChild(style);
     }
     var timer = null;
