@@ -64,6 +64,8 @@ jobs:
           cp src/js/08-search-routing.js dist/mebtech-search-routing.js
           # Opt-in PDP sale-unit display; independent from existing PDP bundle.
           cp src/js/09-pdp-sale-unit.js dist/mebtech-pdp-sale-unit.js
+          # Independent low-stock display hotfix; opt-in and removable.
+          cp src/js/10-pdp-last-items-stock.js dist/mebtech-pdp-last-items-stock.js
 
           # One production JS entrypoint; each self-contained module remains
           # in its own source file and is separated by an ASI-safe semicolon.
@@ -89,7 +91,7 @@ jobs:
       - name: Commit generated production assets
         shell: bash
         run: |
-          git add dist/mebtech.css dist/mebtech.js dist/mebtech-expandable.js dist/mebtech-desktop-header.js dist/mebtech-furniture-showcase.js dist/mebtech-search-routing.js dist/mebtech-pdp-sale-unit.js
+          git add dist/mebtech.css dist/mebtech.js dist/mebtech-expandable.js dist/mebtech-desktop-header.js dist/mebtech-furniture-showcase.js dist/mebtech-search-routing.js dist/mebtech-pdp-sale-unit.js dist/mebtech-pdp-last-items-stock.js
           if git diff --cached --quiet; then
             echo "No build changes."
             exit 0
